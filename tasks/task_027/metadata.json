@@ -1,0 +1,6 @@
+{
+    "id": "task_027",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "description": "Users on private tenants sometimes see public data. Can't reproduce consistently — seems to depend on deployment order."
+}

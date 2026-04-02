@@ -1,0 +1,1 @@
+{"id": "task_024", "category": "feature", "difficulty": "hard", "description": "Add undo/redo with command pattern and transaction grouping to text editor"}

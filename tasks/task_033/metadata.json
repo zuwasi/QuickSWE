@@ -1,0 +1,6 @@
+{
+    "id": "task_033",
+    "category": "refactoring",
+    "difficulty": "extreme",
+    "description": "Convert synchronous I/O pipeline to async with backpressure using asyncio. Add buffer pool with semaphore, concurrent pipeline stages, and throughput metrics."
+}

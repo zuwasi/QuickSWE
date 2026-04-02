@@ -1,0 +1,1 @@
+{"id": "task_023", "category": "refactoring", "difficulty": "hard", "description": "Extract plugin architecture from monolithic data processor with registry and discovery"}

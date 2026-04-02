@@ -1,0 +1,1 @@
+{"id": "task_019", "category": "bug_fix", "difficulty": "hard", "description": "Fix state machine that allows invalid transitions by not checking current state"}

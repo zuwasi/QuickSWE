@@ -1,0 +1,6 @@
+{
+    "id": "task_035",
+    "category": "feature",
+    "difficulty": "extreme",
+    "description": "Implement a constraint-based task scheduler using backtracking with dependency constraints, resource conflicts, time windows, and makespan optimization."
+}

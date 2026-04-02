@@ -25,7 +25,7 @@ echo  Done.
 
 echo.
 echo  [Step 2/3] Running quick test...
-python multi_runner.py --runs 1 --agent both --tasks task_001,task_005,task_006 --pause 10 --timeout 180
+python multi_runner.py --runs 1 --agent both --tasks task_001,task_005,task_016,task_021 --pause 10 --timeout 300
 
 echo.
 echo  [Step 3/3] Generating dashboard...

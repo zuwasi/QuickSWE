@@ -1,0 +1,1 @@
+{"id": "task_021", "category": "feature", "difficulty": "hard", "description": "Add middleware pipeline to request handler with chain execution and short-circuit support"}

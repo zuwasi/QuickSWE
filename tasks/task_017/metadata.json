@@ -1,0 +1,1 @@
+{"id": "task_017", "category": "bug_fix", "difficulty": "hard", "description": "Fix infinite recursion in event bus when handlers trigger circular event chains"}

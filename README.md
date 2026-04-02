@@ -2,7 +2,17 @@
 
 **A fast, rigorous benchmark for evaluating AI coding agents on real-world Python tasks.**
 
-QuickSWE runs on your laptop in hours — not days — with no Docker, no cloud infrastructure, and no terabytes of storage. Each of its 15 tasks is validated by real pytest suites, and built-in statistical multi-run aggregation delivers results you can trust. This is not a toy benchmark. It's a practical, repeatable measurement tool that tells you exactly how well your AI coding agent handles bug fixes, feature implementation, and code refactoring.
+QuickSWE runs on your laptop in hours — not days — with no Docker, no cloud infrastructure, and no terabytes of storage. Each of its 35 tasks (easy → extreme) is validated by real pytest suites, and built-in statistical multi-run aggregation delivers results you can trust. This is not a toy benchmark. It's a practical, repeatable measurement tool that tells you exactly how well your AI coding agent handles bug fixes, feature implementation, and code refactoring.
+
+---
+
+## 🏆 Notable Finding: Amp Catches a Benchmark Bug
+
+During the first full run, **Amp identified and refused to comply with an incorrect test assertion** in task\_032 (SQL query engine). The test expected `len(result) == 2` for a `WHERE amount > 200` query, but the correct answer was 3 (amounts 250, 300, 450 all satisfy `> 200`). Instead of blindly producing code to pass the wrong test, Amp analyzed the data and correctly flagged the discrepancy.
+
+Claude Code brute-forced a solution that happened to pass the incorrect assertion on some runs (67% success), while Amp consistently refused (0% — but for the right reason).
+
+**This demonstrates reasoning integrity over blind test compliance** — arguably a more important quality in a production coding agent than raw pass rates.
 
 ---
 

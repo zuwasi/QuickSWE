@@ -1,0 +1,6 @@
+{
+    "id": "task_029",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "description": "Some writes disappear after rolling back inner transactions. The data was definitely written before the inner transaction started."
+}

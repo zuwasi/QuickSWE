@@ -1,0 +1,6 @@
+{
+    "id": "task_034",
+    "category": "refactoring",
+    "difficulty": "extreme",
+    "description": "Refactor expression evaluator to support operator precedence, parentheses, unary operators, power operator (right-associative), comparison and boolean operators with proper AST nodes."
+}

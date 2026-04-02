@@ -1,0 +1,1 @@
+{"id": "task_020", "category": "bug_fix", "difficulty": "hard", "description": "Fix memory leak in observer pattern where deleted observers prevent garbage collection"}

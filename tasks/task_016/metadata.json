@@ -1,0 +1,1 @@
+{"id": "task_016", "category": "bug_fix", "difficulty": "hard", "description": "Fix race condition in thread-safe cache causing duplicate computation under concurrent access"}

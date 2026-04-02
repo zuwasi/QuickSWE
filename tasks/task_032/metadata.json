@@ -1,0 +1,6 @@
+{
+    "id": "task_032",
+    "category": "feature",
+    "difficulty": "extreme",
+    "description": "Add SQL-like query engine for in-memory data with SELECT, WHERE, ORDER BY, GROUP BY, HAVING, JOIN, and aggregate functions across a multi-file query system."
+}

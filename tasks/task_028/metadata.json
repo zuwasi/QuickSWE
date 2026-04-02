@@ -1,0 +1,6 @@
+{
+    "id": "task_028",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "description": "Cache sometimes evicts recently accessed items instead of least recent. Happens more under heavy load."
+}

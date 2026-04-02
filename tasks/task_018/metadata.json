@@ -1,0 +1,1 @@
+{"id": "task_018", "category": "bug_fix", "difficulty": "hard", "description": "Fix topological sort that duplicates nodes on diamond dependency patterns and misses cycles"}
