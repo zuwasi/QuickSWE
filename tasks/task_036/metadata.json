@@ -1,0 +1,19 @@
+{
+    "task_id": "task_036",
+    "title": "Incorrect decimal rounding in financial calculator",
+    "difficulty": "hard",
+    "category": "numerical-precision",
+    "languages": ["python"],
+    "files": ["src/money.py", "src/ledger.py", "src/tax.py"],
+    "test_file": "tests/test_financial.py",
+    "fail_to_pass": [
+        "tests/test_financial.py::test_tax_calculation_precision",
+        "tests/test_financial.py::test_accumulated_transactions_balance",
+        "tests/test_financial.py::test_monthly_batch_report_totals"
+    ],
+    "pass_to_pass": [
+        "tests/test_financial.py::test_money_basic_operations",
+        "tests/test_financial.py::test_ledger_add_transaction",
+        "tests/test_financial.py::test_tax_rate_lookup"
+    ]
+}

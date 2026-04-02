@@ -1,0 +1,1 @@
+{"id": "task_049", "category": "feature", "difficulty": "extreme", "description": "Add CLI argument parser with subcommands, type coercion, short flags, and auto-generated help text"}

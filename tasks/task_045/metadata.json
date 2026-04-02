@@ -1,0 +1,1 @@
+{"id": "task_045", "category": "refactoring", "difficulty": "extreme", "description": "Convert monolithic procedural ETL function to declarative pipeline with configurable Step classes"}

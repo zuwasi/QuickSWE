@@ -1,0 +1,19 @@
+{
+    "task_id": "task_038",
+    "title": "Incorrect merge of sorted iterators",
+    "difficulty": "extreme",
+    "category": "algorithms",
+    "languages": ["python"],
+    "files": ["src/sorted_iterator.py", "src/merge_iterator.py", "src/heap.py", "src/stream_processor.py"],
+    "test_file": "tests/test_merge.py",
+    "fail_to_pass": [
+        "tests/test_merge.py::test_merge_with_duplicate_values",
+        "tests/test_merge.py::test_merge_many_iterators_with_overlapping_ranges",
+        "tests/test_merge.py::test_stream_processor_identical_streams"
+    ],
+    "pass_to_pass": [
+        "tests/test_merge.py::test_sorted_iterator_basics",
+        "tests/test_merge.py::test_heap_operations",
+        "tests/test_merge.py::test_merge_distinct_values"
+    ]
+}

@@ -1,0 +1,1 @@
+{"id": "task_050", "category": "refactoring", "difficulty": "extreme", "description": "Convert deeply nested callback-hell pipeline to clean async/await architecture with asyncio and cancellation support"}

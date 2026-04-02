@@ -1,0 +1,1 @@
+{"id": "task_044", "category": "feature", "difficulty": "extreme", "description": "Add promise/future-based async task runner with chaining, error propagation, Promise.all, and Promise.race"}
