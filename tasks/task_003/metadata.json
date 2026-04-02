@@ -1,0 +1,6 @@
+{
+    "id": "task_003",
+    "category": "bug_fix",
+    "difficulty": "easy",
+    "description": "File reader defaults to ascii encoding instead of utf-8, breaking non-ASCII content"
+}

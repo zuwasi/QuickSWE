@@ -1,0 +1,6 @@
+{
+    "id": "task_010",
+    "category": "feature",
+    "difficulty": "hard",
+    "description": "Add rate limiting (max N calls per second) to APIClient"
+}

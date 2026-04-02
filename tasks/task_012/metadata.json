@@ -1,0 +1,1 @@
+{"id": "task_012", "category": "refactoring", "difficulty": "easy", "description": "Replace magic numbers with named constants in a game engine module"}

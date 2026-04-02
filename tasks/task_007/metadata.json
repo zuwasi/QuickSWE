@@ -1,0 +1,6 @@
+{
+    "id": "task_007",
+    "category": "feature",
+    "difficulty": "medium",
+    "description": "Add retry logic with exponential backoff to SimpleHTTPClient"
+}

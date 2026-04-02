@@ -1,0 +1,1 @@
+{"id": "task_011", "category": "refactoring", "difficulty": "easy", "description": "Extract duplicated validation logic from form classes into reusable functions"}

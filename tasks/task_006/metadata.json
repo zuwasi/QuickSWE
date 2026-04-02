@@ -1,0 +1,6 @@
+{
+    "id": "task_006",
+    "category": "feature",
+    "difficulty": "easy",
+    "description": "Add sort_by(column, reverse) method to DataTable class"
+}

@@ -1,0 +1,6 @@
+{
+    "id": "task_001",
+    "category": "bug_fix",
+    "difficulty": "easy",
+    "description": "Off-by-one error in Paginator.get_page() uses 0-indexed math for a 1-indexed API"
+}

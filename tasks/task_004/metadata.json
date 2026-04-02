@@ -1,0 +1,6 @@
+{
+    "id": "task_004",
+    "category": "bug_fix",
+    "difficulty": "medium",
+    "description": "Email validation regex rejects dots in local part and hyphens in domain"
+}
