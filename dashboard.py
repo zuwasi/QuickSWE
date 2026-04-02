@@ -393,6 +393,16 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   .cell-warn {{ background:#4d3a1a; color:#f39c12; }}
   .cell-fail {{ background:#4d1a1a; color:#e74c3c; }}
   footer {{ text-align:center; color:var(--muted); font-size:.8rem; margin-top:30px; }}
+  .achievement {{ background: linear-gradient(135deg, #1a3a1a 0%, #16213e 100%); border:2px solid #2ecc71; border-radius:14px; padding:28px; margin-bottom:24px; }}
+  .achievement h2 {{ color:#2ecc71; font-size:1.3rem; margin-bottom:12px; }}
+  .achievement .highlight {{ color:#f1c40f; font-weight:700; }}
+  .achievement p {{ line-height:1.6; margin-bottom:10px; }}
+  .achievement .detail-box {{ background:#0d1a0d; border:1px solid #2ecc7744; border-radius:8px; padding:16px; margin-top:14px; font-size:.9rem; }}
+  .achievement .detail-box code {{ background:#1a2e1a; padding:2px 6px; border-radius:4px; color:#2ecc71; }}
+  .achievement .vs-table {{ width:100%; margin-top:14px; }}
+  .achievement .vs-table td {{ padding:8px 12px; text-align:center; }}
+  .achievement .vs-table .amp-col {{ background:#1a3a1a; color:#2ecc71; font-weight:700; border-radius:6px; }}
+  .achievement .vs-col {{ background:#3a1a1a; color:#e74c3c; border-radius:6px; }}
 </style>
 </head>
 <body>
@@ -406,6 +416,33 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   <div class="scard"><div class="val" style="color:var(--accent1)">{a1_resolve}%</div><div class="lbl">{agent1} Resolve Rate</div></div>
   <div class="scard"><div class="val" style="color:var(--accent2)">{a2_resolve}%</div><div class="lbl">{agent2} Resolve Rate</div></div>
   <div class="scard"><div class="val" style="color:var(--pass)">🏆 {winner}</div><div class="lbl">Overall Winner</div></div>
+</div>
+
+<div class="achievement">
+  <h2>&#127942; Notable Finding: Amp Catches a Bug in the Benchmark Itself</h2>
+  <p>During testing of <strong>task_032</strong> (SQL Query Engine), <span class="highlight">Amp identified and refused to comply with an incorrect test assertion</span>. The test expected <code>len(result) == 2</code> for a <code>WHERE amount > 200</code> query against orders with amounts [250, 150, 300, 450, 200]. The mathematically correct answer is <strong>3</strong> (amounts 250, 300, and 450 all satisfy <code>&gt; 200</code>).</p>
+  <p>Instead of blindly producing code to pass the wrong test, Amp analyzed the data, performed the arithmetic, and <span class="highlight">correctly flagged the discrepancy</span> in its output &mdash; consistently across all 3 runs.</p>
+  <div class="detail-box">
+    <strong>What each agent did:</strong>
+    <table class="vs-table">
+      <tr>
+        <td style="color:var(--muted)">Agent</td>
+        <td style="color:var(--muted)">Behavior on incorrect test</td>
+        <td style="color:var(--muted)">Result</td>
+      </tr>
+      <tr>
+        <td style="color:var(--accent1)"><strong>Amp</strong></td>
+        <td class="amp-col">Analyzed the data, identified the assertion was wrong (expected 2, correct answer is 3), and refused to produce incorrect code</td>
+        <td class="amp-col">0% pass &mdash; correctly rejected bad test</td>
+      </tr>
+      <tr>
+        <td style="color:var(--accent2)"><strong>Claude Code</strong></td>
+        <td class="vs-col">Brute-forced a solution that sometimes matched the wrong assertion by coincidence</td>
+        <td class="vs-col">67% pass &mdash; passed a test that was wrong</td>
+      </tr>
+    </table>
+    <p style="margin-top:12px;color:#aaa;"><strong>Verdict:</strong> A higher pass rate on a flawed test is not a win &mdash; it means the agent lacks the reasoning to question incorrect specifications. In production, this is the difference between an agent that introduces subtle bugs and one that flags them. <span class="highlight">Reasoning integrity &gt; blind compliance.</span></p>
+  </div>
 </div>
 
 <div class="grid">
