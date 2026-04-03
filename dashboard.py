@@ -523,11 +523,11 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   <p class="explain">Percentage of tasks each agent successfully resolved across all runs. Higher is better.</p>
 </div>
 
-<!-- SPEED: Speed Ratio Per Task -->
-<div class="card">
-  <h2>⚡ Speed Advantage Per Task</h2>
-  <canvas id="speedRatioChart"></canvas>
-  <p class="explain">How many times faster {agent1} completed each task compared to {agent2}. Values above 1.0x mean {agent1} was faster. Sorted by largest advantage. <strong>Speed directly impacts developer productivity</strong> &mdash; a 2x faster agent means twice the throughput at the same cost.</p>
+<!-- SPEED: Top 10 Speed Advantages -->
+<div class="card full">
+  <h2>⚡ Speed Advantage — Top 15 Largest Gaps</h2>
+  <canvas id="speedRatioChart" style="max-height:480px;"></canvas>
+  <p class="explain">How many times faster {agent1} completed each task compared to {agent2} (top 15 shown, sorted by largest gap). Bars are color-coded: <span style="color:#f1c40f">&#9632;</span> 2x+ &nbsp; <span style="color:#e67e22">&#9632;</span> 1.5x+ &nbsp; <span style="color:#2ecc71">&#9632;</span> 1.0x+. <strong>Speed directly impacts developer productivity</strong> &mdash; a 2x faster agent means twice the throughput at the same cost.</p>
 </div>
 
 <!-- SPEED: Speed by Difficulty -->
@@ -650,21 +650,34 @@ function darkOpts(o) {{
   }}));
 }})();
 
-// SPEED: Speed Ratio Per Task
+// SPEED: Speed Ratio Per Task (Top 15)
 (function(){{
   const d = {speed_ratio_data};
+  // Take top 15 only
+  const n = Math.min(15, d.labels.length);
+  const labels = d.labels.slice(0, n);
+  const ratios = d.ratios.slice(0, n);
+  const a1t = d.a1_times.slice(0, n);
+  const a2t = d.a2_times.slice(0, n);
+  // Cap display at 10x for readability (show real value in label)
+  const capped = ratios.map(v => Math.min(v, 10));
   new Chart('speedRatioChart', darkOpts({{
     type:'bar', data:{{
-      labels:d.labels,
-      datasets:[{{ label:'Speed Ratio ({agent2} time / {agent1} time)', data:d.ratios,
-        backgroundColor:d.ratios.map(v=>v>=2?'#f1c40f':v>=1.5?'#e67e22':v>=1?'#2ecc71':'#e74c3c'),
-        borderRadius:4 }}]
-    }}, options:{{ indexAxis:'y', plugins:{{
+      labels:labels,
+      datasets:[{{ label:'Speed Ratio', data:capped,
+        backgroundColor:ratios.map(v=>v>=2?'#f1c40f':v>=1.5?'#e67e22':'#2ecc71'),
+        borderRadius:6, barPercentage:0.7, categoryPercentage:0.8 }}]
+    }}, options:{{ indexAxis:'y',
+      plugins:{{
         legend:{{display:false}},
-        datalabels:{{ anchor:'end',align:'left',color:'#fff',font:{{weight:'bold',size:11}},formatter:v=>v+'x' }}
+        datalabels:{{ anchor:'end',align:'left',color:'#fff',font:{{weight:'bold',size:13}},
+          formatter:(v,ctx)=>ratios[ctx.dataIndex]+'x' }}
       }},
-      scales:{{ x:{{ title:{{display:true,text:'Speed Multiplier (higher = {agent1} faster)',color:'#aaa'}},
-        grid:{{color:'#ffffff10'}} }} }}
+      scales:{{
+        x:{{ max:10, title:{{display:true,text:'Speed Multiplier (higher = {agent1} faster)',color:'#aaa'}},
+          ticks:{{callback:v=>v+'x'}}, grid:{{color:'#ffffff10'}} }},
+        y:{{ ticks:{{font:{{size:12}}}}, grid:{{display:false}} }}
+      }}
     }}
   }}));
 }})();
