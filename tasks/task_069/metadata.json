@@ -1,0 +1,7 @@
+{
+    "id": "task_069",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Fix CUDA matrix transpose kernel with shared memory bank conflicts and incorrect thread indexing for write-back of non-square matrices."
+}

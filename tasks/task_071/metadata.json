@@ -1,0 +1,7 @@
+{
+    "id": "task_071",
+    "category": "feature",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Implement tiled CUDA 1D convolution with shared memory and halo cell handling at tile boundaries, replacing a naive global-memory kernel."
+}

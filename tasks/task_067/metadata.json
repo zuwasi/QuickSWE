@@ -1,0 +1,7 @@
+{
+    "id": "task_067",
+    "language": "cpp",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "description": "Shape factory returns by value causing object slicing; polymorphic methods return wrong results"
+}

@@ -1,0 +1,7 @@
+{
+    "id": "task_063",
+    "language": "c",
+    "category": "bug_fix",
+    "difficulty": "hard",
+    "description": "Circular buffer read does not handle wrap-around correctly, returning stale data or missing items"
+}

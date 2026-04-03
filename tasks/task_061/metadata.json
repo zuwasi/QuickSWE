@@ -1,0 +1,7 @@
+{
+    "id": "task_061",
+    "language": "c",
+    "category": "bug_fix",
+    "difficulty": "hard",
+    "description": "Matrix multiplication uses wrong index in inner loop accumulation"
+}

@@ -1,0 +1,7 @@
+{
+    "id": "task_068",
+    "language": "cpp",
+    "category": "bug_fix",
+    "difficulty": "hard",
+    "description": "FileHandle RAII wrapper missing copy/move semantics causes double-free"
+}

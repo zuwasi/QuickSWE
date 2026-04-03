@@ -1,0 +1,7 @@
+{
+    "id": "task_066",
+    "language": "cpp",
+    "category": "feature",
+    "difficulty": "hard",
+    "description": "Add begin()/end() iterators to SkipList container for range-for and STL algorithm support"
+}

@@ -1,0 +1,7 @@
+{
+    "id": "task_062",
+    "language": "c",
+    "category": "feature",
+    "difficulty": "extreme",
+    "description": "Add variable-length string support and checksum validation to binary protocol pack/unpack"
+}

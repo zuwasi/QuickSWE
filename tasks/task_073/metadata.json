@@ -1,0 +1,7 @@
+{
+    "id": "task_073",
+    "category": "feature",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Implement CUDA bitonic sort for arbitrary-length arrays, including padding to next power of 2 and extracting valid elements."
+}
