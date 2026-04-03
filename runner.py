@@ -99,6 +99,11 @@ def load_description(task_dir: Path) -> str:
 def invoke_agent(agent: str, prompt: str, work_dir: Path,
                  timeout: int) -> tuple[float, bool, str]:
     """Invoke an agent CLI and return (elapsed_seconds, success, output)."""
+    # Write prompt to a temp file to avoid shell escaping issues
+    prompt_file = work_dir / "_prompt.txt"
+    with open(prompt_file, "w", encoding="utf-8") as f:
+        f.write(prompt)
+
     if agent == "amp":
         cmd = ["amp", "--dangerously-allow-all", "-x", prompt]
     elif agent == "claude":
@@ -115,11 +120,14 @@ def invoke_agent(agent: str, prompt: str, work_dir: Path,
     env = os.environ.copy()
     env["CLAUDE_CODE_SKIP_PERMISSIONS"] = "1"
 
+    # Use shell=True on Windows for .cmd resolution
+    use_shell = (os.name == "nt")
+
     start = time.perf_counter()
     try:
         proc = subprocess.run(
             cmd, cwd=str(work_dir), capture_output=True, text=True,
-            timeout=timeout, shell=True, env=env,
+            timeout=timeout, env=env, shell=use_shell,
         )
         elapsed = time.perf_counter() - start
         output = proc.stdout + proc.stderr
