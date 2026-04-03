@@ -1,0 +1,7 @@
+{
+    "id": "task_057",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Race condition in CUDA histogram kernel: shared memory not initialized to zero and missing __syncthreads() between initialization and accumulation phases."
+}

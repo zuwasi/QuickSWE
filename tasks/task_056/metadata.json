@@ -1,0 +1,7 @@
+{
+    "id": "task_056",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Incorrect CUDA grid dimensions for non-power-of-2 arrays causes last elements to be unprocessed, and missing bounds check in kernel allows out-of-bounds writes when grid is rounded up."
+}

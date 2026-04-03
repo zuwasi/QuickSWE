@@ -1,0 +1,7 @@
+{
+    "id": "task_053",
+    "category": "feature",
+    "difficulty": "hard",
+    "language": "c",
+    "description": "String tokenizer needs support for escaped delimiters and quoted string segments"
+}

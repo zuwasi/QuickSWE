@@ -1,0 +1,7 @@
+{
+    "id": "task_052",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "language": "c",
+    "description": "Memory leaks in linked list implementation: delete doesn't free node data, destroy doesn't free list struct"
+}
