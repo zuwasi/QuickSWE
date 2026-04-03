@@ -1,0 +1,206 @@
+{
+  "agent": "claude",
+  "timestamp": "20260403_163134",
+  "results": [
+    {
+      "task_id": "task_059",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 73.85,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 5 tests pass. Here's what I fixed in `src/hashtable.c`:\n\n1. **Hash function** (line 5-8): Added `if (h < 0) h += capacity;` to ensure the hash index is always non-negative.\n\n2. **Resize** (lines 24-31): Replaced the simple bucket pointer copy with proper rehashing \u00e2\u20ac\u201d iterates through each entry in old buckets and reinserts it into the correct bucket in the new array based on the new capacity.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_060",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 52.86,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. Here's what I fixed:\n\n1. **`src/stack.c`**: Added overflow check in `stack_push` \u00e2\u20ac\u201d returns `-1` when `top >= MAX_STACK_SIZE - 1`.\n2. **`src/evaluator.c`**: \n   - Added division by zero check before the `/` operation, printing `ERROR: division by zero`.\n   - Added overflow checks on both `stack_push` call sites (number push and operator result push), printing `ERROR: stack overflow`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_061",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 48.18,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 4 tests pass. The fix was changing `C->data[i][k]` to `C->data[i][j]` on line 32 of `src/matrix.c`. The inner loop accumulates `A[i][k] * B[k][j]` into the result, which should be stored at `C[i][j]`, not `C[i][k]`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_062",
+      "agent": "claude",
+      "category": "feature",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 89.14,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 5 tests pass. Here's what I implemented:\n\n**`protocol.h`** \u00e2\u20ac\u201d Added `sender[256]`, `payload[256]`, and `checksum` fields to the `Message` struct.\n\n**`protocol.c`** \u00e2\u20ac\u201d Three changes:\n- Added `write_u16`/`read_u16` helpers for string length prefixes\n- Added `compute_checksum` (sum-of-bytes over all preceding packed bytes)\n- Updated `msg_pack` to serialize: `[msg_type(u32)][flags(u32)][sender_len(u16)][sender_bytes][payload_len(u16)][payload_bytes][checksum(u32)]`\n- Updated `msg_unpack` to deserialize strings and verify checksum, returning `-1` on mismatch\n\n**`main.c`** \u00e2\u20ac\u201d Removed `#ifdef HAS_STRINGS` guards since strings are now implemented.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_063",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 60.28,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 5 tests pass. The two fixes:\n\n1. **`cb_read`**: Changed `read_pos >= write_pos` to `read_pos == write_pos`. The buffer is empty only when both pointers are equal. The old `>=` comparison incorrectly reported empty when `write_pos` wrapped to a lower index.\n\n2. **`cb_count`**: Changed `write_pos - read_pos` to `(write_pos - read_pos + CB_CAPACITY) % CB_CAPACITY`. The modulo arithmetic correctly handles the wrap-around case where `write_pos < read_pos`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_064",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 60.37,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 5 tests pass. The fix: on line 36, changed `resources_[index]->info()` to `shared->info()` \u00e2\u20ac\u201d using the `shared_ptr` that now owns the resource instead of the moved-from (null) `unique_ptr`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_065",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 54.32,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix added partial specializations for cv-qualified pointer types in two traits:\n\n1. **`my_is_pointer`** \u00e2\u20ac\u201d added specializations for `T* const`, `T* volatile`, and `T* const volatile` so that cv-qualified pointers are correctly recognized as pointers.\n\n2. **`my_remove_pointer`** \u00e2\u20ac\u201d added the same three specializations so that the pointer is correctly stripped from cv-qualified pointer types (e.g., `my_remove_pointer<int* const>::type` \u00e2\u2020\u2019 `int`).\n",
+      "error": null
+    },
+    {
+      "task_id": "task_066",
+      "agent": "claude",
+      "category": "feature",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 79.75,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 5 tests pass. Here's what I did in `src/skiplist.h`:\n\n1. Added `#include <iterator>`, `#include <cstddef>`, and `#define HAS_ITERATOR` to enable the iterator code paths in `main.cpp`\n2. Added `iterator` class \u00e2\u20ac\u201d a forward iterator that traverses nodes at level 0 (sorted order), with `operator*`, `operator->`, pre/post `operator++`, `operator==`, and `operator!=`\n3. Added `const_iterator` class with the same interface but const references/pointers\n4. Added `begin()`, `end()` (mutable and const overloads), `cbegin()`, and `cend()`\n",
+      "error": null
+    },
+    {
+      "task_id": "task_067",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 69.78,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 5 tests pass. Here's what I fixed:\n\n**Object slicing bug** \u00e2\u20ac\u201d derived class data was being lost when returning/storing by value:\n\n1. **`shapes.h`**: Changed `ShapeFactory::createShape()` to return `std::unique_ptr<Shape>` instead of `Shape` by value. Changed `processShapes()` to take `const std::vector<std::unique_ptr<Shape>>&` instead of `std::vector<Shape>`.\n\n2. **`shapes.cpp`**: Factory now uses `std::make_unique<Circle/Rectangle>(...)` to heap-allocate and return owned pointers, preserving the derived type. `processShapes` accesses elements via `->` through the unique_ptr.\n\n3. **`main.cpp`**: Updated all call sites to use pointer semantics (`->` instead of `.`) and `std::make_unique` for the vector case.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_068",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 56.68,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 4 tests pass. Here's what I fixed:\n\n1. **`src/filehandle.h`** \u00e2\u20ac\u201d Deleted copy constructor/assignment and declared move constructor/assignment\n2. **`src/filehandle.cpp`** \u00e2\u20ac\u201d Implemented move constructor and move assignment operator that transfer `fd_` ownership (setting the source's `fd_` to `-1` so the moved-from object won't close it). Changed `storeHandles` to use `std::move` when pushing into the vector.\n",
+      "error": null
+    }
+  ]
+}
