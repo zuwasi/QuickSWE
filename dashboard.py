@@ -14,6 +14,20 @@ from datetime import datetime
 from pathlib import Path
 
 RESULTS_DIR = Path(__file__).parent / "results"
+TASKS_DIR = Path(__file__).parent / "tasks"
+
+
+def get_task_language(task_id: str) -> str:
+    """Return the language for a task by reading its metadata.json."""
+    meta_path = TASKS_DIR / task_id / "metadata.json"
+    if meta_path.exists():
+        with open(meta_path, encoding="utf-8") as f:
+            data = json.load(f)
+        lang = data.get("language", "python")
+        if lang in ("c", "cpp"):
+            return "c_cpp"
+        return lang
+    return "python"
 
 # ── data loading ─────────────────────────────────────────────────────────────
 
@@ -58,9 +72,13 @@ def aggregate_from_runs(runs: list[dict]) -> dict:
     agents = sorted(by_agent.keys())
     task_ids = sorted({r["task_id"] for recs in by_agent.values() for r in recs})
 
+    # Resolve language for each task
+    task_languages = {tid: get_task_language(tid) for tid in task_ids}
+    languages = sorted(set(task_languages.values()))
+
     per_task: dict[str, dict] = {}
     for tid in task_ids:
-        per_task[tid] = {}
+        per_task[tid] = {"_language": task_languages[tid]}
         for agent in agents:
             recs = [r for r in by_agent[agent] if r["task_id"] == tid]
             if not recs:
@@ -142,10 +160,84 @@ def aggregate_from_runs(runs: list[dict]) -> dict:
         "run_trends": dict(run_trends),
         "num_runs": num_runs,
         "num_tasks": len(task_ids),
+        "languages": languages,
     }
 
 
 # ── HTML generation ──────────────────────────────────────────────────────────
+
+LANG_META = {
+    "python": {"label": "🐍 Python", "css": "python"},
+    "c_cpp":  {"label": "⚙️ C/C++",  "css": "ccpp"},
+    "cuda":   {"label": "🟢 CUDA",   "css": "cuda"},
+}
+
+# Charts for non-Python language tabs
+SUBSET_CHARTS = {"overall", "speed_ratio", "speed_by_diff", "heatmap"}
+
+
+def _filter_agg_by_lang(agg: dict, lang: str) -> dict:
+    """Return a copy of aggregate data filtered to tasks of the given language."""
+    per_task = agg["per_task"]
+    task_ids = [tid for tid in agg["task_ids"] if per_task[tid].get("_language") == lang]
+    agents = agg["agents"]
+
+    # Rebuild overall, by_category, by_difficulty from filtered tasks
+    filt_per_task = {tid: per_task[tid] for tid in task_ids}
+
+    overall: dict[str, dict] = {}
+    for agent in agents:
+        n = 0; resolved = 0; regressions = 0; total_time = 0.0
+        for tid in task_ids:
+            t = filt_per_task[tid].get(agent)
+            if not t:
+                continue
+            runs = t.get("runs", 1)
+            n += runs
+            resolved += round(t["resolve_rate"] * runs)
+            regressions += round(t["regression_rate"] * runs)
+            total_time += t["avg_time"] * runs
+        overall[agent] = {
+            "total": n,
+            "resolved": resolved,
+            "regressions": regressions,
+            "avg_time": total_time / n if n else 0,
+            "resolve_rate": resolved / n if n else 0,
+            "regression_rate": regressions / n if n else 0,
+        }
+
+    by_category: dict[str, dict[str, dict]] = defaultdict(lambda: defaultdict(dict))
+    by_difficulty: dict[str, dict[str, dict]] = defaultdict(lambda: defaultdict(dict))
+    for agent in agents:
+        cats: dict[str, list] = defaultdict(list)
+        diffs: dict[str, list] = defaultdict(list)
+        for tid in task_ids:
+            t = filt_per_task[tid].get(agent)
+            if not t:
+                continue
+            cats[t.get("category", "unknown")].append(t)
+            diffs[t.get("difficulty", "unknown")].append(t)
+        for cat, recs in cats.items():
+            n = sum(r.get("runs", 1) for r in recs)
+            res = sum(round(r["resolve_rate"] * r.get("runs", 1)) for r in recs)
+            by_category[cat][agent] = {"resolve_rate": res / n if n else 0, "count": n}
+        for diff, recs in diffs.items():
+            n = sum(r.get("runs", 1) for r in recs)
+            res = sum(round(r["resolve_rate"] * r.get("runs", 1)) for r in recs)
+            by_difficulty[diff][agent] = {"resolve_rate": res / n if n else 0, "count": n}
+
+    return {
+        "agents": agents,
+        "task_ids": task_ids,
+        "per_task": filt_per_task,
+        "overall": overall,
+        "by_category": dict(by_category),
+        "by_difficulty": dict(by_difficulty),
+        "run_trends": agg["run_trends"],
+        "num_runs": agg["num_runs"],
+        "num_tasks": len(task_ids),
+    }
+
 
 def generate_html(agg: dict, output_path: Path):
     """Generate the full dashboard HTML."""
@@ -163,8 +255,331 @@ def generate_html(agg: dict, output_path: Path):
     else:
         winner = "Tie"
 
-    # Prepare chart data as JSON strings
-    chart_data = build_chart_data(agg, a1, a2)
+    a1_color = "#00B4D8"
+    a2_color = "#FF6B35"
+
+    languages = agg.get("languages", ["python"])
+    # Always include the three canonical tabs even if empty
+    all_langs = ["python", "c_cpp", "cuda"]
+
+    # Build per-language chart data and HTML sections
+    lang_tabs_html = ""
+    lang_charts_js = ""
+
+    for lang in all_langs:
+        meta = LANG_META[lang]
+        css_cls = meta["css"]
+        lang_agg = _filter_agg_by_lang(agg, lang)
+        count = lang_agg["num_tasks"]
+
+        # Tab radio + label
+        checked = ' checked' if lang == "python" else ''
+        lang_tabs_html += (
+            f'<input type="radio" name="lang-tab" id="tab-{css_cls}"{checked}>\n'
+            f'<label for="tab-{css_cls}">{meta["label"]} ({count})</label>\n'
+        )
+
+    for lang in all_langs:
+        meta = LANG_META[lang]
+        css_cls = meta["css"]
+        lang_agg = _filter_agg_by_lang(agg, lang)
+        count = lang_agg["num_tasks"]
+        suffix = f"_{css_cls}"
+
+        if count == 0:
+            no_result_msg = {
+                "python": "No Python task results found.",
+                "c_cpp": "No results yet — C/C++ tasks auto-skip if gcc/g++ is not configured.",
+                "cuda": "No results yet — CUDA tasks auto-skip if nvcc is not configured.",
+            }.get(lang, "No results yet.")
+            lang_charts_js += ""  # no JS needed
+            # Add empty tab content
+            lang_tabs_html += (
+                f'<div class="tab-content {css_cls}-content">\n'
+                f'<div class="card full" style="text-align:center;padding:60px;">'
+                f'<h2 style="color:var(--muted);">🚫 {no_result_msg}</h2></div>\n'
+                f'</div>\n'
+            )
+            continue
+
+        chart_data = build_chart_data(lang_agg, a1, a2)
+
+        # Determine which charts to include
+        is_full = (lang == "python")
+
+        # Build HTML cards for this tab
+        tab_html = f'<div class="tab-content {css_cls}-content">\n<div class="grid">\n'
+
+        # Overall Resolution
+        tab_html += (
+            f'<div class="card">\n'
+            f'  <h2>📊 Overall Resolution Rate</h2>\n'
+            f'  <canvas id="overallChart{suffix}"></canvas>\n'
+            f'  <p class="explain">Percentage of tasks each agent successfully resolved across all runs.</p>\n'
+            f'</div>\n'
+        )
+
+        # Speed Comparison
+        tab_html += (
+            f'<div class="card full">\n'
+            f'  <h2>⚡ Speed Comparison — Top 15 Largest Gaps</h2>\n'
+            f'  <canvas id="speedRatioChart{suffix}" style="max-height:520px;"></canvas>\n'
+            f'  <p class="explain">Actual completion times with biggest speed differences.</p>\n'
+            f'</div>\n'
+        )
+
+        # Speed by Difficulty
+        tab_html += (
+            f'<div class="card full">\n'
+            f'  <h2>🚀 Speed by Difficulty Tier (avg seconds)</h2>\n'
+            f'  <canvas id="speedByDiffChart{suffix}" style="max-height:300px;"></canvas>\n'
+            f'  <p class="explain">Average time per task at each difficulty level.</p>\n'
+            f'</div>\n'
+        )
+
+        if is_full:
+            # Category
+            tab_html += (
+                f'<div class="card">\n'
+                f'  <h2>📂 Resolution by Category</h2>\n'
+                f'  <canvas id="categoryChart{suffix}"></canvas>\n'
+                f'  <p class="explain">Performance across bug fixes, features, and refactoring.</p>\n'
+                f'</div>\n'
+            )
+            # Difficulty
+            tab_html += (
+                f'<div class="card">\n'
+                f'  <h2>📈 Resolution by Difficulty</h2>\n'
+                f'  <canvas id="difficultyChart{suffix}"></canvas>\n'
+                f'  <p class="explain">Performance scaling with task difficulty.</p>\n'
+                f'</div>\n'
+            )
+            # Regression
+            tab_html += (
+                f'<div class="card">\n'
+                f'  <h2>🛡️ Regression Rate</h2>\n'
+                f'  <canvas id="regressionChart{suffix}"></canvas>\n'
+                f'  <p class="explain">Percentage of tasks where the agent broke existing tests. Lower is better.</p>\n'
+                f'</div>\n'
+            )
+            # Pie charts
+            tab_html += (
+                f'<div class="card">\n'
+                f'  <h2>🥧 {a1.capitalize()} — Outcome Breakdown</h2>\n'
+                f'  <canvas id="pie1{suffix}"></canvas>\n'
+                f'</div>\n'
+                f'<div class="card">\n'
+                f'  <h2>🥧 {a2.capitalize()} — Outcome Breakdown</h2>\n'
+                f'  <canvas id="pie2{suffix}"></canvas>\n'
+                f'</div>\n'
+            )
+            # Radar
+            tab_html += (
+                f'<div class="card full">\n'
+                f'  <h2>🕸️ Multi-Dimensional Comparison</h2>\n'
+                f'  <canvas id="radarChart{suffix}" style="max-height:420px;"></canvas>\n'
+                f'</div>\n'
+            )
+            # Time Comparison
+            tab_html += (
+                f'<div class="card full">\n'
+                f'  <h2>⏱️ Average Time per Task</h2>\n'
+                f'  <canvas id="timeChart{suffix}" style="max-height:300px;"></canvas>\n'
+                f'</div>\n'
+            )
+            # Trend
+            tab_html += (
+                f'<div class="card full">\n'
+                f'  <h2>📉 Consistency Across Runs</h2>\n'
+                f'  <canvas id="trendChart{suffix}" style="max-height:280px;"></canvas>\n'
+                f'</div>\n'
+            )
+            # Per-Task Comparison
+            tab_html += (
+                f'<div class="card full">\n'
+                f'  <h2>🔍 Per-Task Comparison</h2>\n'
+                f'  <canvas id="perTaskChart{suffix}" style="max-height:500px;"></canvas>\n'
+                f'</div>\n'
+            )
+
+        # Heatmap table (all tabs)
+        tab_html += (
+            f'<div class="card full">\n'
+            f'  <h2>🗺️ Head-to-Head Results Matrix</h2>\n'
+            f'  <div style="overflow-x:auto;">\n'
+            f'  <table>\n'
+            f'    <thead><tr>\n'
+            f'      <th>Task</th><th>Category</th>\n'
+            f'      <th style="color:{a1_color}">{a1.capitalize()} Resolve</th><th style="color:{a1_color}">Time</th>\n'
+            f'      <th style="color:{a2_color}">{a2.capitalize()} Resolve</th><th style="color:{a2_color}">Time</th>\n'
+            f'    </tr></thead>\n'
+            f'    <tbody>{chart_data["heatmap_rows"]}</tbody>\n'
+            f'  </table>\n'
+            f'  </div>\n'
+            f'  <p class="explain">Green = ≥80% resolved with &lt;20% regressions. Blue = ≥50%. Yellow = partial. Red = not resolved.</p>\n'
+            f'</div>\n'
+        )
+
+        tab_html += '</div>\n</div>\n'  # close .grid and .tab-content
+        lang_tabs_html += tab_html
+
+        # Build JavaScript for this tab's charts
+        agent1 = a1.capitalize()
+        agent2 = a2.capitalize()
+        js = ""
+
+        # Overall
+        js += (
+            f"(function(){{\n"
+            f"  const d = {chart_data['overall_data']};\n"
+            f"  new Chart('overallChart{suffix}', darkOpts({{\n"
+            f"    type:'bar', data:{{ labels:d.labels, datasets:[{{ data:[d.a1,d.a2], backgroundColor:[A1,A2], borderRadius:6 }}] }},\n"
+            f"    options:{{ indexAxis:'y', plugins:{{ legend:{{display:false}}, datalabels:{{ anchor:'end',align:'left',color:'#fff',font:{{weight:'bold',size:16}},formatter:v=>v+'%' }} }},\n"
+            f"      scales:{{ x:{{ max:100, title:{{display:true,text:'Resolve Rate %',color:'#aaa'}} }} }} }}\n"
+            f"  }}));\n}})();\n"
+        )
+
+        # Speed Ratio
+        js += (
+            f"(function(){{\n"
+            f"  const d = {chart_data['speed_ratio_data']};\n"
+            f"  const n = Math.min(15, d.labels.length);\n"
+            f"  const labels = d.labels.slice(0,n); const ratios = d.ratios.slice(0,n);\n"
+            f"  const a1t = d.a1_times.slice(0,n); const a2t = d.a2_times.slice(0,n);\n"
+            f"  new Chart('speedRatioChart{suffix}', darkOpts({{\n"
+            f"    type:'bar', data:{{ labels:labels.map((l,i)=>l+' ('+ratios[i]+'x)'),\n"
+            f"      datasets:[\n"
+            f"        {{ label:'{agent1}', data:a1t, backgroundColor:A1, borderRadius:5, barPercentage:0.8 }},\n"
+            f"        {{ label:'{agent2}', data:a2t, backgroundColor:A2, borderRadius:5, barPercentage:0.8 }}\n"
+            f"      ] }},\n"
+            f"    options:{{ indexAxis:'y',\n"
+            f"      plugins:{{ legend:{{ position:'top', labels:{{color:'#e0e0e0', font:{{size:13,weight:'bold'}}, padding:20}} }},\n"
+            f"        datalabels:{{ anchor:'end', align:'left', color:'#fff', font:{{size:11}}, formatter:v=>v>0?v.toFixed(0)+'s':'' }} }},\n"
+            f"      scales:{{ x:{{ title:{{display:true,text:'Seconds',color:'#aaa'}}, grid:{{color:'#ffffff10'}} }}, y:{{ ticks:{{font:{{size:12}}}}, grid:{{display:false}} }} }} }}\n"
+            f"  }}));\n}})();\n"
+        )
+
+        # Speed by Difficulty
+        js += (
+            f"(function(){{\n"
+            f"  const d = {chart_data['speed_by_diff_data']};\n"
+            f"  new Chart('speedByDiffChart{suffix}', darkOpts({{\n"
+            f"    type:'bar', data:{{ labels:d.labels, datasets:[\n"
+            f"      {{ label:'{agent1}', data:d.a1, backgroundColor:A1, borderRadius:4 }},\n"
+            f"      {{ label:'{agent2}', data:d.a2, backgroundColor:A2, borderRadius:4 }}\n"
+            f"    ] }},\n"
+            f"    options:{{ plugins:{{ datalabels:{{ color:'#fff',font:{{size:12,weight:'bold'}},formatter:v=>v+'s' }} }},\n"
+            f"      scales:{{ y:{{ title:{{display:true,text:'Avg Seconds',color:'#aaa'}} }} }} }}\n"
+            f"  }}));\n}})();\n"
+        )
+
+        if is_full:
+            # Category
+            js += (
+                f"(function(){{\n"
+                f"  const d = {chart_data['category_data']};\n"
+                f"  new Chart('categoryChart{suffix}', darkOpts({{\n"
+                f"    type:'bar', data:{{ labels:d.labels, datasets:[\n"
+                f"      {{ label:'{agent1}', data:d.a1, backgroundColor:A1, borderRadius:4 }},\n"
+                f"      {{ label:'{agent2}', data:d.a2, backgroundColor:A2, borderRadius:4 }}\n"
+                f"    ] }},\n"
+                f"    options:{{ plugins:{{ datalabels:{{ color:'#fff',font:{{size:11}},formatter:v=>v+'%' }} }},\n"
+                f"      scales:{{ y:{{ max:100, title:{{display:true,text:'%',color:'#aaa'}} }} }} }}\n"
+                f"  }}));\n}})();\n"
+            )
+            # Difficulty
+            js += (
+                f"(function(){{\n"
+                f"  const d = {chart_data['difficulty_data']};\n"
+                f"  new Chart('difficultyChart{suffix}', darkOpts({{\n"
+                f"    type:'bar', data:{{ labels:d.labels, datasets:[\n"
+                f"      {{ label:'{agent1}', data:d.a1, backgroundColor:A1, borderRadius:4 }},\n"
+                f"      {{ label:'{agent2}', data:d.a2, backgroundColor:A2, borderRadius:4 }}\n"
+                f"    ] }},\n"
+                f"    options:{{ plugins:{{ datalabels:{{ color:'#fff',font:{{size:11}},formatter:v=>v+'%' }} }},\n"
+                f"      scales:{{ y:{{ max:100 }} }} }}\n"
+                f"  }}));\n}})();\n"
+            )
+            # Regression
+            js += (
+                f"(function(){{\n"
+                f"  const d = {chart_data['regression_data']};\n"
+                f"  new Chart('regressionChart{suffix}', darkOpts({{\n"
+                f"    type:'bar', data:{{ labels:d.labels, datasets:[{{ data:[d.a1,d.a2], backgroundColor:[A1,A2], borderRadius:6 }}] }},\n"
+                f"    options:{{ plugins:{{ legend:{{display:false}}, datalabels:{{ color:'#fff',font:{{weight:'bold',size:14}},formatter:v=>v+'%' }} }},\n"
+                f"      scales:{{ y:{{ title:{{display:true,text:'Regression %',color:'#aaa'}} }} }} }}\n"
+                f"  }}));\n}})();\n"
+            )
+            # Pie
+            js += (
+                f"(function(){{\n"
+                f"  const d = {chart_data['pie_data']};\n"
+                f"  const colors = ['#2ecc71','#f39c12','#e74c3c'];\n"
+                f"  const labels = ['Resolved','Regression','Failed'];\n"
+                f"  new Chart('pie1{suffix}', {{ type:'doughnut', data:{{ labels, datasets:[{{ data:[d.a1.resolved,d.a1.regression,d.a1.failed], backgroundColor:colors }}] }},\n"
+                f"    options:{{ plugins:{{ legend:{{labels:{{color:'#ccc'}}}}, datalabels:{{ color:'#fff', font:{{weight:'bold'}}, formatter:(v,ctx)=>v?ctx.chart.data.labels[ctx.dataIndex]+': '+v:'' }} }} }} }});\n"
+                f"  new Chart('pie2{suffix}', {{ type:'doughnut', data:{{ labels, datasets:[{{ data:[d.a2.resolved,d.a2.regression,d.a2.failed], backgroundColor:colors }}] }},\n"
+                f"    options:{{ plugins:{{ legend:{{labels:{{color:'#ccc'}}}}, datalabels:{{ color:'#fff', font:{{weight:'bold'}}, formatter:(v,ctx)=>v?ctx.chart.data.labels[ctx.dataIndex]+': '+v:'' }} }} }} }});\n"
+                f"}})();\n"
+            )
+            # Radar
+            js += (
+                f"(function(){{\n"
+                f"  const d = {chart_data['radar_data']};\n"
+                f"  new Chart('radarChart{suffix}', darkOpts({{\n"
+                f"    type:'radar', data:{{ labels:d.labels, datasets:[\n"
+                f"      {{ label:'{agent1}', data:d.a1, borderColor:A1, backgroundColor:A1a, pointBackgroundColor:A1 }},\n"
+                f"      {{ label:'{agent2}', data:d.a2, borderColor:A2, backgroundColor:A2a, pointBackgroundColor:A2 }}\n"
+                f"    ] }},\n"
+                f"    options:{{ scales:{{ r:{{ min:0, max:100, ticks:{{color:'#888',backdropColor:'transparent'}}, grid:{{color:'#ffffff15'}}, pointLabels:{{color:'#ccc',font:{{size:12}}}} }} }},\n"
+                f"      plugins:{{ datalabels:{{display:false}} }} }}\n"
+                f"  }}));\n}})();\n"
+            )
+            # Time
+            js += (
+                f"(function(){{\n"
+                f"  const d = {chart_data['time_data']};\n"
+                f"  new Chart('timeChart{suffix}', darkOpts({{\n"
+                f"    type:'bar', data:{{ labels:d.labels, datasets:[\n"
+                f"      {{ label:'{agent1}', data:d.a1, backgroundColor:A1, borderRadius:3 }},\n"
+                f"      {{ label:'{agent2}', data:d.a2, backgroundColor:A2, borderRadius:3 }}\n"
+                f"    ] }},\n"
+                f"    options:{{ plugins:{{ datalabels:{{ display:false }} }},\n"
+                f"      scales:{{ y:{{ title:{{display:true,text:'Seconds',color:'#aaa'}} }} }} }}\n"
+                f"  }}));\n}})();\n"
+            )
+            # Trend
+            js += (
+                f"(function(){{\n"
+                f"  const d = {chart_data['trend_data']};\n"
+                f"  const maxLen = Math.max(d.a1.length, d.a2.length);\n"
+                f"  const labels = Array.from({{length:maxLen}}, (_,i)=>'Run '+(i+1));\n"
+                f"  new Chart('trendChart{suffix}', darkOpts({{\n"
+                f"    type:'line', data:{{ labels, datasets:[\n"
+                f"      {{ label:'{agent1}', data:d.a1, borderColor:A1, backgroundColor:A1a, tension:.3, fill:false, pointRadius:5 }},\n"
+                f"      {{ label:'{agent2}', data:d.a2, borderColor:A2, backgroundColor:A2a, tension:.3, fill:false, pointRadius:5 }}\n"
+                f"    ] }},\n"
+                f"    options:{{ plugins:{{ datalabels:{{ color:'#fff', anchor:'end', align:'top', font:{{size:11}} }} }},\n"
+                f"      scales:{{ y:{{ title:{{display:true,text:'Tasks Resolved',color:'#aaa'}}, beginAtZero:true }} }} }}\n"
+                f"  }}));\n}})();\n"
+            )
+            # Per-task
+            js += (
+                f"(function(){{\n"
+                f"  const d = {chart_data['per_task_data']};\n"
+                f"  new Chart('perTaskChart{suffix}', darkOpts({{\n"
+                f"    type:'bar', data:{{ labels:d.labels, datasets:[\n"
+                f"      {{ label:'{agent1}', data:d.a1, backgroundColor:A1, borderRadius:3 }},\n"
+                f"      {{ label:'{agent2}', data:d.a2, backgroundColor:A2, borderRadius:3 }}\n"
+                f"    ] }},\n"
+                f"    options:{{ indexAxis:'y', plugins:{{ datalabels:{{ display:false }} }},\n"
+                f"      scales:{{ x:{{ max:100, title:{{display:true,text:'Resolve Rate %',color:'#aaa'}} }} }} }}\n"
+                f"  }}));\n}})();\n"
+            )
+
+        lang_charts_js += js
+
+    _overall_chart_data = build_chart_data(agg, a1, a2)
 
     html = HTML_TEMPLATE.format(
         timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -175,9 +590,13 @@ def generate_html(agg: dict, output_path: Path):
         winner=winner.capitalize(),
         a1_resolve=f"{r1*100:.1f}",
         a2_resolve=f"{r2*100:.1f}",
-        a1_color="#00B4D8",
-        a2_color="#FF6B35",
-        **chart_data,
+        a1_color=a1_color,
+        a2_color=a2_color,
+        speed_multiplier=_overall_chart_data["speed_multiplier"],
+        a1_avg_time=_overall_chart_data["a1_avg_time"],
+        a2_avg_time=_overall_chart_data["a2_avg_time"],
+        lang_tabs=lang_tabs_html,
+        lang_charts_js=lang_charts_js,
     )
 
     output_path.parent.mkdir(exist_ok=True)
@@ -469,6 +888,15 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   .achievement .vs-table td {{ padding:8px 12px; text-align:center; }}
   .achievement .vs-table .amp-col {{ background:#1a3a1a; color:#2ecc71; font-weight:700; border-radius:6px; }}
   .achievement .vs-col {{ background:#3a1a1a; color:#e74c3c; border-radius:6px; }}
+  /* Tab system */
+  .tab-container {{ position:relative; }}
+  .tab-container > input[type="radio"] {{ display:none; }}
+  .tab-container > label {{ display:inline-block; padding:12px 24px; background:var(--card); border:1px solid var(--card-border); border-radius:8px 8px 0 0; cursor:pointer; font-size:1rem; font-weight:600; color:var(--muted); transition:background .2s,color .2s; margin-right:4px; margin-bottom:0; }}
+  .tab-container > input[type="radio"]:checked + label {{ background:var(--card-border); color:#fff; border-bottom-color:var(--card-border); }}
+  .tab-content {{ display:none; padding-top:20px; }}
+  #tab-python:checked ~ .tab-content.python-content,
+  #tab-ccpp:checked ~ .tab-content.ccpp-content,
+  #tab-cuda:checked ~ .tab-content.cuda-content {{ display:block; }}
 </style>
 </head>
 <body>
@@ -477,7 +905,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 <p class="subtitle">Generated {timestamp} &nbsp;|&nbsp; {num_tasks} tasks &nbsp;|&nbsp; {num_runs} run(s) per agent</p>
 
 <div class="summary-cards">
-  <div class="scard"><div class="val">{num_tasks}</div><div class="lbl">Tasks</div></div>
+  <div class="scard"><div class="val">{num_tasks}</div><div class="lbl">Tasks (all languages)</div></div>
   <div class="scard"><div class="val">{num_runs}</div><div class="lbl">Runs / Agent</div></div>
   <div class="scard"><div class="val" style="color:var(--accent1)">{a1_resolve}%</div><div class="lbl">{agent1} Resolve Rate</div></div>
   <div class="scard"><div class="val" style="color:var(--accent2)">{a2_resolve}%</div><div class="lbl">{agent2} Resolve Rate</div></div>
@@ -514,106 +942,8 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   </div>
 </div>
 
-<div class="grid">
-
-<!-- 1. Overall Resolution -->
-<div class="card">
-  <h2>📊 Overall Resolution Rate</h2>
-  <canvas id="overallChart"></canvas>
-  <p class="explain">Percentage of tasks each agent successfully resolved across all runs. Higher is better.</p>
-</div>
-
-<!-- SPEED: Top 15 Speed Advantages -->
-<div class="card full">
-  <h2>⚡ Speed Comparison — Top 15 Largest Gaps</h2>
-  <canvas id="speedRatioChart" style="max-height:520px;"></canvas>
-  <p class="explain">Actual completion times for both agents on the tasks with the biggest speed differences. <span style="color:#00B4D8">&#9632; {agent1}</span> vs <span style="color:#FF6B35">&#9632; {agent2}</span> — shorter bar = faster. The ratio label shows how many times faster {agent1} was.</p>
-</div>
-
-<!-- SPEED: Speed by Difficulty -->
-<div class="card full">
-  <h2>🚀 Speed by Difficulty Tier (avg seconds)</h2>
-  <canvas id="speedByDiffChart" style="max-height:300px;"></canvas>
-  <p class="explain">Average time per task at each difficulty level. <strong>The speed gap widens dramatically on harder tasks</strong> &mdash; when both agents can solve a problem, the one that solves it faster delivers more value. On extreme tasks, speed differences of 2-3x translate to hours saved per day in real workflows.</p>
-</div>
-
-<!-- 2. By Category -->
-<div class="card">
-  <h2>📂 Resolution by Category</h2>
-  <canvas id="categoryChart"></canvas>
-  <p class="explain">How each agent performs across bug fixes, features, and refactoring tasks. Reveals strengths per task type.</p>
-</div>
-
-<!-- 3. By Difficulty -->
-<div class="card">
-  <h2>📈 Resolution by Difficulty</h2>
-  <canvas id="difficultyChart"></canvas>
-  <p class="explain">Performance scaling with task difficulty. Steeper drops indicate the agent struggles with complexity.</p>
-</div>
-
-<!-- 4. Regression Rate -->
-<div class="card">
-  <h2>🛡️ Regression Rate</h2>
-  <canvas id="regressionChart"></canvas>
-  <p class="explain">Percentage of tasks where the agent broke existing tests while fixing the issue. Lower is better.</p>
-</div>
-
-<!-- 7. Pie Charts -->
-<div class="card">
-  <h2>🥧 {agent1} — Outcome Breakdown</h2>
-  <canvas id="pie1"></canvas>
-  <p class="explain">Distribution of outcomes: resolved cleanly, resolved with regressions, or failed.</p>
-</div>
-<div class="card">
-  <h2>🥧 {agent2} — Outcome Breakdown</h2>
-  <canvas id="pie2"></canvas>
-  <p class="explain">Distribution of outcomes: resolved cleanly, resolved with regressions, or failed.</p>
-</div>
-
-<!-- 10. Radar -->
-<div class="card full">
-  <h2>🕸️ Multi-Dimensional Comparison</h2>
-  <canvas id="radarChart" style="max-height:420px;"></canvas>
-  <p class="explain">Spider chart comparing agents across resolve rate, speed, consistency, regression safety, and per-category performance. Larger area = stronger overall agent.</p>
-</div>
-
-<!-- 5. Time Comparison -->
-<div class="card full">
-  <h2>⏱️ Average Time per Task</h2>
-  <canvas id="timeChart" style="max-height:300px;"></canvas>
-  <p class="explain">Average seconds each agent spent per task. Shorter bars indicate faster performance.</p>
-</div>
-
-<!-- 6. Consistency / Trend -->
-<div class="card full">
-  <h2>📉 Consistency Across Runs</h2>
-  <canvas id="trendChart" style="max-height:280px;"></canvas>
-  <p class="explain">Number of tasks resolved in each successive run. Flat lines indicate high reliability; erratic lines suggest non-deterministic behavior.</p>
-</div>
-
-<!-- 4. Per-Task Comparison -->
-<div class="card full">
-  <h2>🔍 Per-Task Comparison</h2>
-  <canvas id="perTaskChart" style="max-height:500px;"></canvas>
-  <p class="explain">Task-level resolve rates sorted by biggest performance gap. Shows where each agent uniquely excels or struggles.</p>
-</div>
-
-<!-- 9. Heatmap Table -->
-<div class="card full">
-  <h2>🗺️ Head-to-Head Results Matrix</h2>
-  <div style="overflow-x:auto;">
-  <table>
-    <thead><tr>
-      <th>Task</th><th>Category</th>
-      <th style="color:var(--accent1)">{agent1} Resolve</th><th style="color:var(--accent1)">Time</th>
-      <th style="color:var(--accent2)">{agent2} Resolve</th><th style="color:var(--accent2)">Time</th>
-    </tr></thead>
-    <tbody>{heatmap_rows}</tbody>
-  </table>
-  </div>
-  <p class="explain">Green = ≥80% resolved with &lt;20% regressions. Blue = ≥50%. Yellow = partial. Red = not resolved.</p>
-</div>
-
+<div class="tab-container">
+{lang_tabs}
 </div>
 
 <footer>Generated by <strong>QuickSWE</strong> &nbsp;|&nbsp; {timestamp}</footer>
@@ -637,187 +967,7 @@ function darkOpts(o) {{
   return o;
 }}
 
-// 1. Overall
-(function(){{
-  const d = {overall_data};
-  new Chart('overallChart', darkOpts({{
-    type:'bar', data:{{
-      labels:d.labels,
-      datasets:[{{ data:[d.a1,d.a2], backgroundColor:[A1,A2], borderRadius:6 }}]
-    }}, options:{{ indexAxis:'y', plugins:{{ legend:{{display:false}}, datalabels:{{ anchor:'end',align:'left',color:'#fff',font:{{weight:'bold',size:16}},formatter:v=>v+'%' }} }},
-      scales:{{ x:{{ max:100, title:{{display:true,text:'Resolve Rate %',color:'#aaa'}} }} }}
-    }}
-  }}));
-}})();
-
-// SPEED: Speed Comparison (Top 15) — paired bars
-(function(){{
-  const d = {speed_ratio_data};
-  const n = Math.min(15, d.labels.length);
-  const labels = d.labels.slice(0, n);
-  const ratios = d.ratios.slice(0, n);
-  const a1t = d.a1_times.slice(0, n);
-  const a2t = d.a2_times.slice(0, n);
-  new Chart('speedRatioChart', darkOpts({{
-    type:'bar', data:{{
-      labels:labels.map((l,i)=>l+' ('+ratios[i]+'x)'),
-      datasets:[
-        {{ label:'{agent1}', data:a1t, backgroundColor:A1, borderRadius:5, barPercentage:0.8 }},
-        {{ label:'{agent2}', data:a2t, backgroundColor:A2, borderRadius:5, barPercentage:0.8 }}
-      ]
-    }}, options:{{ indexAxis:'y',
-      plugins:{{
-        legend:{{ position:'top', labels:{{color:'#e0e0e0', font:{{size:13,weight:'bold'}}, padding:20}} }},
-        datalabels:{{ anchor:'end', align:'left', color:'#fff', font:{{size:11}},
-          formatter:v=>v>0?v.toFixed(0)+'s':'' }}
-      }},
-      scales:{{
-        x:{{ title:{{display:true,text:'Seconds (shorter = faster)',color:'#aaa'}}, grid:{{color:'#ffffff10'}} }},
-        y:{{ ticks:{{font:{{size:12}}}}, grid:{{display:false}} }}
-      }}
-    }}
-  }}));
-}})();
-
-// SPEED: Speed by Difficulty
-(function(){{
-  const d = {speed_by_diff_data};
-  new Chart('speedByDiffChart', darkOpts({{
-    type:'bar', data:{{
-      labels:d.labels,
-      datasets:[
-        {{ label:'{agent1}', data:d.a1, backgroundColor:A1, borderRadius:4 }},
-        {{ label:'{agent2}', data:d.a2, backgroundColor:A2, borderRadius:4 }}
-      ]
-    }}, options:{{ plugins:{{ datalabels:{{ color:'#fff',font:{{size:12,weight:'bold'}},formatter:v=>v+'s' }} }},
-      scales:{{ y:{{ title:{{display:true,text:'Avg Seconds',color:'#aaa'}} }} }}
-    }}
-  }}));
-}})();
-
-// 2. Category
-(function(){{
-  const d = {category_data};
-  new Chart('categoryChart', darkOpts({{
-    type:'bar', data:{{
-      labels:d.labels,
-      datasets:[
-        {{ label:'{agent1}', data:d.a1, backgroundColor:A1, borderRadius:4 }},
-        {{ label:'{agent2}', data:d.a2, backgroundColor:A2, borderRadius:4 }}
-      ]
-    }}, options:{{ plugins:{{ datalabels:{{ color:'#fff',font:{{size:11}},formatter:v=>v+'%' }} }},
-      scales:{{ y:{{ max:100, title:{{display:true,text:'%',color:'#aaa'}} }} }}
-    }}
-  }}));
-}})();
-
-// 3. Difficulty
-(function(){{
-  const d = {difficulty_data};
-  new Chart('difficultyChart', darkOpts({{
-    type:'bar', data:{{
-      labels:d.labels,
-      datasets:[
-        {{ label:'{agent1}', data:d.a1, backgroundColor:A1, borderRadius:4 }},
-        {{ label:'{agent2}', data:d.a2, backgroundColor:A2, borderRadius:4 }}
-      ]
-    }}, options:{{ plugins:{{ datalabels:{{ color:'#fff',font:{{size:11}},formatter:v=>v+'%' }} }},
-      scales:{{ y:{{ max:100 }} }}
-    }}
-  }}));
-}})();
-
-// 4. Regression
-(function(){{
-  const d = {regression_data};
-  new Chart('regressionChart', darkOpts({{
-    type:'bar', data:{{
-      labels:d.labels,
-      datasets:[{{ data:[d.a1,d.a2], backgroundColor:[A1,A2], borderRadius:6 }}]
-    }}, options:{{ plugins:{{ legend:{{display:false}}, datalabels:{{ color:'#fff',font:{{weight:'bold',size:14}},formatter:v=>v+'%' }} }},
-      scales:{{ y:{{ title:{{display:true,text:'Regression %',color:'#aaa'}} }} }}
-    }}
-  }}));
-}})();
-
-// 5. Pie charts
-(function(){{
-  const d = {pie_data};
-  const colors = ['#2ecc71','#f39c12','#e74c3c'];
-  const labels = ['Resolved','Regression','Failed'];
-  new Chart('pie1', {{ type:'doughnut', data:{{
-    labels, datasets:[{{ data:[d.a1.resolved,d.a1.regression,d.a1.failed], backgroundColor:colors }}]
-  }}, options:{{ plugins:{{ legend:{{labels:{{color:'#ccc'}}}}, datalabels:{{ color:'#fff', font:{{weight:'bold'}}, formatter:(v,ctx)=>v?ctx.chart.data.labels[ctx.dataIndex]+': '+v:'' }} }} }} }});
-  new Chart('pie2', {{ type:'doughnut', data:{{
-    labels, datasets:[{{ data:[d.a2.resolved,d.a2.regression,d.a2.failed], backgroundColor:colors }}]
-  }}, options:{{ plugins:{{ legend:{{labels:{{color:'#ccc'}}}}, datalabels:{{ color:'#fff', font:{{weight:'bold'}}, formatter:(v,ctx)=>v?ctx.chart.data.labels[ctx.dataIndex]+': '+v:'' }} }} }} }});
-}})();
-
-// 6. Radar
-(function(){{
-  const d = {radar_data};
-  new Chart('radarChart', darkOpts({{
-    type:'radar', data:{{
-      labels:d.labels,
-      datasets:[
-        {{ label:'{agent1}', data:d.a1, borderColor:A1, backgroundColor:A1a, pointBackgroundColor:A1 }},
-        {{ label:'{agent2}', data:d.a2, borderColor:A2, backgroundColor:A2a, pointBackgroundColor:A2 }}
-      ]
-    }}, options:{{ scales:{{ r:{{ min:0, max:100, ticks:{{color:'#888',backdropColor:'transparent'}}, grid:{{color:'#ffffff15'}}, pointLabels:{{color:'#ccc',font:{{size:12}}}} }} }},
-      plugins:{{ datalabels:{{display:false}} }}
-    }}
-  }}));
-}})();
-
-// 7. Time
-(function(){{
-  const d = {time_data};
-  new Chart('timeChart', darkOpts({{
-    type:'bar', data:{{
-      labels:d.labels,
-      datasets:[
-        {{ label:'{agent1}', data:d.a1, backgroundColor:A1, borderRadius:3 }},
-        {{ label:'{agent2}', data:d.a2, backgroundColor:A2, borderRadius:3 }}
-      ]
-    }}, options:{{ plugins:{{ datalabels:{{ display:false }} }},
-      scales:{{ y:{{ title:{{display:true,text:'Seconds',color:'#aaa'}} }} }}
-    }}
-  }}));
-}})();
-
-// 8. Trend
-(function(){{
-  const d = {trend_data};
-  const maxLen = Math.max(d.a1.length, d.a2.length);
-  const labels = Array.from({{length:maxLen}}, (_,i)=>'Run '+(i+1));
-  new Chart('trendChart', darkOpts({{
-    type:'line', data:{{
-      labels,
-      datasets:[
-        {{ label:'{agent1}', data:d.a1, borderColor:A1, backgroundColor:A1a, tension:.3, fill:false, pointRadius:5 }},
-        {{ label:'{agent2}', data:d.a2, borderColor:A2, backgroundColor:A2a, tension:.3, fill:false, pointRadius:5 }}
-      ]
-    }}, options:{{ plugins:{{ datalabels:{{ color:'#fff', anchor:'end', align:'top', font:{{size:11}} }} }},
-      scales:{{ y:{{ title:{{display:true,text:'Tasks Resolved',color:'#aaa'}}, beginAtZero:true }} }}
-    }}
-  }}));
-}})();
-
-// 9. Per-task
-(function(){{
-  const d = {per_task_data};
-  new Chart('perTaskChart', darkOpts({{
-    type:'bar', data:{{
-      labels:d.labels,
-      datasets:[
-        {{ label:'{agent1}', data:d.a1, backgroundColor:A1, borderRadius:3 }},
-        {{ label:'{agent2}', data:d.a2, backgroundColor:A2, borderRadius:3 }}
-      ]
-    }}, options:{{ indexAxis:'y', plugins:{{ datalabels:{{ display:false }} }},
-      scales:{{ x:{{ max:100, title:{{display:true,text:'Resolve Rate %',color:'#aaa'}} }} }}
-    }}
-  }}));
-}})();
+{lang_charts_js}
 </script>
 </body>
 </html>"""

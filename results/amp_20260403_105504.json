@@ -1,0 +1,106 @@
+{
+  "agent": "amp",
+  "timestamp": "20260403_105504",
+  "results": [
+    {
+      "task_id": "task_051",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 31.41,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 5 tests pass. Two bugs fixed in `dynarray.c`:\n\n1. **Capacity-zero realloc bug**: When capacity is 0, `capacity * 2` stays 0. Fixed by using an initial capacity of 4.\n2. **Missing bounds check in `dynarray_get`**: Added a check that returns `-1` when `index >= size`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_052",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 23.37,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed both memory leaks:\n1. **`list_delete`**: Added `free(curr->data)` before `free(curr)` to free the `_strdup`'d string.\n2. **`list_destroy`**: Added `free(list)` to free the list struct itself after freeing all nodes.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_053",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 36.93,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The `tokenize()` function now handles backslash escaping (`\\,` \u00e2\u2020\u2019 literal comma, `\\\\` \u00e2\u2020\u2019 literal backslash) and quoted strings (delimiters inside `\"...\"` are treated as literal content), with escape sequences resolved in the output tokens.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_054",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 35.59,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 5 tests pass. The fix adds a re-check of `q->count == 0` in `queue_resume_pop` after being signaled \u00e2\u20ac\u201d if the queue is empty (another consumer took the item), it returns `-2` (WAITING) instead of blindly dequeuing garbage.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_055",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 30.33,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix replaced the buggy manual unlinking of the in-order successor with a recursive `remove_helper` call, which correctly relinks the successor's right child to its parent.\n",
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "agent": "claude",
+  "timestamp": "20260403_104134",
+  "results": [
+    {
+      "task_id": "task_051",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 60.62,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 5 tests pass. The two fixes:\n\n1. **Initial capacity** (`dynarray_push` line 16): When capacity is 0, set it to 4 instead of `0 * 2 = 0`, so `realloc` actually allocates memory.\n2. **Bounds checking** (`dynarray_get` line 29): Return `-1` if `index >= arr->size`, preventing out-of-bounds reads.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_052",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 53.79,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 5 tests pass. The fixes:\n\n- **`list_delete`**: Added `free(curr->data)` before `free(curr)` to free the strdup'd string when deleting a node.\n- **`list_destroy`**: Added `free(list)` at the end to free the list struct itself after freeing all nodes.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_053",
+      "agent": "claude",
+      "category": "feature",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 56.77,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix adds backslash escaping and quoted string handling to the tokenizer:\n\n- **Backslash escaping**: `\\` followed by any character includes that character literally (e.g., `\\,` \u00e2\u2020\u2019 `,`, `\\\\` \u00e2\u2020\u2019 `\\`)\n- **Quoted strings**: Content inside `\"...\"` is treated as literal \u00e2\u20ac\u201d delimiters inside quotes don't cause a split, and the quote characters themselves are stripped from the output\n",
+      "error": null
+    },
+    {
+      "task_id": "task_054",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 57.41,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 5 tests pass. The fix adds an emptiness re-check in `queue_resume_pop` \u00e2\u20ac\u201d the classic \"while vs if\" condition variable pattern. When a consumer resumes after being signaled, it now verifies the queue is still non-empty before dequeuing, returning `-2` (WAITING) if another consumer already took the item.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_055",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 57.1,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix replaced the buggy manual successor unlinking (which dropped the successor's right subtree) with a single recursive call: `node->right = remove_helper(node->right, successor->value)`. This correctly handles relinking the successor's right child to its parent during deletion.\n",
+      "error": null
+    }
+  ]
+}

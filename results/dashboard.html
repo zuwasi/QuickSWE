@@ -44,21 +44,30 @@
   .achievement .vs-table td { padding:8px 12px; text-align:center; }
   .achievement .vs-table .amp-col { background:#1a3a1a; color:#2ecc71; font-weight:700; border-radius:6px; }
   .achievement .vs-col { background:#3a1a1a; color:#e74c3c; border-radius:6px; }
+  /* Tab system */
+  .tab-container { position:relative; }
+  .tab-container > input[type="radio"] { display:none; }
+  .tab-container > label { display:inline-block; padding:12px 24px; background:var(--card); border:1px solid var(--card-border); border-radius:8px 8px 0 0; cursor:pointer; font-size:1rem; font-weight:600; color:var(--muted); transition:background .2s,color .2s; margin-right:4px; margin-bottom:0; }
+  .tab-container > input[type="radio"]:checked + label { background:var(--card-border); color:#fff; border-bottom-color:var(--card-border); }
+  .tab-content { display:none; padding-top:20px; }
+  #tab-python:checked ~ .tab-content.python-content,
+  #tab-ccpp:checked ~ .tab-content.ccpp-content,
+  #tab-cuda:checked ~ .tab-content.cuda-content { display:block; }
 </style>
 </head>
 <body>
 
 <h1>QuickSWE Dashboard</h1>
-<p class="subtitle">Generated 2026-04-03 10:16:19 &nbsp;|&nbsp; 50 tasks &nbsp;|&nbsp; 3 run(s) per agent</p>
+<p class="subtitle">Generated 2026-04-03 11:09:29 &nbsp;|&nbsp; 55 tasks &nbsp;|&nbsp; 6 run(s) per agent</p>
 
 <div class="summary-cards">
-  <div class="scard"><div class="val">50</div><div class="lbl">Tasks</div></div>
-  <div class="scard"><div class="val">3</div><div class="lbl">Runs / Agent</div></div>
+  <div class="scard"><div class="val">55</div><div class="lbl">Tasks (all languages)</div></div>
+  <div class="scard"><div class="val">6</div><div class="lbl">Runs / Agent</div></div>
   <div class="scard"><div class="val" style="color:var(--accent1)">100.0%</div><div class="lbl">Amp Resolve Rate</div></div>
   <div class="scard"><div class="val" style="color:var(--accent2)">100.0%</div><div class="lbl">Claude Resolve Rate</div></div>
   <div class="scard" style="border:2px solid #f1c40f;"><div class="val" style="color:#f1c40f">2.4x</div><div class="lbl">Amp Speed Advantage</div></div>
-  <div class="scard"><div class="val" style="color:var(--accent1)">48.8s</div><div class="lbl">Amp Avg Time</div></div>
-  <div class="scard"><div class="val" style="color:var(--accent2)">117.8s</div><div class="lbl">Claude Avg Time</div></div>
+  <div class="scard"><div class="val" style="color:var(--accent1)">47.5s</div><div class="lbl">Amp Avg Time</div></div>
+  <div class="scard"><div class="val" style="color:var(--accent2)">112.6s</div><div class="lbl">Claude Avg Time</div></div>
   <div class="scard"><div class="val" style="color:var(--pass)">🏆 Tie</div><div class="lbl">Overall Winner</div></div>
 </div>
 
@@ -89,99 +98,77 @@
   </div>
 </div>
 
+<div class="tab-container">
+<input type="radio" name="lang-tab" id="tab-python" checked>
+<label for="tab-python">🐍 Python (50)</label>
+<input type="radio" name="lang-tab" id="tab-ccpp">
+<label for="tab-ccpp">⚙️ C/C++ (5)</label>
+<input type="radio" name="lang-tab" id="tab-cuda">
+<label for="tab-cuda">🟢 CUDA (0)</label>
+<div class="tab-content python-content">
 <div class="grid">
-
-<!-- 1. Overall Resolution -->
 <div class="card">
   <h2>📊 Overall Resolution Rate</h2>
-  <canvas id="overallChart"></canvas>
-  <p class="explain">Percentage of tasks each agent successfully resolved across all runs. Higher is better.</p>
+  <canvas id="overallChart_python"></canvas>
+  <p class="explain">Percentage of tasks each agent successfully resolved across all runs.</p>
 </div>
-
-<!-- SPEED: Top 15 Speed Advantages -->
 <div class="card full">
   <h2>⚡ Speed Comparison — Top 15 Largest Gaps</h2>
-  <canvas id="speedRatioChart" style="max-height:520px;"></canvas>
-  <p class="explain">Actual completion times for both agents on the tasks with the biggest speed differences. <span style="color:#00B4D8">&#9632; Amp</span> vs <span style="color:#FF6B35">&#9632; Claude</span> — shorter bar = faster. The ratio label shows how many times faster Amp was.</p>
+  <canvas id="speedRatioChart_python" style="max-height:520px;"></canvas>
+  <p class="explain">Actual completion times with biggest speed differences.</p>
 </div>
-
-<!-- SPEED: Speed by Difficulty -->
 <div class="card full">
   <h2>🚀 Speed by Difficulty Tier (avg seconds)</h2>
-  <canvas id="speedByDiffChart" style="max-height:300px;"></canvas>
-  <p class="explain">Average time per task at each difficulty level. <strong>The speed gap widens dramatically on harder tasks</strong> &mdash; when both agents can solve a problem, the one that solves it faster delivers more value. On extreme tasks, speed differences of 2-3x translate to hours saved per day in real workflows.</p>
+  <canvas id="speedByDiffChart_python" style="max-height:300px;"></canvas>
+  <p class="explain">Average time per task at each difficulty level.</p>
 </div>
-
-<!-- 2. By Category -->
 <div class="card">
   <h2>📂 Resolution by Category</h2>
-  <canvas id="categoryChart"></canvas>
-  <p class="explain">How each agent performs across bug fixes, features, and refactoring tasks. Reveals strengths per task type.</p>
+  <canvas id="categoryChart_python"></canvas>
+  <p class="explain">Performance across bug fixes, features, and refactoring.</p>
 </div>
-
-<!-- 3. By Difficulty -->
 <div class="card">
   <h2>📈 Resolution by Difficulty</h2>
-  <canvas id="difficultyChart"></canvas>
-  <p class="explain">Performance scaling with task difficulty. Steeper drops indicate the agent struggles with complexity.</p>
+  <canvas id="difficultyChart_python"></canvas>
+  <p class="explain">Performance scaling with task difficulty.</p>
 </div>
-
-<!-- 4. Regression Rate -->
 <div class="card">
   <h2>🛡️ Regression Rate</h2>
-  <canvas id="regressionChart"></canvas>
-  <p class="explain">Percentage of tasks where the agent broke existing tests while fixing the issue. Lower is better.</p>
+  <canvas id="regressionChart_python"></canvas>
+  <p class="explain">Percentage of tasks where the agent broke existing tests. Lower is better.</p>
 </div>
-
-<!-- 7. Pie Charts -->
 <div class="card">
   <h2>🥧 Amp — Outcome Breakdown</h2>
-  <canvas id="pie1"></canvas>
-  <p class="explain">Distribution of outcomes: resolved cleanly, resolved with regressions, or failed.</p>
+  <canvas id="pie1_python"></canvas>
 </div>
 <div class="card">
   <h2>🥧 Claude — Outcome Breakdown</h2>
-  <canvas id="pie2"></canvas>
-  <p class="explain">Distribution of outcomes: resolved cleanly, resolved with regressions, or failed.</p>
+  <canvas id="pie2_python"></canvas>
 </div>
-
-<!-- 10. Radar -->
 <div class="card full">
   <h2>🕸️ Multi-Dimensional Comparison</h2>
-  <canvas id="radarChart" style="max-height:420px;"></canvas>
-  <p class="explain">Spider chart comparing agents across resolve rate, speed, consistency, regression safety, and per-category performance. Larger area = stronger overall agent.</p>
+  <canvas id="radarChart_python" style="max-height:420px;"></canvas>
 </div>
-
-<!-- 5. Time Comparison -->
 <div class="card full">
   <h2>⏱️ Average Time per Task</h2>
-  <canvas id="timeChart" style="max-height:300px;"></canvas>
-  <p class="explain">Average seconds each agent spent per task. Shorter bars indicate faster performance.</p>
+  <canvas id="timeChart_python" style="max-height:300px;"></canvas>
 </div>
-
-<!-- 6. Consistency / Trend -->
 <div class="card full">
   <h2>📉 Consistency Across Runs</h2>
-  <canvas id="trendChart" style="max-height:280px;"></canvas>
-  <p class="explain">Number of tasks resolved in each successive run. Flat lines indicate high reliability; erratic lines suggest non-deterministic behavior.</p>
+  <canvas id="trendChart_python" style="max-height:280px;"></canvas>
 </div>
-
-<!-- 4. Per-Task Comparison -->
 <div class="card full">
   <h2>🔍 Per-Task Comparison</h2>
-  <canvas id="perTaskChart" style="max-height:500px;"></canvas>
-  <p class="explain">Task-level resolve rates sorted by biggest performance gap. Shows where each agent uniquely excels or struggles.</p>
+  <canvas id="perTaskChart_python" style="max-height:500px;"></canvas>
 </div>
-
-<!-- 9. Heatmap Table -->
 <div class="card full">
   <h2>🗺️ Head-to-Head Results Matrix</h2>
   <div style="overflow-x:auto;">
   <table>
     <thead><tr>
       <th>Task</th><th>Category</th>
-      <th style="color:var(--accent1)">Amp Resolve</th><th style="color:var(--accent1)">Time</th>
-      <th style="color:var(--accent2)">Claude Resolve</th><th style="color:var(--accent2)">Time</th>
+      <th style="color:#00B4D8">Amp Resolve</th><th style="color:#00B4D8">Time</th>
+      <th style="color:#FF6B35">Claude Resolve</th><th style="color:#FF6B35">Time</th>
     </tr></thead>
     <tbody><tr><td>task_001</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>32.3s</td><td class="cell-pass">100%</td><td>47.0s</td></tr>
 <tr><td>task_002</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>29.9s</td><td class="cell-pass">100%</td><td>47.3s</td></tr>
@@ -238,10 +225,53 @@
   </div>
   <p class="explain">Green = ≥80% resolved with &lt;20% regressions. Blue = ≥50%. Yellow = partial. Red = not resolved.</p>
 </div>
+</div>
+</div>
+<div class="tab-content ccpp-content">
+<div class="grid">
+<div class="card">
+  <h2>📊 Overall Resolution Rate</h2>
+  <canvas id="overallChart_ccpp"></canvas>
+  <p class="explain">Percentage of tasks each agent successfully resolved across all runs.</p>
+</div>
+<div class="card full">
+  <h2>⚡ Speed Comparison — Top 15 Largest Gaps</h2>
+  <canvas id="speedRatioChart_ccpp" style="max-height:520px;"></canvas>
+  <p class="explain">Actual completion times with biggest speed differences.</p>
+</div>
+<div class="card full">
+  <h2>🚀 Speed by Difficulty Tier (avg seconds)</h2>
+  <canvas id="speedByDiffChart_ccpp" style="max-height:300px;"></canvas>
+  <p class="explain">Average time per task at each difficulty level.</p>
+</div>
+<div class="card full">
+  <h2>🗺️ Head-to-Head Results Matrix</h2>
+  <div style="overflow-x:auto;">
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Category</th>
+      <th style="color:#00B4D8">Amp Resolve</th><th style="color:#00B4D8">Time</th>
+      <th style="color:#FF6B35">Claude Resolve</th><th style="color:#FF6B35">Time</th>
+    </tr></thead>
+    <tbody><tr><td>task_051</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>31.9s</td><td class="cell-pass">100%</td><td>56.6s</td></tr>
+<tr><td>task_052</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>25.8s</td><td class="cell-pass">100%</td><td>51.8s</td></tr>
+<tr><td>task_053</td><td>Feature</td><td class="cell-pass">100%</td><td>39.6s</td><td class="cell-pass">100%</td><td>69.1s</td></tr>
+<tr><td>task_054</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>33.5s</td><td class="cell-pass">100%</td><td>70.6s</td></tr>
+<tr><td>task_055</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>40.1s</td><td class="cell-pass">100%</td><td>57.2s</td></tr>
+</tbody>
+  </table>
+  </div>
+  <p class="explain">Green = ≥80% resolved with &lt;20% regressions. Blue = ≥50%. Yellow = partial. Red = not resolved.</p>
+</div>
+</div>
+</div>
+<div class="tab-content cuda-content">
+<div class="card full" style="text-align:center;padding:60px;"><h2 style="color:var(--muted);">🚫 No results yet — CUDA tasks auto-skip if nvcc is not configured.</h2></div>
+</div>
 
 </div>
 
-<footer>Generated by <strong>QuickSWE</strong> &nbsp;|&nbsp; 2026-04-03 10:16:19</footer>
+<footer>Generated by <strong>QuickSWE</strong> &nbsp;|&nbsp; 2026-04-03 11:09:29</footer>
 
 <script>
 Chart.register(ChartDataLabels);
@@ -262,187 +292,164 @@ function darkOpts(o) {
   return o;
 }
 
-// 1. Overall
 (function(){
   const d = {"labels": ["Amp", "Claude"], "a1": 100.0, "a2": 100.0};
-  new Chart('overallChart', darkOpts({
-    type:'bar', data:{
-      labels:d.labels,
-      datasets:[{ data:[d.a1,d.a2], backgroundColor:[A1,A2], borderRadius:6 }]
-    }, options:{ indexAxis:'y', plugins:{ legend:{display:false}, datalabels:{ anchor:'end',align:'left',color:'#fff',font:{weight:'bold',size:16},formatter:v=>v+'%' } },
-      scales:{ x:{ max:100, title:{display:true,text:'Resolve Rate %',color:'#aaa'} } }
-    }
+  new Chart('overallChart_python', darkOpts({
+    type:'bar', data:{ labels:d.labels, datasets:[{ data:[d.a1,d.a2], backgroundColor:[A1,A2], borderRadius:6 }] },
+    options:{ indexAxis:'y', plugins:{ legend:{display:false}, datalabels:{ anchor:'end',align:'left',color:'#fff',font:{weight:'bold',size:16},formatter:v=>v+'%' } },
+      scales:{ x:{ max:100, title:{display:true,text:'Resolve Rate %',color:'#aaa'} } } }
   }));
 })();
-
-// SPEED: Speed Comparison (Top 15) — paired bars
 (function(){
   const d = {"labels": ["task_035", "task_016", "task_044", "task_031", "task_012", "task_025", "task_040", "task_026", "task_029", "task_032", "task_049", "task_045", "task_007", "task_030", "task_005", "task_042", "task_003", "task_006", "task_020", "task_037", "task_009", "task_017", "task_021", "task_046", "task_039", "task_013", "task_027", "task_023", "task_028", "task_034", "task_002", "task_036", "task_048", "task_018", "task_033", "task_004", "task_024", "task_047", "task_050", "task_041", "task_008", "task_001", "task_010", "task_022", "task_014", "task_015", "task_038", "task_043", "task_011", "task_019"], "ratios": [25.2, 4.17, 2.86, 2.68, 2.52, 2.32, 2.31, 2.07, 2.07, 2.01, 1.96, 1.94, 1.88, 1.86, 1.82, 1.79, 1.78, 1.78, 1.78, 1.78, 1.75, 1.75, 1.69, 1.67, 1.66, 1.64, 1.62, 1.61, 1.61, 1.61, 1.58, 1.56, 1.55, 1.54, 1.54, 1.53, 1.53, 1.52, 1.51, 1.5, 1.47, 1.45, 1.45, 1.45, 1.39, 1.39, 1.36, 1.29, 1.25, 1.23], "a1_times": [62.31, 40.49666666666666, 119.84333333333335, 73.91000000000001, 35.28, 70.12666666666667, 51.31, 38.24, 33.97666666666667, 101.25666666666666, 57.89666666666667, 50.046666666666674, 27.933333333333334, 31.150000000000002, 31.61, 41.75666666666667, 22.919999999999998, 27.159999999999997, 48.26, 28.963333333333335, 26.543333333333333, 44.086666666666666, 33.21666666666667, 53.41, 35.233333333333334, 57.873333333333335, 51.70333333333334, 101.99666666666667, 39.93, 66.72, 29.873333333333335, 93.85666666666667, 45.07333333333333, 42.973333333333336, 56.879999999999995, 27.97, 43.35999999999999, 47.01666666666667, 59.17666666666667, 56.46333333333334, 34.22, 32.31333333333333, 40.11, 40.03, 62.75333333333333, 38.85, 41.73333333333333, 60.6, 43.81, 38.593333333333334], "a2_times": [1570.24, 168.95666666666668, 342.40333333333336, 198.42, 88.89666666666666, 162.6, 118.37, 79.26, 70.49, 203.9366666666667, 113.29666666666667, 96.96333333333332, 52.54, 57.81, 57.379999999999995, 74.77333333333333, 40.78333333333333, 48.36333333333334, 86.14333333333333, 51.59, 46.39666666666667, 77.32333333333334, 56.28666666666667, 89.46, 58.663333333333334, 94.78333333333335, 83.69666666666667, 164.37333333333333, 64.24666666666667, 107.52666666666669, 47.32333333333333, 146.48666666666668, 69.96333333333332, 66.32, 87.39666666666666, 42.85333333333333, 66.5, 71.31, 89.25333333333333, 84.51333333333334, 50.36666666666667, 46.953333333333326, 58.29, 58.11000000000001, 87.14333333333333, 54.116666666666674, 56.56333333333333, 78.24666666666667, 54.550000000000004, 47.593333333333334]};
   const n = Math.min(15, d.labels.length);
-  const labels = d.labels.slice(0, n);
-  const ratios = d.ratios.slice(0, n);
-  const a1t = d.a1_times.slice(0, n);
-  const a2t = d.a2_times.slice(0, n);
-  new Chart('speedRatioChart', darkOpts({
-    type:'bar', data:{
-      labels:labels.map((l,i)=>l+' ('+ratios[i]+'x)'),
+  const labels = d.labels.slice(0,n); const ratios = d.ratios.slice(0,n);
+  const a1t = d.a1_times.slice(0,n); const a2t = d.a2_times.slice(0,n);
+  new Chart('speedRatioChart_python', darkOpts({
+    type:'bar', data:{ labels:labels.map((l,i)=>l+' ('+ratios[i]+'x)'),
       datasets:[
         { label:'Amp', data:a1t, backgroundColor:A1, borderRadius:5, barPercentage:0.8 },
         { label:'Claude', data:a2t, backgroundColor:A2, borderRadius:5, barPercentage:0.8 }
-      ]
-    }, options:{ indexAxis:'y',
-      plugins:{
-        legend:{ position:'top', labels:{color:'#e0e0e0', font:{size:13,weight:'bold'}, padding:20} },
-        datalabels:{ anchor:'end', align:'left', color:'#fff', font:{size:11},
-          formatter:v=>v>0?v.toFixed(0)+'s':'' }
-      },
-      scales:{
-        x:{ title:{display:true,text:'Seconds (shorter = faster)',color:'#aaa'}, grid:{color:'#ffffff10'} },
-        y:{ ticks:{font:{size:12}}, grid:{display:false} }
-      }
-    }
+      ] },
+    options:{ indexAxis:'y',
+      plugins:{ legend:{ position:'top', labels:{color:'#e0e0e0', font:{size:13,weight:'bold'}, padding:20} },
+        datalabels:{ anchor:'end', align:'left', color:'#fff', font:{size:11}, formatter:v=>v>0?v.toFixed(0)+'s':'' } },
+      scales:{ x:{ title:{display:true,text:'Seconds',color:'#aaa'}, grid:{color:'#ffffff10'} }, y:{ ticks:{font:{size:12}}, grid:{display:false} } } }
   }));
 })();
-
-// SPEED: Speed by Difficulty
 (function(){
   const d = {"labels": ["Easy", "Medium", "Hard", "Extreme"], "a1": [31.3, 36.9, 50.1, 57.2], "a2": [54.3, 55.7, 88.8, 191.9]};
-  new Chart('speedByDiffChart', darkOpts({
-    type:'bar', data:{
-      labels:d.labels,
-      datasets:[
-        { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:4 },
-        { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:4 }
-      ]
-    }, options:{ plugins:{ datalabels:{ color:'#fff',font:{size:12,weight:'bold'},formatter:v=>v+'s' } },
-      scales:{ y:{ title:{display:true,text:'Avg Seconds',color:'#aaa'} } }
-    }
+  new Chart('speedByDiffChart_python', darkOpts({
+    type:'bar', data:{ labels:d.labels, datasets:[
+      { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:4 },
+      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:4 }
+    ] },
+    options:{ plugins:{ datalabels:{ color:'#fff',font:{size:12,weight:'bold'},formatter:v=>v+'s' } },
+      scales:{ y:{ title:{display:true,text:'Avg Seconds',color:'#aaa'} } } }
   }));
 })();
-
-// 2. Category
 (function(){
   const d = {"labels": ["Algorithms", "Bug Fix", "Concurrency", "Data-Integrity", "Datetime", "Encoding", "Feature", "Numerical-Precision", "Refactoring", "Resource-Management"], "a1": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0], "a2": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0]};
-  new Chart('categoryChart', darkOpts({
-    type:'bar', data:{
-      labels:d.labels,
-      datasets:[
-        { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:4 },
-        { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:4 }
-      ]
-    }, options:{ plugins:{ datalabels:{ color:'#fff',font:{size:11},formatter:v=>v+'%' } },
-      scales:{ y:{ max:100, title:{display:true,text:'%',color:'#aaa'} } }
-    }
+  new Chart('categoryChart_python', darkOpts({
+    type:'bar', data:{ labels:d.labels, datasets:[
+      { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:4 },
+      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:4 }
+    ] },
+    options:{ plugins:{ datalabels:{ color:'#fff',font:{size:11},formatter:v=>v+'%' } },
+      scales:{ y:{ max:100, title:{display:true,text:'%',color:'#aaa'} } } }
   }));
 })();
-
-// 3. Difficulty
 (function(){
   const d = {"labels": ["Easy", "Medium", "Hard"], "a1": [100.0, 100.0, 100.0], "a2": [100.0, 100.0, 100.0]};
-  new Chart('difficultyChart', darkOpts({
-    type:'bar', data:{
-      labels:d.labels,
-      datasets:[
-        { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:4 },
-        { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:4 }
-      ]
-    }, options:{ plugins:{ datalabels:{ color:'#fff',font:{size:11},formatter:v=>v+'%' } },
-      scales:{ y:{ max:100 } }
-    }
+  new Chart('difficultyChart_python', darkOpts({
+    type:'bar', data:{ labels:d.labels, datasets:[
+      { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:4 },
+      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:4 }
+    ] },
+    options:{ plugins:{ datalabels:{ color:'#fff',font:{size:11},formatter:v=>v+'%' } },
+      scales:{ y:{ max:100 } } }
   }));
 })();
-
-// 4. Regression
 (function(){
   const d = {"labels": ["Amp", "Claude"], "a1": 0.0, "a2": 0.0};
-  new Chart('regressionChart', darkOpts({
-    type:'bar', data:{
-      labels:d.labels,
-      datasets:[{ data:[d.a1,d.a2], backgroundColor:[A1,A2], borderRadius:6 }]
-    }, options:{ plugins:{ legend:{display:false}, datalabels:{ color:'#fff',font:{weight:'bold',size:14},formatter:v=>v+'%' } },
-      scales:{ y:{ title:{display:true,text:'Regression %',color:'#aaa'} } }
-    }
+  new Chart('regressionChart_python', darkOpts({
+    type:'bar', data:{ labels:d.labels, datasets:[{ data:[d.a1,d.a2], backgroundColor:[A1,A2], borderRadius:6 }] },
+    options:{ plugins:{ legend:{display:false}, datalabels:{ color:'#fff',font:{weight:'bold',size:14},formatter:v=>v+'%' } },
+      scales:{ y:{ title:{display:true,text:'Regression %',color:'#aaa'} } } }
   }));
 })();
-
-// 5. Pie charts
 (function(){
   const d = {"a1": {"resolved": 150, "regression": 0, "failed": 0}, "a2": {"resolved": 150, "regression": 0, "failed": 0}};
   const colors = ['#2ecc71','#f39c12','#e74c3c'];
   const labels = ['Resolved','Regression','Failed'];
-  new Chart('pie1', { type:'doughnut', data:{
-    labels, datasets:[{ data:[d.a1.resolved,d.a1.regression,d.a1.failed], backgroundColor:colors }]
-  }, options:{ plugins:{ legend:{labels:{color:'#ccc'}}, datalabels:{ color:'#fff', font:{weight:'bold'}, formatter:(v,ctx)=>v?ctx.chart.data.labels[ctx.dataIndex]+': '+v:'' } } } });
-  new Chart('pie2', { type:'doughnut', data:{
-    labels, datasets:[{ data:[d.a2.resolved,d.a2.regression,d.a2.failed], backgroundColor:colors }]
-  }, options:{ plugins:{ legend:{labels:{color:'#ccc'}}, datalabels:{ color:'#fff', font:{weight:'bold'}, formatter:(v,ctx)=>v?ctx.chart.data.labels[ctx.dataIndex]+': '+v:'' } } } });
+  new Chart('pie1_python', { type:'doughnut', data:{ labels, datasets:[{ data:[d.a1.resolved,d.a1.regression,d.a1.failed], backgroundColor:colors }] },
+    options:{ plugins:{ legend:{labels:{color:'#ccc'}}, datalabels:{ color:'#fff', font:{weight:'bold'}, formatter:(v,ctx)=>v?ctx.chart.data.labels[ctx.dataIndex]+': '+v:'' } } } });
+  new Chart('pie2_python', { type:'doughnut', data:{ labels, datasets:[{ data:[d.a2.resolved,d.a2.regression,d.a2.failed], backgroundColor:colors }] },
+    options:{ plugins:{ legend:{labels:{color:'#ccc'}}, datalabels:{ color:'#fff', font:{weight:'bold'}, formatter:(v,ctx)=>v?ctx.chart.data.labels[ctx.dataIndex]+': '+v:'' } } } });
 })();
-
-// 6. Radar
 (function(){
-  const d = {"labels": ["Resolve Rate", "Speed", "Consistency", "No Regressions", "Bug Fix", "Feature", "Refactoring"], "a1": [100.0, 58.6, 100.0, 100.0, 100.0, 100.0, 100.0], "a2": [100.0, 0.0, 100.0, 100.0, 100.0, 100.0, 100.0]};
-  new Chart('radarChart', darkOpts({
-    type:'radar', data:{
-      labels:d.labels,
-      datasets:[
-        { label:'Amp', data:d.a1, borderColor:A1, backgroundColor:A1a, pointBackgroundColor:A1 },
-        { label:'Claude', data:d.a2, borderColor:A2, backgroundColor:A2a, pointBackgroundColor:A2 }
-      ]
-    }, options:{ scales:{ r:{ min:0, max:100, ticks:{color:'#888',backdropColor:'transparent'}, grid:{color:'#ffffff15'}, pointLabels:{color:'#ccc',font:{size:12}} } },
-      plugins:{ datalabels:{display:false} }
-    }
+  const d = {"labels": ["Resolve Rate", "Speed", "Consistency", "No Regressions", "Bug Fix", "Feature", "Refactoring"], "a1": [100.0, 58.6, 55.0, 100.0, 100.0, 100.0, 100.0], "a2": [100.0, 0.0, 55.0, 100.0, 100.0, 100.0, 100.0]};
+  new Chart('radarChart_python', darkOpts({
+    type:'radar', data:{ labels:d.labels, datasets:[
+      { label:'Amp', data:d.a1, borderColor:A1, backgroundColor:A1a, pointBackgroundColor:A1 },
+      { label:'Claude', data:d.a2, borderColor:A2, backgroundColor:A2a, pointBackgroundColor:A2 }
+    ] },
+    options:{ scales:{ r:{ min:0, max:100, ticks:{color:'#888',backdropColor:'transparent'}, grid:{color:'#ffffff15'}, pointLabels:{color:'#ccc',font:{size:12}} } },
+      plugins:{ datalabels:{display:false} } }
   }));
 })();
-
-// 7. Time
 (function(){
   const d = {"labels": ["task_001", "task_002", "task_003", "task_004", "task_005", "task_006", "task_007", "task_008", "task_009", "task_010", "task_011", "task_012", "task_013", "task_014", "task_015", "task_016", "task_017", "task_018", "task_019", "task_020", "task_021", "task_022", "task_023", "task_024", "task_025", "task_026", "task_027", "task_028", "task_029", "task_030", "task_031", "task_032", "task_033", "task_034", "task_035", "task_036", "task_037", "task_038", "task_039", "task_040", "task_041", "task_042", "task_043", "task_044", "task_045", "task_046", "task_047", "task_048", "task_049", "task_050"], "a1": [32.3, 29.9, 22.9, 28.0, 31.6, 27.2, 27.9, 34.2, 26.5, 40.1, 43.8, 35.3, 57.9, 62.8, 38.9, 40.5, 44.1, 43.0, 38.6, 48.3, 33.2, 40.0, 102.0, 43.4, 70.1, 38.2, 51.7, 39.9, 34.0, 31.2, 73.9, 101.3, 56.9, 66.7, 62.3, 93.9, 29.0, 41.7, 35.2, 51.3, 56.5, 41.8, 60.6, 119.8, 50.0, 53.4, 47.0, 45.1, 57.9, 59.2], "a2": [47.0, 47.3, 40.8, 42.9, 57.4, 48.4, 52.5, 50.4, 46.4, 58.3, 54.6, 88.9, 94.8, 87.1, 54.1, 169.0, 77.3, 66.3, 47.6, 86.1, 56.3, 58.1, 164.4, 66.5, 162.6, 79.3, 83.7, 64.2, 70.5, 57.8, 198.4, 203.9, 87.4, 107.5, 1570.2, 146.5, 51.6, 56.6, 58.7, 118.4, 84.5, 74.8, 78.2, 342.4, 97.0, 89.5, 71.3, 70.0, 113.3, 89.3]};
-  new Chart('timeChart', darkOpts({
-    type:'bar', data:{
-      labels:d.labels,
-      datasets:[
-        { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:3 },
-        { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:3 }
-      ]
-    }, options:{ plugins:{ datalabels:{ display:false } },
-      scales:{ y:{ title:{display:true,text:'Seconds',color:'#aaa'} } }
-    }
+  new Chart('timeChart_python', darkOpts({
+    type:'bar', data:{ labels:d.labels, datasets:[
+      { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:3 },
+      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:3 }
+    ] },
+    options:{ plugins:{ datalabels:{ display:false } },
+      scales:{ y:{ title:{display:true,text:'Seconds',color:'#aaa'} } } }
   }));
 })();
-
-// 8. Trend
 (function(){
-  const d = {"a1": [50, 50, 50], "a2": [50, 50, 50]};
+  const d = {"a1": [5, 5, 5, 50, 50, 50], "a2": [5, 5, 5, 50, 50, 50]};
   const maxLen = Math.max(d.a1.length, d.a2.length);
   const labels = Array.from({length:maxLen}, (_,i)=>'Run '+(i+1));
-  new Chart('trendChart', darkOpts({
-    type:'line', data:{
-      labels,
+  new Chart('trendChart_python', darkOpts({
+    type:'line', data:{ labels, datasets:[
+      { label:'Amp', data:d.a1, borderColor:A1, backgroundColor:A1a, tension:.3, fill:false, pointRadius:5 },
+      { label:'Claude', data:d.a2, borderColor:A2, backgroundColor:A2a, tension:.3, fill:false, pointRadius:5 }
+    ] },
+    options:{ plugins:{ datalabels:{ color:'#fff', anchor:'end', align:'top', font:{size:11} } },
+      scales:{ y:{ title:{display:true,text:'Tasks Resolved',color:'#aaa'}, beginAtZero:true } } }
+  }));
+})();
+(function(){
+  const d = {"labels": ["task_001", "task_002", "task_003", "task_004", "task_005", "task_006", "task_007", "task_008", "task_009", "task_010", "task_011", "task_012", "task_013", "task_014", "task_015", "task_016", "task_017", "task_018", "task_019", "task_020", "task_021", "task_022", "task_023", "task_024", "task_025", "task_026", "task_027", "task_028", "task_029", "task_030", "task_031", "task_032", "task_033", "task_034", "task_035", "task_036", "task_037", "task_038", "task_039", "task_040", "task_041", "task_042", "task_043", "task_044", "task_045", "task_046", "task_047", "task_048", "task_049", "task_050"], "a1": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0], "a2": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0]};
+  new Chart('perTaskChart_python', darkOpts({
+    type:'bar', data:{ labels:d.labels, datasets:[
+      { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:3 },
+      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:3 }
+    ] },
+    options:{ indexAxis:'y', plugins:{ datalabels:{ display:false } },
+      scales:{ x:{ max:100, title:{display:true,text:'Resolve Rate %',color:'#aaa'} } } }
+  }));
+})();
+(function(){
+  const d = {"labels": ["Amp", "Claude"], "a1": 100.0, "a2": 100.0};
+  new Chart('overallChart_ccpp', darkOpts({
+    type:'bar', data:{ labels:d.labels, datasets:[{ data:[d.a1,d.a2], backgroundColor:[A1,A2], borderRadius:6 }] },
+    options:{ indexAxis:'y', plugins:{ legend:{display:false}, datalabels:{ anchor:'end',align:'left',color:'#fff',font:{weight:'bold',size:16},formatter:v=>v+'%' } },
+      scales:{ x:{ max:100, title:{display:true,text:'Resolve Rate %',color:'#aaa'} } } }
+  }));
+})();
+(function(){
+  const d = {"labels": ["task_054", "task_052", "task_051", "task_053", "task_055"], "ratios": [2.11, 2.01, 1.77, 1.74, 1.43], "a1_times": [33.49666666666667, 25.80333333333333, 31.936666666666667, 39.61, 40.050000000000004], "a2_times": [70.58, 51.81333333333333, 56.586666666666666, 69.08, 57.19]};
+  const n = Math.min(15, d.labels.length);
+  const labels = d.labels.slice(0,n); const ratios = d.ratios.slice(0,n);
+  const a1t = d.a1_times.slice(0,n); const a2t = d.a2_times.slice(0,n);
+  new Chart('speedRatioChart_ccpp', darkOpts({
+    type:'bar', data:{ labels:labels.map((l,i)=>l+' ('+ratios[i]+'x)'),
       datasets:[
-        { label:'Amp', data:d.a1, borderColor:A1, backgroundColor:A1a, tension:.3, fill:false, pointRadius:5 },
-        { label:'Claude', data:d.a2, borderColor:A2, backgroundColor:A2a, tension:.3, fill:false, pointRadius:5 }
-      ]
-    }, options:{ plugins:{ datalabels:{ color:'#fff', anchor:'end', align:'top', font:{size:11} } },
-      scales:{ y:{ title:{display:true,text:'Tasks Resolved',color:'#aaa'}, beginAtZero:true } }
-    }
+        { label:'Amp', data:a1t, backgroundColor:A1, borderRadius:5, barPercentage:0.8 },
+        { label:'Claude', data:a2t, backgroundColor:A2, borderRadius:5, barPercentage:0.8 }
+      ] },
+    options:{ indexAxis:'y',
+      plugins:{ legend:{ position:'top', labels:{color:'#e0e0e0', font:{size:13,weight:'bold'}, padding:20} },
+        datalabels:{ anchor:'end', align:'left', color:'#fff', font:{size:11}, formatter:v=>v>0?v.toFixed(0)+'s':'' } },
+      scales:{ x:{ title:{display:true,text:'Seconds',color:'#aaa'}, grid:{color:'#ffffff10'} }, y:{ ticks:{font:{size:12}}, grid:{display:false} } } }
+  }));
+})();
+(function(){
+  const d = {"labels": ["Hard", "Extreme"], "a1": [35.8, 33.1], "a2": [62.8, 59.9]};
+  new Chart('speedByDiffChart_ccpp', darkOpts({
+    type:'bar', data:{ labels:d.labels, datasets:[
+      { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:4 },
+      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:4 }
+    ] },
+    options:{ plugins:{ datalabels:{ color:'#fff',font:{size:12,weight:'bold'},formatter:v=>v+'s' } },
+      scales:{ y:{ title:{display:true,text:'Avg Seconds',color:'#aaa'} } } }
   }));
 })();
 
-// 9. Per-task
-(function(){
-  const d = {"labels": ["task_001", "task_002", "task_003", "task_004", "task_005", "task_006", "task_007", "task_008", "task_009", "task_010", "task_011", "task_012", "task_013", "task_014", "task_015", "task_016", "task_017", "task_018", "task_019", "task_020", "task_021", "task_022", "task_023", "task_024", "task_025", "task_026", "task_027", "task_028", "task_029", "task_030", "task_031", "task_032", "task_033", "task_034", "task_035", "task_036", "task_037", "task_038", "task_039", "task_040", "task_041", "task_042", "task_043", "task_044", "task_045", "task_046", "task_047", "task_048", "task_049", "task_050"], "a1": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0], "a2": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0]};
-  new Chart('perTaskChart', darkOpts({
-    type:'bar', data:{
-      labels:d.labels,
-      datasets:[
-        { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:3 },
-        { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:3 }
-      ]
-    }, options:{ indexAxis:'y', plugins:{ datalabels:{ display:false } },
-      scales:{ x:{ max:100, title:{display:true,text:'Resolve Rate %',color:'#aaa'} } }
-    }
-  }));
-})();
 </script>
 </body>
 </html>

@@ -1,0 +1,106 @@
+{
+  "agent": "amp",
+  "timestamp": "20260403_105139",
+  "results": [
+    {
+      "task_id": "task_051",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 30.24,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 5 tests pass. Fixed two bugs in `dynarray.c`:\n1. **Capacity-zero realloc**: When capacity is 0, `capacity * 2` stays 0. Fixed by defaulting to 4 when capacity is 0.\n2. **Missing bounds check**: `dynarray_get` now returns `-1` when `index >= size`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_052",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 31.6,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 5 tests pass. Fixed two memory leaks in `list.c`:\n1. **`list_delete`**: Added `free(curr->data)` before `free(curr)` to free the `_strdup`'d string.\n2. **`list_destroy`**: Added `free(list)` to free the list struct itself.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_053",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 44.1,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix adds backslash escaping and quoted string handling to the tokenizer by building tokens character-by-character into a buffer, toggling an `in_quotes` flag on `\"`, and consuming the next character literally after `\\`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_054",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 34.57,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 5 tests pass. The fix adds a re-check of `q->count == 0` in `queue_resume_pop` \u00e2\u20ac\u201d if the queue is still empty after being signaled (another consumer stole the item), it returns `-2` (WAITING) instead of blindly dequeuing garbage and underflowing the count.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_055",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 52.93,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix replaced the buggy manual successor unlinking (which dropped the successor's right subtree) with a recursive `remove_helper` call that correctly relinks children.\n",
+      "error": null
+    }
+  ]
+}
