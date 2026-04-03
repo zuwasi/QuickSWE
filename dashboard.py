@@ -245,16 +245,6 @@ def generate_html(agg: dict, output_path: Path):
     a1 = agents[0] if agents else "amp"
     a2 = agents[1] if len(agents) > 1 else "claude"
 
-    # Determine winner
-    r1 = agg["overall"].get(a1, {}).get("resolve_rate", 0)
-    r2 = agg["overall"].get(a2, {}).get("resolve_rate", 0)
-    if r1 > r2:
-        winner = a1
-    elif r2 > r1:
-        winner = a2
-    else:
-        winner = "Tie"
-
     a1_color = "#00B4D8"
     a2_color = "#FF6B35"
 
@@ -307,8 +297,34 @@ def generate_html(agg: dict, output_path: Path):
         # Determine which charts to include
         is_full = (lang == "python")
 
-        # Build HTML cards for this tab
-        tab_html = f'<div class="tab-content {css_cls}-content">\n<div class="grid">\n'
+        # Per-language stats for summary cards
+        l_r1 = lang_agg["overall"].get(a1, {}).get("resolve_rate", 0)
+        l_r2 = lang_agg["overall"].get(a2, {}).get("resolve_rate", 0)
+        l_a1_time = chart_data["a1_avg_time"]
+        l_a2_time = chart_data["a2_avg_time"]
+        l_speed = chart_data["speed_multiplier"]
+        if l_r1 > l_r2:
+            l_winner = a1.capitalize()
+        elif l_r2 > l_r1:
+            l_winner = a2.capitalize()
+        else:
+            l_winner = "Tie"
+
+        # Build HTML cards for this tab — start with summary cards
+        tab_html = (
+            f'<div class="tab-content {css_cls}-content">\n'
+            f'<h2 style="margin-bottom:14px;">{meta["label"]} — {count} Tasks</h2>\n'
+            f'<div class="summary-cards">\n'
+            f'  <div class="scard"><div class="val">{count}</div><div class="lbl">Tasks</div></div>\n'
+            f'  <div class="scard"><div class="val" style="color:{a1_color}">{l_r1*100:.1f}%</div><div class="lbl">{a1.capitalize()} Resolve Rate</div></div>\n'
+            f'  <div class="scard"><div class="val" style="color:{a2_color}">{l_r2*100:.1f}%</div><div class="lbl">{a2.capitalize()} Resolve Rate</div></div>\n'
+            f'  <div class="scard" style="border:2px solid #f1c40f;"><div class="val" style="color:#f1c40f">{l_speed}x</div><div class="lbl">{a1.capitalize()} Speed Advantage</div></div>\n'
+            f'  <div class="scard"><div class="val" style="color:{a1_color}">{l_a1_time}s</div><div class="lbl">{a1.capitalize()} Avg Time</div></div>\n'
+            f'  <div class="scard"><div class="val" style="color:{a2_color}">{l_a2_time}s</div><div class="lbl">{a2.capitalize()} Avg Time</div></div>\n'
+            f'  <div class="scard"><div class="val" style="color:#2ecc71">🏆 {l_winner}</div><div class="lbl">Winner</div></div>\n'
+            f'</div>\n'
+            f'<div class="grid">\n'
+        )
 
         # Overall Resolution
         tab_html += (
@@ -579,22 +595,14 @@ def generate_html(agg: dict, output_path: Path):
 
         lang_charts_js += js
 
-    _overall_chart_data = build_chart_data(agg, a1, a2)
-
     html = HTML_TEMPLATE.format(
         timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         num_tasks=agg["num_tasks"],
         num_runs=agg["num_runs"],
         agent1=a1.capitalize(),
         agent2=a2.capitalize(),
-        winner=winner.capitalize(),
-        a1_resolve=f"{r1*100:.1f}",
-        a2_resolve=f"{r2*100:.1f}",
         a1_color=a1_color,
         a2_color=a2_color,
-        speed_multiplier=_overall_chart_data["speed_multiplier"],
-        a1_avg_time=_overall_chart_data["a1_avg_time"],
-        a2_avg_time=_overall_chart_data["a2_avg_time"],
         lang_tabs=lang_tabs_html,
         lang_charts_js=lang_charts_js,
     )
@@ -903,17 +911,6 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 
 <h1>QuickSWE Dashboard</h1>
 <p class="subtitle">Generated {timestamp} &nbsp;|&nbsp; {num_tasks} tasks &nbsp;|&nbsp; {num_runs} run(s) per agent</p>
-
-<div class="summary-cards">
-  <div class="scard"><div class="val">{num_tasks}</div><div class="lbl">Tasks (all languages)</div></div>
-  <div class="scard"><div class="val">{num_runs}</div><div class="lbl">Runs / Agent</div></div>
-  <div class="scard"><div class="val" style="color:var(--accent1)">{a1_resolve}%</div><div class="lbl">{agent1} Resolve Rate</div></div>
-  <div class="scard"><div class="val" style="color:var(--accent2)">{a2_resolve}%</div><div class="lbl">{agent2} Resolve Rate</div></div>
-  <div class="scard" style="border:2px solid #f1c40f;"><div class="val" style="color:#f1c40f">{speed_multiplier}x</div><div class="lbl">{agent1} Speed Advantage</div></div>
-  <div class="scard"><div class="val" style="color:var(--accent1)">{a1_avg_time}s</div><div class="lbl">{agent1} Avg Time</div></div>
-  <div class="scard"><div class="val" style="color:var(--accent2)">{a2_avg_time}s</div><div class="lbl">{agent2} Avg Time</div></div>
-  <div class="scard"><div class="val" style="color:var(--pass)">🏆 {winner}</div><div class="lbl">Overall Winner</div></div>
-</div>
 
 <div class="achievement">
   <h2>&#127942; Notable Finding: Amp Catches a Bug in the Benchmark Itself</h2>
