@@ -1,0 +1,1006 @@
+{
+  "agent": "amp",
+  "timestamp": "20260402_215741",
+  "results": [
+    {
+      "task_id": "task_001",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 42.26,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed the off-by-one bug: changed `start = page_number * self.page_size` to `start = (page_number - 1) * self.page_size` so the 1-indexed API correctly maps to 0-indexed slicing. All 8 tests pass.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_002",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 37.15,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Both bugs fixed. Empty input now returns `[]` (early return when no lines), and mismatched row lengths are handled by truncating extra fields or padding missing ones with `\"\"`. All 7 tests pass.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_003",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 23.11,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed: changed the default encoding from `\"ascii\"` to `\"utf-8\"` in `read_text_file()`. All 5 tests pass.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_004",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 26.91,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 10 tests pass. The regex now allows dots/underscores/hyphens in the local part, hyphens in domain labels, and multiple domain levels (e.g., `co.uk`).\n",
+      "error": null
+    },
+    {
+      "task_id": "task_005",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 38.55,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Replaced the shallow `result.update(override)` with a loop that recursively merges when both sides have a dict at the same key. All 8 tests pass.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_006",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 30.11,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 12 tests pass. Added the `sort_by(column, reverse=False)` method that sorts rows by the given column, places rows missing that column at the end, and returns a new list without mutating internal state.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_007",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 29.46,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 9 tests pass. Added retry logic with exponential backoff to `SimpleHTTPClient`: `max_retries` and `backoff_base` parameters on `__init__`, a `call_count` attribute tracking attempts per `fetch`, and sleep with `backoff_base * 2^attempt` between retries.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_008",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 30.52,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 14 tests pass. Added `generate_json()` and `export(format, filepath)` methods to `ReportGenerator` as specified.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_009",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 25.54,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 15 tests pass. Added `search(query)` (case-insensitive partial matching) and `get_total_value()` (sum of quantity \u00c3\u2014 price) to the `Inventory` class.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_010",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 40.98,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 9 tests pass. The fix adds a sliding-window rate limiter to `APIClient` using a `deque` of call timestamps \u00e2\u20ac\u201d when the limit is reached, `call()` sleeps until a slot opens up.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_011",
+      "agent": "amp",
+      "category": "refactoring",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 56.42,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 25 tests pass. The duplicated validation logic has been extracted into standalone `validate_email()` and `validate_password()` functions, and both form classes now delegate to them.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_012",
+      "agent": "amp",
+      "category": "refactoring",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 37.81,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 26 tests pass. Replaced every magic number (`800`, `600`, `32`, `100`, `1.5`) with the named constants `SCREEN_WIDTH`, `SCREEN_HEIGHT`, `TILE_SIZE`, `MAX_HEALTH`, and `SPEED_MULTIPLIER` defined at module level.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_013",
+      "agent": "amp",
+      "category": "refactoring",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 52.7,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 31 tests pass. The god class has been split into `UserRepository`, `AuthService`, and `SessionManager`, each independently usable, while `UserManager` remains as a facade delegating to all three with its public API unchanged.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_014",
+      "agent": "amp",
+      "category": "refactoring",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 67.57,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 24 tests pass. The refactoring replaced all `(bool, result)` tuple returns with direct returns on success and `ProcessingError`/`ValidationError` raises on failure, and updated the existing tests accordingly.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_015",
+      "agent": "amp",
+      "category": "refactoring",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 49.4,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 33 tests pass. I flattened `check_access` from 5+ nesting levels to \u00e2\u2030\u00a4 2 using guard clauses with early returns, preserving identical logic, and added the `can_access` boolean wrapper.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_016",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 45.41,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 22 tests pass. The fix uses a **double-checked locking** pattern with per-key locks: threads contending for the same key serialize through a shared lock, and only the first one computes while the rest wait and then read the cached result.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_017",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 52.42,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 15 tests pass. The fix adds a `_publish_depth` counter to `EventBus.publish()` that tracks re-entrant call depth. When it exceeds `max_depth` (default 16), `publish` returns an empty list instead of continuing, preventing infinite recursion from circular event chains.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_018",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 58.89,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 19 tests pass. Two fixes in `dependency_graph.py`:\n\n1. **`_cycle_check`**: Added `rec_stack.discard(node)` so nodes are removed from the recursion stack after processing, fixing false-positive cycle detection on diamond patterns.\n2. **`_visit`**: Added an `in_progress` set to track the current DFS path, raising `ValueError` when a real cycle is encountered during `resolve_order()`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_019",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 42.5,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 26 tests pass. The fix adds a source-state check in `StateMachine.trigger()` \u00e2\u20ac\u201d it now raises `InvalidTransitionError` if the current state doesn't match the transition's `source`, preventing transitions like \"approve\" from firing outside their expected source state.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_020",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 42.81,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 19 tests pass. The fix uses weak references (`_WeakMethod`) for bound method callbacks in `Observable`, so when a `MetricsCollector` is deleted, the `DataSource` no longer prevents its garbage collection. Dead observers are automatically cleaned up during `notify` and `observer_count`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_021",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 35.89,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 18 tests pass. The fix adds a middleware pipeline to `App` via a `use()` method. Middlewares are stored in registration order and composed by wrapping the core handler in reverse order, so the first-registered middleware is the outermost wrapper \u00e2\u20ac\u201d matching Express/Django-style semantics.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_022",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 47.6,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 23 tests pass. I added `join()` and `left_join()` methods to `QueryBuilder` that:\n- Accept a model class and `on` parameter\n- Use the `on` value as-is if it contains `=`, otherwise build `table1.field = table2.field`\n- Insert JOIN clauses between FROM and WHERE in the generated SQL\n",
+      "error": null
+    },
+    {
+      "task_id": "task_023",
+      "agent": "amp",
+      "category": "refactoring",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 110.97,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 32 tests pass. The refactoring extracts a `PluginBase` ABC, `PluginRegistry`, and converts the 5 pipeline steps into plugins (validate\u00e2\u2020\u2019transform\u00e2\u2020\u2019enrich\u00e2\u2020\u2019filter as registry plugins, aggregate as a final fixed step). Custom plugins can be registered via a `PluginRegistry` passed to `DataProcessor`, and they're merged with the built-in plugins and executed in `order`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_024",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 43.44,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 34 tests pass. I implemented the Command pattern in `src/editor.py` with `InsertCommand`, `DeleteCommand`, and `TransactionCommand` classes, adding `undo()`, `redo()`, `begin_transaction()`, and `end_transaction()` methods to the `Editor` while keeping the existing API unchanged.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_025",
+      "agent": "amp",
+      "category": "refactoring",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 63.63,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 32 tests pass. The refactoring replaces the deep inheritance hierarchy with composition: a single `Notification` class takes a `Channel` object (`EmailChannel`, `SMSChannel`, `PushChannel`) and an optional `modifiers` dict for behavioral variations like priority, internationalization, and badges \u00e2\u20ac\u201d no subclassing needed.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_026",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 40.56,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 10 tests pass. The fix: `Buffer.flush()` now shallow-copies each dict item when storing `previous_batch`, so downstream in-place mutations don't corrupt the recorded input data.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_027",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 66.26,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 9 tests pass. The fix adds **priority-based ordering** to `MiddlewareStack.add()`: `AuthMiddleware` gets `DEFAULT_PRIORITY = 10` and `TenantMiddleware` gets `DEFAULT_PRIORITY = 20`, so auth always runs first regardless of insertion order\u00e2\u20ac\u201densuring `request.user` is set before tenant resolution checks it.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_028",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 39.64,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 13 tests pass. The fix adds the missing `self.tail = node.prev` update in `move_to_front` when the moved node is the tail, so `remove_tail()` now correctly evicts the least recently used item instead of the most recently used one.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_029",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 42.59,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 9 tests pass. The fix in `journal.py` changes `truncate_to_savepoint` to filter out only entries tagged with the given savepoint name (plus its marker), instead of blindly truncating everything after the savepoint position. This preserves parent transaction entries that were interleaved after the savepoint was created.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_030",
+      "agent": "amp",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 31.94,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 17 tests pass. The bug was in `PathFinder.find_shortest_path`: it had a faulty \"optimization\" that returned the direct edge weight between two nodes without running Dijkstra, even when a shorter indirect path existed through intermediate nodes. Removed that shortcut so Dijkstra always runs.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_031",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 86.36,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 29 tests pass. Here's what I implemented:\n\n- **`Scope`**: Stack-based tracker management, `track_access()` to record dependencies, `batch()` context manager with nesting support\n- **`ObservableValue.get()`**: Calls `Scope.track_access(self)` for automatic dependency tracking\n- **`ComputedValue`**: Lazy evaluation (dirty flag), automatic dependency tracking via `Scope`, `subscribe()` so other computed values can depend on it, error storage/propagation, and re-tracks dependencies on each recompute (supporting dynamic deps)\n- **`Binding`**: Bidirectional subscriptions with `_updating` flag for loop prevention, `destroy()` to unsubscribe\n",
+      "error": null
+    },
+    {
+      "task_id": "task_032",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 84.27,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 31 tests pass. I implemented the four stub modules:\n\n- **aggregates.py**: `Count`, `Sum`, `Avg`, `Min`, `Max` with proper `compute()` methods\n- **join_engine.py**: Inner join producing table-prefixed column names\n- **query_parser.py**: Regex-based parser handling SELECT, WHERE, GROUP BY, HAVING, ORDER BY, JOIN, aliases, and aggregates\n- **executor.py**: Full pipeline: table resolution \u00e2\u2020\u2019 JOIN \u00e2\u2020\u2019 WHERE \u00e2\u2020\u2019 GROUP BY/aggregates \u00e2\u2020\u2019 HAVING \u00e2\u2020\u2019 ORDER BY \u00e2\u2020\u2019 SELECT projection\n",
+      "error": null
+    },
+    {
+      "task_id": "task_033",
+      "agent": "amp",
+      "category": "refactoring",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 61.09,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 28 tests pass. The fix implemented:\n\n1. **`BufferPool`**: Added `asyncio.Semaphore` for backpressure, and implemented `acquire()` / `release()` async methods that wait when the pool is exhausted.\n2. **`Pipeline.run()`**: Implemented concurrent reader\u00e2\u2020\u2019processor\u00e2\u2020\u2019writer using `asyncio.Queue(maxsize=N)` for backpressure and `asyncio.gather()` for concurrency, with `None` sentinel propagation for graceful shutdown.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_034",
+      "agent": "amp",
+      "category": "refactoring",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 64.9,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 62 tests pass. I refactored the expression evaluator with a recursive-descent parser implementing proper operator precedence, added new AST nodes (`UnaryOpNode`, `ComparisonNode`, `BooleanNode`, `BooleanLiteralNode`), extended the tokenizer for all new tokens, and updated the evaluator and formatter accordingly.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_035",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 65.74,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 34 tests pass. I implemented the three constraint `is_satisfied()` methods in `constraint.py` and the backtracking scheduler in `scheduler.py` with topological ordering, resource conflict detection, and makespan optimization.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_036",
+      "agent": "amp",
+      "category": "numerical-precision",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 107.81,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix: changed `Money` to use `Decimal` internally (via `_amount`) for precise arithmetic, while exposing `.amount` as a `float` property for backward compatibility. The `__mul__` method also converts float factors to `Decimal` via `str()` to avoid float precision errors.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_037",
+      "agent": "amp",
+      "category": "data-integrity",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 33.46,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix replaces the silent truncation in `_serialize_field` with a `SerializationError` when a string exceeds its `max_length`, so oversized values are now rejected instead of silently clipped.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_038",
+      "agent": "amp",
+      "category": "algorithms",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 48.55,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix adds a monotonically increasing integer tiebreaker as the second element of the heap tuples `(value, counter, iterator)`, so when two values are equal, Python compares the unique integer instead of the `SortedIterator` (which lacks `__lt__`).\n",
+      "error": null
+    },
+    {
+      "task_id": "task_039",
+      "agent": "amp",
+      "category": "resource-management",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 41.09,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix moves `self._pool.release()` into a `finally` block so the connection is **always** returned to the pool, even when `rollback()` or `commit()` raises. The `ConnError` from a failed rollback/commit is now swallowed since the connection will be released regardless.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_040",
+      "agent": "amp",
+      "category": "encoding",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 55.62,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix replaces the independent per-chunk `bytes.decode()` calls with Python's `codecs.getincrementaldecoder`, which buffers partial multi-byte UTF-8 sequences across chunk boundaries and reassembles them correctly.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_041",
+      "agent": "amp",
+      "category": "concurrency",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 65.01,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix: messages are now delivered synchronously to each subscriber in `Topic.publish()` instead of being dispatched as separate thread pool tasks, which eliminates the race condition that caused out-of-order delivery.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_042",
+      "agent": "amp",
+      "category": "datetime",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 48.95,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix replaced `.replace(tzinfo=None)` (which stripped timezone info) with `.astimezone()` (which properly converts to a common timezone) in both `_events_overlap` and `find_free_slots`, so cross-timezone comparisons now use the correct absolute times.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_043",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 67.62,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 20 tests pass. I implemented:\n\n- **`DiffEngine.compute_diff`** \u00e2\u20ac\u201d LCS-based algorithm that backtracks through a DP table to produce minimal KEEP/ADD/REMOVE ops.\n- **`PatchEngine.apply_patch`** \u00e2\u20ac\u201d replays KEEP and ADD ops (skipping REMOVE) to build the target document.\n- **`PatchEngine.reverse_patch`** \u00e2\u20ac\u201d replays KEEP and REMOVE ops (skipping ADD) to reconstruct the original document.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_044",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 139.36,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 24 tests pass. I implemented:\n\n- **`Promise`** \u00e2\u20ac\u201d full JS-style Promise with `resolve`/`reject`, `.then()`, `.catch()`, `.finally_()`, `.result()`, `Promise.all()`, `Promise.race()`, thread-safe settlement, and settlement ordering for correct `race` semantics.\n- **`PromiseChain`** \u00e2\u20ac\u201d callback chain execution with error propagation between success/error paths.\n- **`TaskExecutor.submit()`** \u00e2\u20ac\u201d now returns a `Promise` instead of a raw `Future`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_045",
+      "agent": "amp",
+      "category": "refactoring",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 53.99,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 22 tests pass. I added the declarative pipeline classes (`Step`, `PipelineContext`, `Pipeline`, `ExtractStep`, `CleanStep`, `ValidateStep`, `TransformStep`, `LoadStep`, `ReportStep`) to `src/etl.py` while keeping the original monolith function intact for backward compatibility.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_046",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 56.71,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 21 tests pass. I implemented:\n\n- **`AccessGraph.resolve_permissions`** \u00e2\u20ac\u201d collects all roles (direct + group-inherited), aggregates grants/denials, with deny overriding allow.\n- **`AccessGraph.get_user_groups`** \u00e2\u20ac\u201d traverses group hierarchy upward with cycle detection.\n- **`AccessGraph.get_user_roles`** \u00e2\u20ac\u201d returns direct roles + roles from all groups.\n- **`PolicyEngine.check_access`** / **`get_all_permissions`** \u00e2\u20ac\u201d delegates to `AccessGraph.resolve_permissions`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_047",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 52.18,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 25 tests pass. I implemented the `TemplateParser.parse()` to tokenize and recursively build an AST, and `Template.render()` to walk the AST and produce output\u00e2\u20ac\u201dsupporting variable substitution, dot notation, conditionals with else, for loops, and nesting.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_048",
+      "agent": "amp",
+      "category": "refactoring",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 51.77,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 27 tests pass. I implemented:\n\n1. **`Cache`** (`src/cache.py`) \u00e2\u20ac\u201d stores entries with optional TTL using `time.monotonic()`, lazily evicts expired entries on access.\n2. **`CachedRepository`** (`src/repository.py`) \u00e2\u20ac\u201d wraps `UserRepository`, caches `get_by_id` results, invalidates on `update`/`delete`, and delegates `create`/`get_all` directly.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_049",
+      "agent": "amp",
+      "category": "feature",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 69.97,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 32 tests pass. I implemented `parser.py` with full `parse()` logic (positional args, optional flags, short flags, boolean flags, type coercion, defaults, required validation, subcommand dispatch) and `help_formatter.py` with `format_help()`/`format_usage()` generating description, usage line, and sections for positional args, optional args, and subcommands.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_050",
+      "agent": "amp",
+      "category": "refactoring",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 66.65,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 23 tests pass. I added `async_download`, `async_process`, `async_upload`, and `async_run` methods to their respective classes, using `asyncio.sleep` instead of `time.sleep` for cancellation support, with flat `try/except` error handling in the pipeline. The existing sync/callback interfaces remain untouched.\n",
+      "error": null
+    }
+  ]
+}
