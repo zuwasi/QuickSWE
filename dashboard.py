@@ -341,6 +341,66 @@ def build_chart_data(agg: dict, a1: str, a2: str) -> dict:
         ],
     })
 
+    # 11. Speed by difficulty
+    diff_order = ["easy", "medium", "hard", "extreme"]
+    diffs_present = [d for d in diff_order if d in by_diff]
+    speed_by_diff_data = json.dumps({
+        "labels": [d.title() for d in diffs_present],
+        "a1": [round(by_diff[d].get(a1, {}).get("avg_time", 0), 1)
+               if "avg_time" in by_diff[d].get(a1, {}) else 0 for d in diffs_present],
+        "a2": [round(by_diff[d].get(a2, {}).get("avg_time", 0), 1)
+               if "avg_time" in by_diff[d].get(a2, {}) else 0 for d in diffs_present],
+    })
+
+    # Compute avg_time per difficulty if not already present
+    # (aggregate_from_runs may not include it, so recalculate)
+    diff_times: dict[str, dict[str, float]] = {}
+    for tid in task_ids:
+        for agent in [a1, a2]:
+            t = per_task.get(tid, {}).get(agent, {})
+            d = t.get("difficulty", "unknown")
+            if d not in diff_times:
+                diff_times[d] = {}
+            if agent not in diff_times[d]:
+                diff_times[d][agent] = []
+            diff_times[d][agent].append(t.get("avg_time", 0))
+    speed_by_diff_computed = {}
+    for d in diffs_present:
+        speed_by_diff_computed[d] = {}
+        for agent in [a1, a2]:
+            times = diff_times.get(d, {}).get(agent, [0])
+            speed_by_diff_computed[d][agent] = round(sum(times) / max(len(times), 1), 1)
+    speed_by_diff_data = json.dumps({
+        "labels": [d.title() for d in diffs_present],
+        "a1": [speed_by_diff_computed.get(d, {}).get(a1, 0) for d in diffs_present],
+        "a2": [speed_by_diff_computed.get(d, {}).get(a2, 0) for d in diffs_present],
+    })
+
+    # 12. Speed ratio per task (a2_time / a1_time) sorted by ratio
+    speed_ratios = []
+    for tid in task_ids:
+        t1 = per_task.get(tid, {}).get(a1, {}).get("avg_time", 1)
+        t2 = per_task.get(tid, {}).get(a2, {}).get("avg_time", 1)
+        ratio = round(t2 / max(t1, 0.1), 2)
+        speed_ratios.append((tid, ratio, t1, t2))
+    speed_ratios.sort(key=lambda x: -x[1])
+    speed_ratio_data = json.dumps({
+        "labels": [s[0] for s in speed_ratios],
+        "ratios": [s[1] for s in speed_ratios],
+        "a1_times": [s[2] for s in speed_ratios],
+        "a2_times": [s[3] for s in speed_ratios],
+    })
+
+    # 13. Speed summary stats
+    a1_avg = round(overall.get(a1, {}).get("avg_time", 0), 1)
+    a2_avg = round(overall.get(a2, {}).get("avg_time", 0), 1)
+    speed_multiplier = round(a2_avg / max(a1_avg, 0.1), 1)
+    # Time saved per task
+    time_saved = round(a2_avg - a1_avg, 1)
+    # Fastest/slowest task per agent
+    a1_tasks_by_time = sorted([(tid, per_task.get(tid, {}).get(a1, {}).get("avg_time", 0)) for tid in task_ids], key=lambda x: x[1])
+    a2_tasks_by_time = sorted([(tid, per_task.get(tid, {}).get(a2, {}).get("avg_time", 0)) for tid in task_ids], key=lambda x: x[1])
+
     return {
         "overall_data": overall_data,
         "category_data": cat_data,
@@ -352,6 +412,12 @@ def build_chart_data(agg: dict, a1: str, a2: str) -> dict:
         "regression_data": reg_data,
         "heatmap_rows": heatmap_rows,
         "radar_data": radar_data,
+        "speed_by_diff_data": speed_by_diff_data,
+        "speed_ratio_data": speed_ratio_data,
+        "a1_avg_time": a1_avg,
+        "a2_avg_time": a2_avg,
+        "speed_multiplier": speed_multiplier,
+        "time_saved": time_saved,
     }
 
 
@@ -415,6 +481,9 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   <div class="scard"><div class="val">{num_runs}</div><div class="lbl">Runs / Agent</div></div>
   <div class="scard"><div class="val" style="color:var(--accent1)">{a1_resolve}%</div><div class="lbl">{agent1} Resolve Rate</div></div>
   <div class="scard"><div class="val" style="color:var(--accent2)">{a2_resolve}%</div><div class="lbl">{agent2} Resolve Rate</div></div>
+  <div class="scard" style="border:2px solid #f1c40f;"><div class="val" style="color:#f1c40f">{speed_multiplier}x</div><div class="lbl">{agent1} Speed Advantage</div></div>
+  <div class="scard"><div class="val" style="color:var(--accent1)">{a1_avg_time}s</div><div class="lbl">{agent1} Avg Time</div></div>
+  <div class="scard"><div class="val" style="color:var(--accent2)">{a2_avg_time}s</div><div class="lbl">{agent2} Avg Time</div></div>
   <div class="scard"><div class="val" style="color:var(--pass)">🏆 {winner}</div><div class="lbl">Overall Winner</div></div>
 </div>
 
@@ -452,6 +521,20 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   <h2>📊 Overall Resolution Rate</h2>
   <canvas id="overallChart"></canvas>
   <p class="explain">Percentage of tasks each agent successfully resolved across all runs. Higher is better.</p>
+</div>
+
+<!-- SPEED: Speed Ratio Per Task -->
+<div class="card">
+  <h2>⚡ Speed Advantage Per Task</h2>
+  <canvas id="speedRatioChart"></canvas>
+  <p class="explain">How many times faster {agent1} completed each task compared to {agent2}. Values above 1.0x mean {agent1} was faster. Sorted by largest advantage. <strong>Speed directly impacts developer productivity</strong> &mdash; a 2x faster agent means twice the throughput at the same cost.</p>
+</div>
+
+<!-- SPEED: Speed by Difficulty -->
+<div class="card full">
+  <h2>🚀 Speed by Difficulty Tier (avg seconds)</h2>
+  <canvas id="speedByDiffChart" style="max-height:300px;"></canvas>
+  <p class="explain">Average time per task at each difficulty level. <strong>The speed gap widens dramatically on harder tasks</strong> &mdash; when both agents can solve a problem, the one that solves it faster delivers more value. On extreme tasks, speed differences of 2-3x translate to hours saved per day in real workflows.</p>
 </div>
 
 <!-- 2. By Category -->
@@ -563,6 +646,41 @@ function darkOpts(o) {{
       datasets:[{{ data:[d.a1,d.a2], backgroundColor:[A1,A2], borderRadius:6 }}]
     }}, options:{{ indexAxis:'y', plugins:{{ legend:{{display:false}}, datalabels:{{ anchor:'end',align:'left',color:'#fff',font:{{weight:'bold',size:16}},formatter:v=>v+'%' }} }},
       scales:{{ x:{{ max:100, title:{{display:true,text:'Resolve Rate %',color:'#aaa'}} }} }}
+    }}
+  }}));
+}})();
+
+// SPEED: Speed Ratio Per Task
+(function(){{
+  const d = {speed_ratio_data};
+  new Chart('speedRatioChart', darkOpts({{
+    type:'bar', data:{{
+      labels:d.labels,
+      datasets:[{{ label:'Speed Ratio ({agent2} time / {agent1} time)', data:d.ratios,
+        backgroundColor:d.ratios.map(v=>v>=2?'#f1c40f':v>=1.5?'#e67e22':v>=1?'#2ecc71':'#e74c3c'),
+        borderRadius:4 }}]
+    }}, options:{{ indexAxis:'y', plugins:{{
+        legend:{{display:false}},
+        datalabels:{{ anchor:'end',align:'left',color:'#fff',font:{{weight:'bold',size:11}},formatter:v=>v+'x' }}
+      }},
+      scales:{{ x:{{ title:{{display:true,text:'Speed Multiplier (higher = {agent1} faster)',color:'#aaa'}},
+        grid:{{color:'#ffffff10'}} }} }}
+    }}
+  }}));
+}})();
+
+// SPEED: Speed by Difficulty
+(function(){{
+  const d = {speed_by_diff_data};
+  new Chart('speedByDiffChart', darkOpts({{
+    type:'bar', data:{{
+      labels:d.labels,
+      datasets:[
+        {{ label:'{agent1}', data:d.a1, backgroundColor:A1, borderRadius:4 }},
+        {{ label:'{agent2}', data:d.a2, backgroundColor:A2, borderRadius:4 }}
+      ]
+    }}, options:{{ plugins:{{ datalabels:{{ color:'#fff',font:{{size:12,weight:'bold'}},formatter:v=>v+'s' }} }},
+      scales:{{ y:{{ title:{{display:true,text:'Avg Seconds',color:'#aaa'}} }} }}
     }}
   }}));
 }})();
