@@ -58,7 +58,7 @@
 <body>
 
 <h1>QuickSWE Dashboard</h1>
-<p class="subtitle">Generated 2026-04-03 20:48:01 &nbsp;|&nbsp; 73 tasks &nbsp;|&nbsp; 12 run(s) per agent</p>
+<p class="subtitle">Generated 2026-04-04 11:07:14 &nbsp;|&nbsp; 85 tasks &nbsp;|&nbsp; 14 run(s) per agent</p>
 
 <div class="achievement">
   <h2>&#127942; Notable Finding: Amp Catches a Bug in the Benchmark Itself</h2>
@@ -93,17 +93,17 @@
 <input type="radio" name="lang-tab" id="tab-ccpp">
 <label for="tab-ccpp">⚙️ C/C++ (15)</label>
 <input type="radio" name="lang-tab" id="tab-cuda">
-<label for="tab-cuda">🟢 CUDA (8)</label>
+<label for="tab-cuda">🟢 CUDA (20)</label>
 <div class="tab-content python-content">
 <h2 style="margin-bottom:14px;">🐍 Python — 50 Tasks</h2>
 <div class="summary-cards">
   <div class="scard"><div class="val">50</div><div class="lbl">Tasks</div></div>
   <div class="scard"><div class="val" style="color:#00B4D8">100.0%</div><div class="lbl">Amp Resolve Rate</div></div>
-  <div class="scard"><div class="val" style="color:#FF6B35">100.0%</div><div class="lbl">Claude Resolve Rate</div></div>
-  <div class="scard" style="border:2px solid #f1c40f;"><div class="val" style="color:#f1c40f">2.4x</div><div class="lbl">Amp Speed Advantage</div></div>
+  <div class="scard"><div class="val" style="color:#FF6B35">0.0%</div><div class="lbl">Amp-deep Resolve Rate</div></div>
+  <div class="scard" style="border:2px solid #f1c40f;"><div class="val" style="color:#f1c40f">0.0x</div><div class="lbl">Amp Speed Advantage</div></div>
   <div class="scard"><div class="val" style="color:#00B4D8">48.8s</div><div class="lbl">Amp Avg Time</div></div>
-  <div class="scard"><div class="val" style="color:#FF6B35">117.8s</div><div class="lbl">Claude Avg Time</div></div>
-  <div class="scard"><div class="val" style="color:#2ecc71">🏆 Tie</div><div class="lbl">Winner</div></div>
+  <div class="scard"><div class="val" style="color:#FF6B35">0s</div><div class="lbl">Amp-deep Avg Time</div></div>
+  <div class="scard"><div class="val" style="color:#2ecc71">🏆 Amp</div><div class="lbl">Winner</div></div>
 </div>
 <div class="grid">
 <div class="card">
@@ -141,7 +141,7 @@
   <canvas id="pie1_python"></canvas>
 </div>
 <div class="card">
-  <h2>🥧 Claude — Outcome Breakdown</h2>
+  <h2>🥧 Amp-deep — Outcome Breakdown</h2>
   <canvas id="pie2_python"></canvas>
 </div>
 <div class="card full">
@@ -167,58 +167,58 @@
     <thead><tr>
       <th>Task</th><th>Category</th>
       <th style="color:#00B4D8">Amp Resolve</th><th style="color:#00B4D8">Time</th>
-      <th style="color:#FF6B35">Claude Resolve</th><th style="color:#FF6B35">Time</th>
+      <th style="color:#FF6B35">Amp-deep Resolve</th><th style="color:#FF6B35">Time</th>
     </tr></thead>
-    <tbody><tr><td>task_001</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>32.3s</td><td class="cell-pass">100%</td><td>47.0s</td></tr>
-<tr><td>task_002</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>29.9s</td><td class="cell-pass">100%</td><td>47.3s</td></tr>
-<tr><td>task_003</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>22.9s</td><td class="cell-pass">100%</td><td>40.8s</td></tr>
-<tr><td>task_004</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>28.0s</td><td class="cell-pass">100%</td><td>42.9s</td></tr>
-<tr><td>task_005</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>31.6s</td><td class="cell-pass">100%</td><td>57.4s</td></tr>
-<tr><td>task_006</td><td>Feature</td><td class="cell-pass">100%</td><td>27.2s</td><td class="cell-pass">100%</td><td>48.4s</td></tr>
-<tr><td>task_007</td><td>Feature</td><td class="cell-pass">100%</td><td>27.9s</td><td class="cell-pass">100%</td><td>52.5s</td></tr>
-<tr><td>task_008</td><td>Feature</td><td class="cell-pass">100%</td><td>34.2s</td><td class="cell-pass">100%</td><td>50.4s</td></tr>
-<tr><td>task_009</td><td>Feature</td><td class="cell-pass">100%</td><td>26.5s</td><td class="cell-pass">100%</td><td>46.4s</td></tr>
-<tr><td>task_010</td><td>Feature</td><td class="cell-pass">100%</td><td>40.1s</td><td class="cell-pass">100%</td><td>58.3s</td></tr>
-<tr><td>task_011</td><td>Refactoring</td><td class="cell-pass">100%</td><td>43.8s</td><td class="cell-pass">100%</td><td>54.6s</td></tr>
-<tr><td>task_012</td><td>Refactoring</td><td class="cell-pass">100%</td><td>35.3s</td><td class="cell-pass">100%</td><td>88.9s</td></tr>
-<tr><td>task_013</td><td>Refactoring</td><td class="cell-pass">100%</td><td>57.9s</td><td class="cell-pass">100%</td><td>94.8s</td></tr>
-<tr><td>task_014</td><td>Refactoring</td><td class="cell-pass">100%</td><td>62.8s</td><td class="cell-pass">100%</td><td>87.1s</td></tr>
-<tr><td>task_015</td><td>Refactoring</td><td class="cell-pass">100%</td><td>38.9s</td><td class="cell-pass">100%</td><td>54.1s</td></tr>
-<tr><td>task_016</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>40.5s</td><td class="cell-pass">100%</td><td>169.0s</td></tr>
-<tr><td>task_017</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>44.1s</td><td class="cell-pass">100%</td><td>77.3s</td></tr>
-<tr><td>task_018</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>43.0s</td><td class="cell-pass">100%</td><td>66.3s</td></tr>
-<tr><td>task_019</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>38.6s</td><td class="cell-pass">100%</td><td>47.6s</td></tr>
-<tr><td>task_020</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>48.3s</td><td class="cell-pass">100%</td><td>86.1s</td></tr>
-<tr><td>task_021</td><td>Feature</td><td class="cell-pass">100%</td><td>33.2s</td><td class="cell-pass">100%</td><td>56.3s</td></tr>
-<tr><td>task_022</td><td>Feature</td><td class="cell-pass">100%</td><td>40.0s</td><td class="cell-pass">100%</td><td>58.1s</td></tr>
-<tr><td>task_023</td><td>Refactoring</td><td class="cell-pass">100%</td><td>102.0s</td><td class="cell-pass">100%</td><td>164.4s</td></tr>
-<tr><td>task_024</td><td>Feature</td><td class="cell-pass">100%</td><td>43.4s</td><td class="cell-pass">100%</td><td>66.5s</td></tr>
-<tr><td>task_025</td><td>Refactoring</td><td class="cell-pass">100%</td><td>70.1s</td><td class="cell-pass">100%</td><td>162.6s</td></tr>
-<tr><td>task_026</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>38.2s</td><td class="cell-pass">100%</td><td>79.3s</td></tr>
-<tr><td>task_027</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>51.7s</td><td class="cell-pass">100%</td><td>83.7s</td></tr>
-<tr><td>task_028</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>39.9s</td><td class="cell-pass">100%</td><td>64.2s</td></tr>
-<tr><td>task_029</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>34.0s</td><td class="cell-pass">100%</td><td>70.5s</td></tr>
-<tr><td>task_030</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>31.2s</td><td class="cell-pass">100%</td><td>57.8s</td></tr>
-<tr><td>task_031</td><td>Feature</td><td class="cell-pass">100%</td><td>73.9s</td><td class="cell-pass">100%</td><td>198.4s</td></tr>
-<tr><td>task_032</td><td>Feature</td><td class="cell-pass">100%</td><td>101.3s</td><td class="cell-pass">100%</td><td>203.9s</td></tr>
-<tr><td>task_033</td><td>Refactoring</td><td class="cell-pass">100%</td><td>56.9s</td><td class="cell-pass">100%</td><td>87.4s</td></tr>
-<tr><td>task_034</td><td>Refactoring</td><td class="cell-pass">100%</td><td>66.7s</td><td class="cell-pass">100%</td><td>107.5s</td></tr>
-<tr><td>task_035</td><td>Feature</td><td class="cell-pass">100%</td><td>62.3s</td><td class="cell-pass">100%</td><td>1570.2s</td></tr>
-<tr><td>task_036</td><td>Numerical-Precision</td><td class="cell-pass">100%</td><td>93.9s</td><td class="cell-pass">100%</td><td>146.5s</td></tr>
-<tr><td>task_037</td><td>Data-Integrity</td><td class="cell-pass">100%</td><td>29.0s</td><td class="cell-pass">100%</td><td>51.6s</td></tr>
-<tr><td>task_038</td><td>Algorithms</td><td class="cell-pass">100%</td><td>41.7s</td><td class="cell-pass">100%</td><td>56.6s</td></tr>
-<tr><td>task_039</td><td>Resource-Management</td><td class="cell-pass">100%</td><td>35.2s</td><td class="cell-pass">100%</td><td>58.7s</td></tr>
-<tr><td>task_040</td><td>Encoding</td><td class="cell-pass">100%</td><td>51.3s</td><td class="cell-pass">100%</td><td>118.4s</td></tr>
-<tr><td>task_041</td><td>Concurrency</td><td class="cell-pass">100%</td><td>56.5s</td><td class="cell-pass">100%</td><td>84.5s</td></tr>
-<tr><td>task_042</td><td>Datetime</td><td class="cell-pass">100%</td><td>41.8s</td><td class="cell-pass">100%</td><td>74.8s</td></tr>
-<tr><td>task_043</td><td>Feature</td><td class="cell-pass">100%</td><td>60.6s</td><td class="cell-pass">100%</td><td>78.2s</td></tr>
-<tr><td>task_044</td><td>Feature</td><td class="cell-pass">100%</td><td>119.8s</td><td class="cell-pass">100%</td><td>342.4s</td></tr>
-<tr><td>task_045</td><td>Refactoring</td><td class="cell-pass">100%</td><td>50.0s</td><td class="cell-pass">100%</td><td>97.0s</td></tr>
-<tr><td>task_046</td><td>Feature</td><td class="cell-pass">100%</td><td>53.4s</td><td class="cell-pass">100%</td><td>89.5s</td></tr>
-<tr><td>task_047</td><td>Feature</td><td class="cell-pass">100%</td><td>47.0s</td><td class="cell-pass">100%</td><td>71.3s</td></tr>
-<tr><td>task_048</td><td>Refactoring</td><td class="cell-pass">100%</td><td>45.1s</td><td class="cell-pass">100%</td><td>70.0s</td></tr>
-<tr><td>task_049</td><td>Feature</td><td class="cell-pass">100%</td><td>57.9s</td><td class="cell-pass">100%</td><td>113.3s</td></tr>
-<tr><td>task_050</td><td>Refactoring</td><td class="cell-pass">100%</td><td>59.2s</td><td class="cell-pass">100%</td><td>89.3s</td></tr>
+    <tbody><tr><td>task_001</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>32.3s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_002</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>29.9s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_003</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>22.9s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_004</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>28.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_005</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>31.6s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_006</td><td>Feature</td><td class="cell-pass">100%</td><td>27.2s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_007</td><td>Feature</td><td class="cell-pass">100%</td><td>27.9s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_008</td><td>Feature</td><td class="cell-pass">100%</td><td>34.2s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_009</td><td>Feature</td><td class="cell-pass">100%</td><td>26.5s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_010</td><td>Feature</td><td class="cell-pass">100%</td><td>40.1s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_011</td><td>Refactoring</td><td class="cell-pass">100%</td><td>43.8s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_012</td><td>Refactoring</td><td class="cell-pass">100%</td><td>35.3s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_013</td><td>Refactoring</td><td class="cell-pass">100%</td><td>57.9s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_014</td><td>Refactoring</td><td class="cell-pass">100%</td><td>62.8s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_015</td><td>Refactoring</td><td class="cell-pass">100%</td><td>38.9s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_016</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>40.5s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_017</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>44.1s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_018</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>43.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_019</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>38.6s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_020</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>48.3s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_021</td><td>Feature</td><td class="cell-pass">100%</td><td>33.2s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_022</td><td>Feature</td><td class="cell-pass">100%</td><td>40.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_023</td><td>Refactoring</td><td class="cell-pass">100%</td><td>102.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_024</td><td>Feature</td><td class="cell-pass">100%</td><td>43.4s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_025</td><td>Refactoring</td><td class="cell-pass">100%</td><td>70.1s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_026</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>38.2s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_027</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>51.7s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_028</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>39.9s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_029</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>34.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_030</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>31.2s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_031</td><td>Feature</td><td class="cell-pass">100%</td><td>73.9s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_032</td><td>Feature</td><td class="cell-pass">100%</td><td>101.3s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_033</td><td>Refactoring</td><td class="cell-pass">100%</td><td>56.9s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_034</td><td>Refactoring</td><td class="cell-pass">100%</td><td>66.7s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_035</td><td>Feature</td><td class="cell-pass">100%</td><td>62.3s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_036</td><td>Numerical-Precision</td><td class="cell-pass">100%</td><td>93.9s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_037</td><td>Data-Integrity</td><td class="cell-pass">100%</td><td>29.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_038</td><td>Algorithms</td><td class="cell-pass">100%</td><td>41.7s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_039</td><td>Resource-Management</td><td class="cell-pass">100%</td><td>35.2s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_040</td><td>Encoding</td><td class="cell-pass">100%</td><td>51.3s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_041</td><td>Concurrency</td><td class="cell-pass">100%</td><td>56.5s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_042</td><td>Datetime</td><td class="cell-pass">100%</td><td>41.8s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_043</td><td>Feature</td><td class="cell-pass">100%</td><td>60.6s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_044</td><td>Feature</td><td class="cell-pass">100%</td><td>119.8s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_045</td><td>Refactoring</td><td class="cell-pass">100%</td><td>50.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_046</td><td>Feature</td><td class="cell-pass">100%</td><td>53.4s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_047</td><td>Feature</td><td class="cell-pass">100%</td><td>47.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_048</td><td>Refactoring</td><td class="cell-pass">100%</td><td>45.1s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_049</td><td>Feature</td><td class="cell-pass">100%</td><td>57.9s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_050</td><td>Refactoring</td><td class="cell-pass">100%</td><td>59.2s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
 </tbody>
   </table>
   </div>
@@ -231,11 +231,11 @@
 <div class="summary-cards">
   <div class="scard"><div class="val">15</div><div class="lbl">Tasks</div></div>
   <div class="scard"><div class="val" style="color:#00B4D8">100.0%</div><div class="lbl">Amp Resolve Rate</div></div>
-  <div class="scard"><div class="val" style="color:#FF6B35">100.0%</div><div class="lbl">Claude Resolve Rate</div></div>
-  <div class="scard" style="border:2px solid #f1c40f;"><div class="val" style="color:#f1c40f">1.6x</div><div class="lbl">Amp Speed Advantage</div></div>
+  <div class="scard"><div class="val" style="color:#FF6B35">0.0%</div><div class="lbl">Amp-deep Resolve Rate</div></div>
+  <div class="scard" style="border:2px solid #f1c40f;"><div class="val" style="color:#f1c40f">0.0x</div><div class="lbl">Amp Speed Advantage</div></div>
   <div class="scard"><div class="val" style="color:#00B4D8">43.3s</div><div class="lbl">Amp Avg Time</div></div>
-  <div class="scard"><div class="val" style="color:#FF6B35">68.3s</div><div class="lbl">Claude Avg Time</div></div>
-  <div class="scard"><div class="val" style="color:#2ecc71">🏆 Tie</div><div class="lbl">Winner</div></div>
+  <div class="scard"><div class="val" style="color:#FF6B35">0s</div><div class="lbl">Amp-deep Avg Time</div></div>
+  <div class="scard"><div class="val" style="color:#2ecc71">🏆 Amp</div><div class="lbl">Winner</div></div>
 </div>
 <div class="grid">
 <div class="card">
@@ -260,23 +260,23 @@
     <thead><tr>
       <th>Task</th><th>Category</th>
       <th style="color:#00B4D8">Amp Resolve</th><th style="color:#00B4D8">Time</th>
-      <th style="color:#FF6B35">Claude Resolve</th><th style="color:#FF6B35">Time</th>
+      <th style="color:#FF6B35">Amp-deep Resolve</th><th style="color:#FF6B35">Time</th>
     </tr></thead>
-    <tbody><tr><td>task_051</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>31.9s</td><td class="cell-pass">100%</td><td>56.6s</td></tr>
-<tr><td>task_052</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>25.8s</td><td class="cell-pass">100%</td><td>51.8s</td></tr>
-<tr><td>task_053</td><td>Feature</td><td class="cell-pass">100%</td><td>39.6s</td><td class="cell-pass">100%</td><td>69.1s</td></tr>
-<tr><td>task_054</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>33.5s</td><td class="cell-pass">100%</td><td>70.6s</td></tr>
-<tr><td>task_055</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>40.1s</td><td class="cell-pass">100%</td><td>57.2s</td></tr>
-<tr><td>task_059</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>41.3s</td><td class="cell-pass">100%</td><td>74.5s</td></tr>
-<tr><td>task_060</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>46.2s</td><td class="cell-pass">100%</td><td>65.7s</td></tr>
-<tr><td>task_061</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>26.7s</td><td class="cell-pass">100%</td><td>55.9s</td></tr>
-<tr><td>task_062</td><td>Feature</td><td class="cell-pass">100%</td><td>57.8s</td><td class="cell-pass">100%</td><td>91.4s</td></tr>
-<tr><td>task_063</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>41.4s</td><td class="cell-pass">100%</td><td>61.1s</td></tr>
-<tr><td>task_064</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>38.5s</td><td class="cell-pass">100%</td><td>65.2s</td></tr>
-<tr><td>task_065</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>46.3s</td><td class="cell-pass">100%</td><td>59.9s</td></tr>
-<tr><td>task_066</td><td>Feature</td><td class="cell-pass">100%</td><td>70.3s</td><td class="cell-pass">100%</td><td>109.2s</td></tr>
-<tr><td>task_067</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>56.0s</td><td class="cell-pass">100%</td><td>75.3s</td></tr>
-<tr><td>task_068</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>53.8s</td><td class="cell-pass">100%</td><td>60.9s</td></tr>
+    <tbody><tr><td>task_051</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>31.9s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_052</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>25.8s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_053</td><td>Feature</td><td class="cell-pass">100%</td><td>39.6s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_054</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>33.5s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_055</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>40.1s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_059</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>41.3s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_060</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>46.2s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_061</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>26.7s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_062</td><td>Feature</td><td class="cell-pass">100%</td><td>57.8s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_063</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>41.4s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_064</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>38.5s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_065</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>46.3s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_066</td><td>Feature</td><td class="cell-pass">100%</td><td>70.3s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_067</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>56.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_068</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>53.8s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
 </tbody>
   </table>
   </div>
@@ -285,15 +285,15 @@
 </div>
 </div>
 <div class="tab-content cuda-content">
-<h2 style="margin-bottom:14px;">🟢 CUDA — 8 Tasks</h2>
+<h2 style="margin-bottom:14px;">🟢 CUDA — 20 Tasks</h2>
 <div class="summary-cards">
-  <div class="scard"><div class="val">8</div><div class="lbl">Tasks</div></div>
-  <div class="scard"><div class="val" style="color:#00B4D8">87.5%</div><div class="lbl">Amp Resolve Rate</div></div>
-  <div class="scard"><div class="val" style="color:#FF6B35">87.5%</div><div class="lbl">Claude Resolve Rate</div></div>
-  <div class="scard" style="border:2px solid #f1c40f;"><div class="val" style="color:#f1c40f">1.3x</div><div class="lbl">Amp Speed Advantage</div></div>
-  <div class="scard"><div class="val" style="color:#00B4D8">29.2s</div><div class="lbl">Amp Avg Time</div></div>
-  <div class="scard"><div class="val" style="color:#FF6B35">36.8s</div><div class="lbl">Claude Avg Time</div></div>
-  <div class="scard"><div class="val" style="color:#2ecc71">🏆 Tie</div><div class="lbl">Winner</div></div>
+  <div class="scard"><div class="val">20</div><div class="lbl">Tasks</div></div>
+  <div class="scard"><div class="val" style="color:#00B4D8">67.2%</div><div class="lbl">Amp Resolve Rate</div></div>
+  <div class="scard"><div class="val" style="color:#FF6B35">80.0%</div><div class="lbl">Amp-deep Resolve Rate</div></div>
+  <div class="scard" style="border:2px solid #f1c40f;"><div class="val" style="color:#f1c40f">3.1x</div><div class="lbl">Amp Speed Advantage</div></div>
+  <div class="scard"><div class="val" style="color:#00B4D8">29.4s</div><div class="lbl">Amp Avg Time</div></div>
+  <div class="scard"><div class="val" style="color:#FF6B35">90.7s</div><div class="lbl">Amp-deep Avg Time</div></div>
+  <div class="scard"><div class="val" style="color:#2ecc71">🏆 Amp-deep</div><div class="lbl">Winner</div></div>
 </div>
 <div class="grid">
 <div class="card">
@@ -318,16 +318,28 @@
     <thead><tr>
       <th>Task</th><th>Category</th>
       <th style="color:#00B4D8">Amp Resolve</th><th style="color:#00B4D8">Time</th>
-      <th style="color:#FF6B35">Claude Resolve</th><th style="color:#FF6B35">Time</th>
+      <th style="color:#FF6B35">Amp-deep Resolve</th><th style="color:#FF6B35">Time</th>
     </tr></thead>
-    <tbody><tr><td>task_056</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>20.9s</td><td class="cell-pass">100%</td><td>21.8s</td></tr>
-<tr><td>task_057</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>23.3s</td><td class="cell-pass">100%</td><td>19.7s</td></tr>
-<tr><td>task_058</td><td>Feature</td><td class="cell-fail">0%</td><td>29.3s</td><td class="cell-fail">0%</td><td>73.8s</td></tr>
-<tr><td>task_069</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>24.5s</td><td class="cell-pass">100%</td><td>22.2s</td></tr>
-<tr><td>task_070</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>35.6s</td><td class="cell-pass">100%</td><td>46.5s</td></tr>
-<tr><td>task_071</td><td>Feature</td><td class="cell-pass">100%</td><td>37.3s</td><td class="cell-pass">100%</td><td>41.3s</td></tr>
-<tr><td>task_072</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>29.5s</td><td class="cell-pass">100%</td><td>34.5s</td></tr>
-<tr><td>task_073</td><td>Feature</td><td class="cell-pass">100%</td><td>33.2s</td><td class="cell-pass">100%</td><td>34.3s</td></tr>
+    <tbody><tr><td>task_056</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>19.4s</td><td class="cell-pass">100%</td><td>51.3s</td></tr>
+<tr><td>task_057</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>22.8s</td><td class="cell-pass">100%</td><td>63.2s</td></tr>
+<tr><td>task_058</td><td>Feature</td><td class="cell-fail">0%</td><td>30.0s</td><td class="cell-pass">100%</td><td>171.8s</td></tr>
+<tr><td>task_069</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>24.7s</td><td class="cell-pass">100%</td><td>63.5s</td></tr>
+<tr><td>task_070</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>36.7s</td><td class="cell-pass">100%</td><td>95.5s</td></tr>
+<tr><td>task_071</td><td>Feature</td><td class="cell-pass">100%</td><td>34.7s</td><td class="cell-pass">100%</td><td>79.2s</td></tr>
+<tr><td>task_072</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>29.6s</td><td class="cell-pass">100%</td><td>68.7s</td></tr>
+<tr><td>task_073</td><td>Feature</td><td class="cell-pass">100%</td><td>31.6s</td><td class="cell-pass">100%</td><td>92.0s</td></tr>
+<tr><td>task_074</td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_075</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>34.0s</td><td class="cell-pass">100%</td><td>66.0s</td></tr>
+<tr><td>task_076</td><td>Feature</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_077</td><td>Bug Fix</td><td class="cell-fail">0%</td><td>39.3s</td><td class="cell-pass">100%</td><td>133.4s</td></tr>
+<tr><td>task_078</td><td>Bug Fix</td><td class="cell-fail">0%</td><td>40.2s</td><td class="cell-pass">100%</td><td>93.0s</td></tr>
+<tr><td>task_079</td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_080</td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td>task_081</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>24.0s</td><td class="cell-pass">100%</td><td>99.1s</td></tr>
+<tr><td>task_082</td><td>Feature</td><td class="cell-fail">0%</td><td>47.8s</td><td class="cell-pass">100%</td><td>218.0s</td></tr>
+<tr><td>task_083</td><td>Bug Fix</td><td class="cell-pass">100%</td><td>61.1s</td><td class="cell-pass">100%</td><td>125.5s</td></tr>
+<tr><td>task_084</td><td>Feature</td><td class="cell-pass">100%</td><td>66.3s</td><td class="cell-pass">100%</td><td>201.6s</td></tr>
+<tr><td>task_085</td><td>Bug Fix</td><td class="cell-fail">0%</td><td>53.7s</td><td class="cell-pass">100%</td><td>192.8s</td></tr>
 </tbody>
   </table>
   </div>
@@ -338,7 +350,7 @@
 
 </div>
 
-<footer>Generated by <strong>QuickSWE</strong> &nbsp;|&nbsp; 2026-04-03 20:48:01</footer>
+<footer>Generated by <strong>QuickSWE</strong> &nbsp;|&nbsp; 2026-04-04 11:07:14</footer>
 
 <script>
 Chart.register(ChartDataLabels);
@@ -360,7 +372,7 @@ function darkOpts(o) {
 }
 
 (function(){
-  const d = {"labels": ["Amp", "Claude"], "a1": 100.0, "a2": 100.0};
+  const d = {"labels": ["Amp", "Amp-deep"], "a1": 100.0, "a2": 0};
   new Chart('overallChart_python', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[{ data:[d.a1,d.a2], backgroundColor:[A1,A2], borderRadius:6 }] },
     options:{ indexAxis:'y', plugins:{ legend:{display:false}, datalabels:{ anchor:'end',align:'left',color:'#fff',font:{weight:'bold',size:16},formatter:v=>v+'%' } },
@@ -368,7 +380,7 @@ function darkOpts(o) {
   }));
 })();
 (function(){
-  const d = {"labels": ["task_035", "task_016", "task_044", "task_031", "task_012", "task_025", "task_040", "task_026", "task_029", "task_032", "task_049", "task_045", "task_007", "task_030", "task_005", "task_042", "task_003", "task_006", "task_020", "task_037", "task_009", "task_017", "task_021", "task_046", "task_039", "task_013", "task_027", "task_023", "task_028", "task_034", "task_002", "task_036", "task_048", "task_018", "task_033", "task_004", "task_024", "task_047", "task_050", "task_041", "task_008", "task_001", "task_010", "task_022", "task_014", "task_015", "task_038", "task_043", "task_011", "task_019"], "ratios": [25.2, 4.17, 2.86, 2.68, 2.52, 2.32, 2.31, 2.07, 2.07, 2.01, 1.96, 1.94, 1.88, 1.86, 1.82, 1.79, 1.78, 1.78, 1.78, 1.78, 1.75, 1.75, 1.69, 1.67, 1.66, 1.64, 1.62, 1.61, 1.61, 1.61, 1.58, 1.56, 1.55, 1.54, 1.54, 1.53, 1.53, 1.52, 1.51, 1.5, 1.47, 1.45, 1.45, 1.45, 1.39, 1.39, 1.36, 1.29, 1.25, 1.23], "a1_times": [62.31, 40.49666666666666, 119.84333333333335, 73.91000000000001, 35.28, 70.12666666666667, 51.31, 38.24, 33.97666666666667, 101.25666666666666, 57.89666666666667, 50.046666666666674, 27.933333333333334, 31.150000000000002, 31.61, 41.75666666666667, 22.919999999999998, 27.159999999999997, 48.26, 28.963333333333335, 26.543333333333333, 44.086666666666666, 33.21666666666667, 53.41, 35.233333333333334, 57.873333333333335, 51.70333333333334, 101.99666666666667, 39.93, 66.72, 29.873333333333335, 93.85666666666667, 45.07333333333333, 42.973333333333336, 56.879999999999995, 27.97, 43.35999999999999, 47.01666666666667, 59.17666666666667, 56.46333333333334, 34.22, 32.31333333333333, 40.11, 40.03, 62.75333333333333, 38.85, 41.73333333333333, 60.6, 43.81, 38.593333333333334], "a2_times": [1570.24, 168.95666666666668, 342.40333333333336, 198.42, 88.89666666666666, 162.6, 118.37, 79.26, 70.49, 203.9366666666667, 113.29666666666667, 96.96333333333332, 52.54, 57.81, 57.379999999999995, 74.77333333333333, 40.78333333333333, 48.36333333333334, 86.14333333333333, 51.59, 46.39666666666667, 77.32333333333334, 56.28666666666667, 89.46, 58.663333333333334, 94.78333333333335, 83.69666666666667, 164.37333333333333, 64.24666666666667, 107.52666666666669, 47.32333333333333, 146.48666666666668, 69.96333333333332, 66.32, 87.39666666666666, 42.85333333333333, 66.5, 71.31, 89.25333333333333, 84.51333333333334, 50.36666666666667, 46.953333333333326, 58.29, 58.11000000000001, 87.14333333333333, 54.116666666666674, 56.56333333333333, 78.24666666666667, 54.550000000000004, 47.593333333333334]};
+  const d = {"labels": ["task_003", "task_004", "task_006", "task_007", "task_009", "task_001", "task_002", "task_005", "task_008", "task_012", "task_015", "task_019", "task_021", "task_026", "task_028", "task_029", "task_030", "task_037", "task_039", "task_010", "task_011", "task_013", "task_014", "task_016", "task_017", "task_018", "task_020", "task_022", "task_024", "task_027", "task_033", "task_035", "task_038", "task_040", "task_041", "task_042", "task_043", "task_045", "task_046", "task_047", "task_048", "task_049", "task_050", "task_023", "task_025", "task_031", "task_032", "task_034", "task_036", "task_044"], "ratios": [0.04, 0.04, 0.04, 0.04, 0.04, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01], "a1_times": [22.919999999999998, 27.97, 27.159999999999997, 27.933333333333334, 26.543333333333333, 32.31333333333333, 29.873333333333335, 31.61, 34.22, 35.28, 38.85, 38.593333333333334, 33.21666666666667, 38.24, 39.93, 33.97666666666667, 31.150000000000002, 28.963333333333335, 35.233333333333334, 40.11, 43.81, 57.873333333333335, 62.75333333333333, 40.49666666666666, 44.086666666666666, 42.973333333333336, 48.26, 40.03, 43.35999999999999, 51.70333333333334, 56.879999999999995, 62.31, 41.73333333333333, 51.31, 56.46333333333334, 41.75666666666667, 60.6, 50.046666666666674, 53.41, 47.01666666666667, 45.07333333333333, 57.89666666666667, 59.17666666666667, 101.99666666666667, 70.12666666666667, 73.91000000000001, 101.25666666666666, 66.72, 93.85666666666667, 119.84333333333335], "a2_times": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]};
   const n = Math.min(15, d.labels.length);
   const labels = d.labels.slice(0,n); const ratios = d.ratios.slice(0,n);
   const a1t = d.a1_times.slice(0,n); const a2t = d.a2_times.slice(0,n);
@@ -376,7 +388,7 @@ function darkOpts(o) {
     type:'bar', data:{ labels:labels.map((l,i)=>l+' ('+ratios[i]+'x)'),
       datasets:[
         { label:'Amp', data:a1t, backgroundColor:A1, borderRadius:5, barPercentage:0.8 },
-        { label:'Claude', data:a2t, backgroundColor:A2, borderRadius:5, barPercentage:0.8 }
+        { label:'Amp-deep', data:a2t, backgroundColor:A2, borderRadius:5, barPercentage:0.8 }
       ] },
     options:{ indexAxis:'y',
       plugins:{ legend:{ position:'top', labels:{color:'#e0e0e0', font:{size:13,weight:'bold'}, padding:20} },
@@ -385,40 +397,40 @@ function darkOpts(o) {
   }));
 })();
 (function(){
-  const d = {"labels": ["Easy", "Medium", "Hard", "Extreme"], "a1": [31.3, 36.9, 50.1, 57.2], "a2": [54.3, 55.7, 88.8, 191.9]};
+  const d = {"labels": ["Easy", "Medium", "Hard", "Extreme"], "a1": [31.3, 36.9, 50.1, 57.2], "a2": [0.0, 0.0, 0.0, 0.0]};
   new Chart('speedByDiffChart_python', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[
       { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:4 },
-      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:4 }
+      { label:'Amp-deep', data:d.a2, backgroundColor:A2, borderRadius:4 }
     ] },
     options:{ plugins:{ datalabels:{ color:'#fff',font:{size:12,weight:'bold'},formatter:v=>v+'s' } },
       scales:{ y:{ title:{display:true,text:'Avg Seconds',color:'#aaa'} } } }
   }));
 })();
 (function(){
-  const d = {"labels": ["Algorithms", "Bug Fix", "Concurrency", "Data-Integrity", "Datetime", "Encoding", "Feature", "Numerical-Precision", "Refactoring", "Resource-Management"], "a1": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0], "a2": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0]};
+  const d = {"labels": ["Algorithms", "Bug Fix", "Concurrency", "Data-Integrity", "Datetime", "Encoding", "Feature", "Numerical-Precision", "Refactoring", "Resource-Management"], "a1": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0], "a2": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]};
   new Chart('categoryChart_python', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[
       { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:4 },
-      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:4 }
+      { label:'Amp-deep', data:d.a2, backgroundColor:A2, borderRadius:4 }
     ] },
     options:{ plugins:{ datalabels:{ color:'#fff',font:{size:11},formatter:v=>v+'%' } },
       scales:{ y:{ max:100, title:{display:true,text:'%',color:'#aaa'} } } }
   }));
 })();
 (function(){
-  const d = {"labels": ["Easy", "Medium", "Hard"], "a1": [100.0, 100.0, 100.0], "a2": [100.0, 100.0, 100.0]};
+  const d = {"labels": ["Easy", "Medium", "Hard"], "a1": [100.0, 100.0, 100.0], "a2": [0, 0, 0]};
   new Chart('difficultyChart_python', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[
       { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:4 },
-      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:4 }
+      { label:'Amp-deep', data:d.a2, backgroundColor:A2, borderRadius:4 }
     ] },
     options:{ plugins:{ datalabels:{ color:'#fff',font:{size:11},formatter:v=>v+'%' } },
       scales:{ y:{ max:100 } } }
   }));
 })();
 (function(){
-  const d = {"labels": ["Amp", "Claude"], "a1": 0.0, "a2": 0.0};
+  const d = {"labels": ["Amp", "Amp-deep"], "a1": 0.0, "a2": 0};
   new Chart('regressionChart_python', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[{ data:[d.a1,d.a2], backgroundColor:[A1,A2], borderRadius:6 }] },
     options:{ plugins:{ legend:{display:false}, datalabels:{ color:'#fff',font:{weight:'bold',size:14},formatter:v=>v+'%' } },
@@ -426,7 +438,7 @@ function darkOpts(o) {
   }));
 })();
 (function(){
-  const d = {"a1": {"resolved": 150, "regression": 0, "failed": 0}, "a2": {"resolved": 150, "regression": 0, "failed": 0}};
+  const d = {"a1": {"resolved": 150, "regression": 0, "failed": 0}, "a2": {"resolved": 0, "regression": 0, "failed": 0}};
   const colors = ['#2ecc71','#f39c12','#e74c3c'];
   const labels = ['Resolved','Regression','Failed'];
   new Chart('pie1_python', { type:'doughnut', data:{ labels, datasets:[{ data:[d.a1.resolved,d.a1.regression,d.a1.failed], backgroundColor:colors }] },
@@ -435,53 +447,53 @@ function darkOpts(o) {
     options:{ plugins:{ legend:{labels:{color:'#ccc'}}, datalabels:{ color:'#fff', font:{weight:'bold'}, formatter:(v,ctx)=>v?ctx.chart.data.labels[ctx.dataIndex]+': '+v:'' } } } });
 })();
 (function(){
-  const d = {"labels": ["Resolve Rate", "Speed", "Consistency", "No Regressions", "Bug Fix", "Feature", "Refactoring"], "a1": [100.0, 58.6, 62.9, 100.0, 100.0, 100.0, 100.0], "a2": [100.0, 0.0, 62.9, 100.0, 100.0, 100.0, 100.0]};
+  const d = {"labels": ["Resolve Rate", "Speed", "Consistency", "No Regressions", "Bug Fix", "Feature", "Refactoring"], "a1": [100.0, 0.0, 65.3, 100.0, 100.0, 100.0, 100.0], "a2": [0, 100.0, 100.0, 100, 0, 0, 0]};
   new Chart('radarChart_python', darkOpts({
     type:'radar', data:{ labels:d.labels, datasets:[
       { label:'Amp', data:d.a1, borderColor:A1, backgroundColor:A1a, pointBackgroundColor:A1 },
-      { label:'Claude', data:d.a2, borderColor:A2, backgroundColor:A2a, pointBackgroundColor:A2 }
+      { label:'Amp-deep', data:d.a2, borderColor:A2, backgroundColor:A2a, pointBackgroundColor:A2 }
     ] },
     options:{ scales:{ r:{ min:0, max:100, ticks:{color:'#888',backdropColor:'transparent'}, grid:{color:'#ffffff15'}, pointLabels:{color:'#ccc',font:{size:12}} } },
       plugins:{ datalabels:{display:false} } }
   }));
 })();
 (function(){
-  const d = {"labels": ["task_001", "task_002", "task_003", "task_004", "task_005", "task_006", "task_007", "task_008", "task_009", "task_010", "task_011", "task_012", "task_013", "task_014", "task_015", "task_016", "task_017", "task_018", "task_019", "task_020", "task_021", "task_022", "task_023", "task_024", "task_025", "task_026", "task_027", "task_028", "task_029", "task_030", "task_031", "task_032", "task_033", "task_034", "task_035", "task_036", "task_037", "task_038", "task_039", "task_040", "task_041", "task_042", "task_043", "task_044", "task_045", "task_046", "task_047", "task_048", "task_049", "task_050"], "a1": [32.3, 29.9, 22.9, 28.0, 31.6, 27.2, 27.9, 34.2, 26.5, 40.1, 43.8, 35.3, 57.9, 62.8, 38.9, 40.5, 44.1, 43.0, 38.6, 48.3, 33.2, 40.0, 102.0, 43.4, 70.1, 38.2, 51.7, 39.9, 34.0, 31.2, 73.9, 101.3, 56.9, 66.7, 62.3, 93.9, 29.0, 41.7, 35.2, 51.3, 56.5, 41.8, 60.6, 119.8, 50.0, 53.4, 47.0, 45.1, 57.9, 59.2], "a2": [47.0, 47.3, 40.8, 42.9, 57.4, 48.4, 52.5, 50.4, 46.4, 58.3, 54.6, 88.9, 94.8, 87.1, 54.1, 169.0, 77.3, 66.3, 47.6, 86.1, 56.3, 58.1, 164.4, 66.5, 162.6, 79.3, 83.7, 64.2, 70.5, 57.8, 198.4, 203.9, 87.4, 107.5, 1570.2, 146.5, 51.6, 56.6, 58.7, 118.4, 84.5, 74.8, 78.2, 342.4, 97.0, 89.5, 71.3, 70.0, 113.3, 89.3]};
+  const d = {"labels": ["task_001", "task_002", "task_003", "task_004", "task_005", "task_006", "task_007", "task_008", "task_009", "task_010", "task_011", "task_012", "task_013", "task_014", "task_015", "task_016", "task_017", "task_018", "task_019", "task_020", "task_021", "task_022", "task_023", "task_024", "task_025", "task_026", "task_027", "task_028", "task_029", "task_030", "task_031", "task_032", "task_033", "task_034", "task_035", "task_036", "task_037", "task_038", "task_039", "task_040", "task_041", "task_042", "task_043", "task_044", "task_045", "task_046", "task_047", "task_048", "task_049", "task_050"], "a1": [32.3, 29.9, 22.9, 28.0, 31.6, 27.2, 27.9, 34.2, 26.5, 40.1, 43.8, 35.3, 57.9, 62.8, 38.9, 40.5, 44.1, 43.0, 38.6, 48.3, 33.2, 40.0, 102.0, 43.4, 70.1, 38.2, 51.7, 39.9, 34.0, 31.2, 73.9, 101.3, 56.9, 66.7, 62.3, 93.9, 29.0, 41.7, 35.2, 51.3, 56.5, 41.8, 60.6, 119.8, 50.0, 53.4, 47.0, 45.1, 57.9, 59.2], "a2": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]};
   new Chart('timeChart_python', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[
       { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:3 },
-      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:3 }
+      { label:'Amp-deep', data:d.a2, backgroundColor:A2, borderRadius:3 }
     ] },
     options:{ plugins:{ datalabels:{ display:false } },
       scales:{ y:{ title:{display:true,text:'Seconds',color:'#aaa'} } } }
   }));
 })();
 (function(){
-  const d = {"a1": [5, 5, 5, 10, 10, 10, 7, 7, 7, 50, 50, 50], "a2": [5, 5, 5, 10, 10, 10, 7, 7, 7, 50, 50, 50]};
+  const d = {"a1": [5, 5, 5, 10, 10, 10, 7, 11, 7, 11, 7, 50, 50, 50], "a2": [16, 16]};
   const maxLen = Math.max(d.a1.length, d.a2.length);
   const labels = Array.from({length:maxLen}, (_,i)=>'Run '+(i+1));
   new Chart('trendChart_python', darkOpts({
     type:'line', data:{ labels, datasets:[
       { label:'Amp', data:d.a1, borderColor:A1, backgroundColor:A1a, tension:.3, fill:false, pointRadius:5 },
-      { label:'Claude', data:d.a2, borderColor:A2, backgroundColor:A2a, tension:.3, fill:false, pointRadius:5 }
+      { label:'Amp-deep', data:d.a2, borderColor:A2, backgroundColor:A2a, tension:.3, fill:false, pointRadius:5 }
     ] },
     options:{ plugins:{ datalabels:{ color:'#fff', anchor:'end', align:'top', font:{size:11} } },
       scales:{ y:{ title:{display:true,text:'Tasks Resolved',color:'#aaa'}, beginAtZero:true } } }
   }));
 })();
 (function(){
-  const d = {"labels": ["task_001", "task_002", "task_003", "task_004", "task_005", "task_006", "task_007", "task_008", "task_009", "task_010", "task_011", "task_012", "task_013", "task_014", "task_015", "task_016", "task_017", "task_018", "task_019", "task_020", "task_021", "task_022", "task_023", "task_024", "task_025", "task_026", "task_027", "task_028", "task_029", "task_030", "task_031", "task_032", "task_033", "task_034", "task_035", "task_036", "task_037", "task_038", "task_039", "task_040", "task_041", "task_042", "task_043", "task_044", "task_045", "task_046", "task_047", "task_048", "task_049", "task_050"], "a1": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0], "a2": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0]};
+  const d = {"labels": ["task_001", "task_002", "task_003", "task_004", "task_005", "task_006", "task_007", "task_008", "task_009", "task_010", "task_011", "task_012", "task_013", "task_014", "task_015", "task_016", "task_017", "task_018", "task_019", "task_020", "task_021", "task_022", "task_023", "task_024", "task_025", "task_026", "task_027", "task_028", "task_029", "task_030", "task_031", "task_032", "task_033", "task_034", "task_035", "task_036", "task_037", "task_038", "task_039", "task_040", "task_041", "task_042", "task_043", "task_044", "task_045", "task_046", "task_047", "task_048", "task_049", "task_050"], "a1": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0], "a2": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]};
   new Chart('perTaskChart_python', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[
       { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:3 },
-      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:3 }
+      { label:'Amp-deep', data:d.a2, backgroundColor:A2, borderRadius:3 }
     ] },
     options:{ indexAxis:'y', plugins:{ datalabels:{ display:false } },
       scales:{ x:{ max:100, title:{display:true,text:'Resolve Rate %',color:'#aaa'} } } }
   }));
 })();
 (function(){
-  const d = {"labels": ["Amp", "Claude"], "a1": 100.0, "a2": 100.0};
+  const d = {"labels": ["Amp", "Amp-deep"], "a1": 100.0, "a2": 0};
   new Chart('overallChart_ccpp', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[{ data:[d.a1,d.a2], backgroundColor:[A1,A2], borderRadius:6 }] },
     options:{ indexAxis:'y', plugins:{ legend:{display:false}, datalabels:{ anchor:'end',align:'left',color:'#fff',font:{weight:'bold',size:16},formatter:v=>v+'%' } },
@@ -489,7 +501,7 @@ function darkOpts(o) {
   }));
 })();
 (function(){
-  const d = {"labels": ["task_054", "task_061", "task_052", "task_059", "task_051", "task_053", "task_064", "task_062", "task_066", "task_063", "task_055", "task_060", "task_067", "task_065", "task_068"], "ratios": [2.11, 2.09, 2.01, 1.8, 1.77, 1.74, 1.69, 1.58, 1.55, 1.48, 1.43, 1.42, 1.35, 1.29, 1.13], "a1_times": [33.49666666666667, 26.683333333333334, 25.80333333333333, 41.28, 31.936666666666667, 39.61, 38.49, 57.839999999999996, 70.31666666666666, 41.38666666666666, 40.050000000000004, 46.24333333333334, 55.96333333333333, 46.330000000000005, 53.84666666666667], "a2_times": [70.58, 55.876666666666665, 51.81333333333333, 74.48666666666666, 56.586666666666666, 69.08, 65.22, 91.40333333333335, 109.23, 61.13666666666666, 57.19, 65.66333333333334, 75.34666666666668, 59.88999999999999, 60.916666666666664]};
+  const d = {"labels": ["task_052", "task_061", "task_051", "task_053", "task_054", "task_064", "task_055", "task_059", "task_060", "task_062", "task_063", "task_065", "task_067", "task_068", "task_066"], "ratios": [0.04, 0.04, 0.03, 0.03, 0.03, 0.03, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.01], "a1_times": [25.80333333333333, 26.683333333333334, 31.936666666666667, 39.61, 33.49666666666667, 38.49, 40.050000000000004, 41.28, 46.24333333333334, 57.839999999999996, 41.38666666666666, 46.330000000000005, 55.96333333333333, 53.84666666666667, 70.31666666666666], "a2_times": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]};
   const n = Math.min(15, d.labels.length);
   const labels = d.labels.slice(0,n); const ratios = d.ratios.slice(0,n);
   const a1t = d.a1_times.slice(0,n); const a2t = d.a2_times.slice(0,n);
@@ -497,7 +509,7 @@ function darkOpts(o) {
     type:'bar', data:{ labels:labels.map((l,i)=>l+' ('+ratios[i]+'x)'),
       datasets:[
         { label:'Amp', data:a1t, backgroundColor:A1, borderRadius:5, barPercentage:0.8 },
-        { label:'Claude', data:a2t, backgroundColor:A2, borderRadius:5, barPercentage:0.8 }
+        { label:'Amp-deep', data:a2t, backgroundColor:A2, borderRadius:5, barPercentage:0.8 }
       ] },
     options:{ indexAxis:'y',
       plugins:{ legend:{ position:'top', labels:{color:'#e0e0e0', font:{size:13,weight:'bold'}, padding:20} },
@@ -506,18 +518,18 @@ function darkOpts(o) {
   }));
 })();
 (function(){
-  const d = {"labels": ["Hard", "Extreme"], "a1": [43.9, 42.6], "a2": [68.4, 68.2]};
+  const d = {"labels": ["Hard", "Extreme"], "a1": [43.9, 42.6], "a2": [0.0, 0.0]};
   new Chart('speedByDiffChart_ccpp', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[
       { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:4 },
-      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:4 }
+      { label:'Amp-deep', data:d.a2, backgroundColor:A2, borderRadius:4 }
     ] },
     options:{ plugins:{ datalabels:{ color:'#fff',font:{size:12,weight:'bold'},formatter:v=>v+'s' } },
       scales:{ y:{ title:{display:true,text:'Avg Seconds',color:'#aaa'} } } }
   }));
 })();
 (function(){
-  const d = {"labels": ["Amp", "Claude"], "a1": 87.5, "a2": 87.5};
+  const d = {"labels": ["Amp", "Amp-deep"], "a1": 67.2, "a2": 80.0};
   new Chart('overallChart_cuda', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[{ data:[d.a1,d.a2], backgroundColor:[A1,A2], borderRadius:6 }] },
     options:{ indexAxis:'y', plugins:{ legend:{display:false}, datalabels:{ anchor:'end',align:'left',color:'#fff',font:{weight:'bold',size:16},formatter:v=>v+'%' } },
@@ -525,7 +537,7 @@ function darkOpts(o) {
   }));
 })();
 (function(){
-  const d = {"labels": ["task_058", "task_070", "task_072", "task_071", "task_056", "task_073", "task_069", "task_057"], "ratios": [2.52, 1.31, 1.17, 1.11, 1.04, 1.03, 0.91, 0.85], "a1_times": [29.310000000000002, 35.596666666666664, 29.51, 37.31, 20.916666666666668, 33.16, 24.48, 23.343333333333334], "a2_times": [73.81, 46.53, 34.54, 41.303333333333335, 21.843333333333334, 34.29333333333333, 22.17, 19.726666666666663]};
+  const d = {"labels": ["task_058", "task_082", "task_081", "task_085", "task_077", "task_084", "task_073", "task_057", "task_056", "task_070", "task_069", "task_072", "task_078", "task_071", "task_083", "task_075", "task_074", "task_076", "task_079", "task_080"], "ratios": [5.72, 4.56, 4.13, 3.59, 3.4, 3.04, 2.91, 2.77, 2.65, 2.6, 2.57, 2.33, 2.31, 2.28, 2.05, 1.94, 0.0, 0.0, 0.0, 0.0], "a1_times": [30.016, 47.805, 24.0, 53.69, 39.26, 66.345, 31.591999999999995, 22.838, 19.366, 36.726, 24.706, 29.55, 40.19, 34.684000000000005, 61.065, 33.985, 0.0, 0.0, 0.0, 0.0], "a2_times": [171.775, 218.0, 99.10499999999999, 192.785, 133.375, 201.60000000000002, 91.955, 63.165000000000006, 51.285, 95.465, 63.504999999999995, 68.735, 92.975, 79.17500000000001, 125.48500000000001, 66.02000000000001, 0.0, 0.0, 0.0, 0.0]};
   const n = Math.min(15, d.labels.length);
   const labels = d.labels.slice(0,n); const ratios = d.ratios.slice(0,n);
   const a1t = d.a1_times.slice(0,n); const a2t = d.a2_times.slice(0,n);
@@ -533,7 +545,7 @@ function darkOpts(o) {
     type:'bar', data:{ labels:labels.map((l,i)=>l+' ('+ratios[i]+'x)'),
       datasets:[
         { label:'Amp', data:a1t, backgroundColor:A1, borderRadius:5, barPercentage:0.8 },
-        { label:'Claude', data:a2t, backgroundColor:A2, borderRadius:5, barPercentage:0.8 }
+        { label:'Amp-deep', data:a2t, backgroundColor:A2, borderRadius:5, barPercentage:0.8 }
       ] },
     options:{ indexAxis:'y',
       plugins:{ legend:{ position:'top', labels:{color:'#e0e0e0', font:{size:13,weight:'bold'}, padding:20} },
@@ -542,11 +554,11 @@ function darkOpts(o) {
   }));
 })();
 (function(){
-  const d = {"labels": ["Extreme"], "a1": [29.2], "a2": [36.8]};
+  const d = {"labels": ["Extreme"], "a1": [29.8], "a2": [90.7]};
   new Chart('speedByDiffChart_cuda', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[
       { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:4 },
-      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:4 }
+      { label:'Amp-deep', data:d.a2, backgroundColor:A2, borderRadius:4 }
     ] },
     options:{ plugins:{ datalabels:{ color:'#fff',font:{size:12,weight:'bold'},formatter:v=>v+'s' } },
       scales:{ y:{ title:{display:true,text:'Avg Seconds',color:'#aaa'} } } }
