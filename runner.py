@@ -106,6 +106,10 @@ def invoke_agent(agent: str, prompt: str, work_dir: Path,
 
     if agent == "amp":
         cmd = ["amp", "--dangerously-allow-all", "-x", prompt]
+    elif agent == "amp-deep":
+        cmd = ["amp", "--dangerously-allow-all", "--mode", "deep", "-x", prompt]
+    elif agent == "amp-rush":
+        cmd = ["amp", "--dangerously-allow-all", "--mode", "rush", "-x", prompt]
     elif agent == "claude":
         cmd = [
             "claude",

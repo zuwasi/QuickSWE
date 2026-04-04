@@ -1,0 +1,7 @@
+{
+    "id": "task_074",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Fix warp-level shuffle reduction that produces wrong results for arrays whose length is not a multiple of 32."
+}

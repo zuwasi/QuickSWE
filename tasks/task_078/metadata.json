@@ -1,0 +1,7 @@
+{
+    "id": "task_078",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Fix CUDA 2D image convolution with shared memory halo loading bugs and inconsistent kernel radius usage."
+}

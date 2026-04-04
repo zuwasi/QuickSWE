@@ -1,0 +1,7 @@
+{
+    "id": "task_079",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Fix CUDA graph BFS with incorrect frontier management causing wrong distances and exponential slowdown."
+}

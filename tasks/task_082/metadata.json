@@ -1,0 +1,7 @@
+{
+    "id": "task_082",
+    "category": "feature",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Implement efficient CUDA k-nearest neighbors using max-heap partial sort with shared memory candidate lists."
+}

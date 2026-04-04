@@ -1,0 +1,7 @@
+{
+    "id": "task_076",
+    "category": "feature",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Implement tiled GEMM with shared memory and register-level 4x4 sub-tile blocking, handling non-tile-aligned matrix dimensions."
+}

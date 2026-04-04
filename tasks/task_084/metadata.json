@@ -1,0 +1,7 @@
+{
+    "id": "task_084",
+    "category": "feature",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Implement CUDA spatial hash grid for particle collision detection with cell overflow handling and boundary wrapping."
+}

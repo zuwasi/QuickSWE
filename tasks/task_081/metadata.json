@@ -1,0 +1,7 @@
+{
+    "id": "task_081",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Fix CUDA FFT butterfly computation with twiddle factor sign error and bit-reversal off-by-one."
+}

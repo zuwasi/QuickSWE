@@ -1,0 +1,7 @@
+{
+    "id": "task_080",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Fix CUDA N-body gravitational simulation with softening error and force accumulation precision loss."
+}
