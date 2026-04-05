@@ -1,1 +1,1 @@
-{"id": "task_013", "category": "refactoring", "difficulty": "hard", "description": "Break a god class into UserRepository, AuthService, and SessionManager components"}
+{"id": "task_013", "category": "bug_fix", "difficulty": "medium", "description": "Observer pattern notifies removed subscribers due to iteration over mutated list", "language": "python"}

@@ -1,6 +1,1 @@
-{
-    "id": "task_002",
-    "category": "bug_fix",
-    "difficulty": "medium",
-    "description": "CSV parser crashes with IndexError on empty string input and rows with trailing commas"
-}
+{"id": "task_002", "category": "bug_fix", "difficulty": "easy", "description": "LRU cache eviction removes most-recently-used instead of least-recently-used", "language": "python"}

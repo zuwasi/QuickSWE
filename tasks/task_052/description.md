@@ -1,26 +1,28 @@
-# Bug Report: Linked List Memory Growing Unbounded
+# String Tokenizer – Incorrect Escape Sequence Handling
 
-## Summary
-We're using the linked list library in a long-running service. Over time, memory usage
-grows continuously even though we're deleting nodes and destroying lists regularly.
-Valgrind shows "definitely lost" bytes after a create/insert/delete/destroy cycle.
+## Problem
 
-## Steps to Reproduce
-1. Create a list
-2. Insert several items with string data
-3. Delete some items
-4. Destroy the list
-5. Check for memory leaks — they're there
+A string tokenizer splits input strings by a delimiter, but also supports escape
+sequences so the delimiter character can appear inside tokens. The escape character
+is backslash (`\`).
 
-## Expected Behavior
-After destroying a list, ALL memory associated with it should be freed, including:
-- Each node's duplicated string data
-- Each node struct  
-- The list struct itself
+Users report:
 
-## Observed Behavior
-Memory keeps growing. Our monitoring shows allocations that never get freed.
-Something in delete and/or destroy isn't cleaning up properly.
+1. Escaped delimiters are not correctly preserved — the token is split at an
+   escaped delimiter instead of including it as a literal character.
+2. Consecutive escape characters (`\\`) are not handled: `\\` should produce a
+   literal backslash, but the tokenizer either drops it or treats the next
+   character as escaped.
+3. An escape at the very end of the string causes incorrect output.
 
-## Impact
-This is a production issue — the service OOMs after running for ~12 hours.
+## Files
+
+- `src/tokenizer.hpp` — tokenizer class
+- `src/main.cpp` — driver program
+
+## Expected Behaviour
+
+- `split("a,b,c", ',')` → `["a", "b", "c"]`
+- `split("a\\,b,c", ',')` → `["a,b", "c"]` (escaped comma is literal)
+- `split("a\\\\,b", ',')` → `["a\\", "b"]` (escaped backslash + real delimiter)
+- `split("a\\", ',')` → `["a\\"]` (trailing escape preserved as literal)

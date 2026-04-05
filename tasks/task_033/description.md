@@ -1,31 +1,19 @@
-# Task 033: Convert Synchronous I/O Pipeline to Async with Backpressure
+# Task 033: Varint Encoder Truncation Bug
 
-## Overview
+## Problem
 
-Refactor a synchronous read→process→write pipeline into an async system using asyncio. Add backpressure so that fast producers don't overwhelm slow consumers.
+A Protocol Buffer-style varint encoder/decoder truncates values larger than
+2^28 (268,435,456). The encoding loop terminates after 4 iterations (processing
+only 7*4 = 28 bits) instead of continuing until all significant bits are
+encoded. This causes large 32-bit and 64-bit values to be incorrectly encoded
+and decoded.
 
-## Requirements
+## Expected Behavior
 
-1. **Async conversion**: Reader, Processor, and Writer must have async methods (`async def read_chunk()`, `async def process_chunk()`, `async def write_chunk()`).
+The varint encoder should handle values up to at least 2^64 - 1, producing
+a variable-length encoding with 7 data bits per byte and a continuation bit.
+The decoder should reconstruct the exact original value.
 
-2. **Backpressure via bounded queues**: Pipeline uses `asyncio.Queue(maxsize=N)` between stages. If the queue is full, the upstream stage blocks until space is available.
+## Files
 
-3. **BufferPool with semaphore**: `BufferPool` manages a fixed number of reusable `bytearray` buffers. Uses `asyncio.Semaphore` to limit concurrent checkouts. `async def acquire()` and `release()`.
-
-4. **Concurrent pipeline**: `Pipeline.run()` launches Reader, Processor, and Writer as concurrent `asyncio.Task`s. Reader reads chunks and puts them on the read_queue. Processor takes from read_queue, processes, puts on write_queue. Writer takes from write_queue and writes.
-
-5. **Graceful shutdown**: Reader sends a sentinel (None) when done. Each stage propagates the sentinel downstream and exits.
-
-6. **Metrics**: `MetricsCollector` records throughput (chunks/sec), total bytes, and latency per chunk. Must be thread-safe for concurrent access.
-
-7. **Backward compatibility**: The sync interfaces of Reader/Processor/Writer should still work (pass-to-pass tests check these).
-
-## Existing Code
-
-- All files have working synchronous implementations.
-- The refactoring adds async versions alongside (or replacing) the sync code.
-
-## Constraints
-
-- Pure Python, use only `asyncio` from stdlib.
-- No external async libraries.
+- `src/varint.py` — Varint encode/decode functions with message framing

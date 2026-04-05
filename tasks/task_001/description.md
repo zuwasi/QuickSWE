@@ -1,26 +1,18 @@
-# Bug: Off-by-one in Paginator.get_page()
+# Task 001: Interval Tree Merge Overlapping
 
-## Description
+## Problem
 
-The `Paginator` class provides a `get_page(n)` method documented as **1-indexed** (page 1 is the first page). However, the internal implementation uses 0-indexed math without adjusting for the 1-based API, causing every page request to return the *next* page's data instead.
+The `IntervalTree` class provides functionality to store intervals and merge overlapping ones. However, the `merge_overlapping()` method fails to merge intervals that are "touching" — i.e., where one interval's end equals another interval's start (e.g., `[1, 3]` and `[3, 5]` should merge into `[1, 5]`).
+
+In standard interval arithmetic, touching intervals (where one ends exactly where another begins) are considered overlapping and should be merged.
 
 ## Expected Behavior
 
-- `get_page(1)` should return the first `page_size` items.
-- `get_page(total_pages)` should return the last remaining items.
-- Pages are numbered starting from 1.
+- `merge_overlapping()` on intervals `[1, 3]` and `[3, 5]` should produce `[1, 5]`
+- `merge_overlapping()` on intervals `[1, 5]`, `[5, 10]`, `[10, 15]` should produce `[1, 15]`
+- Non-touching intervals like `[1, 3]` and `[4, 6]` should remain separate
 
-## Actual Behavior
+## Files
 
-- `get_page(1)` returns what should be page 2's data (items starting at index `page_size`).
-- `get_page(total_pages)` raises an `IndexError` or returns an empty list because the offset overshoots the data.
-
-## How to Reproduce
-
-```python
-from paginator import Paginator
-
-p = Paginator([1, 2, 3, 4, 5], page_size=2)
-print(p.get_page(1))  # Expected: [1, 2], Actual: [3, 4]
-print(p.get_page(3))  # Expected: [5], Actual: [] (empty — off the end)
-```
+- `src/interval_tree.py` — IntervalTree implementation with insert, query, and merge_overlapping
+- `tests/test_interval_tree.py` — Test suite

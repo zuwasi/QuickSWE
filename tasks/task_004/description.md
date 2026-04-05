@@ -1,24 +1,18 @@
-# Bug: Email validation regex is too restrictive
+# Task 004: JSON Path Array Wildcard Support
 
-## Description
+## Problem
 
-The `validate_email(email)` function uses a regex that does not allow dots (`.`) in the local part (before `@`) and does not allow hyphens (`-`) in the domain name. This causes valid emails like `john.doe@my-company.com` to be rejected.
+The `JSONPathEvaluator` class supports basic JSON path expressions like `.key` and `[0]` (array index access), but it lacks support for the array wildcard `[*]` syntax. When `[*]` is used, the evaluator should return all elements of the current array node, but instead it returns an empty list.
 
 ## Expected Behavior
 
-- `validate_email("user.name@example.com")` → `True`
-- `validate_email("test@my-domain.co.uk")` → `True`
-- `validate_email("first.last@sub.domain.org")` → `True`
+- `$.store.books[*].title` should return all book titles
+- `$.items[*]` should return all items in the array
+- `[*]` should work at any level of nesting
+- When `[*]` is applied to a non-array value, it should return an empty list
+- Existing `.key` and `[N]` paths should continue to work
 
-## Actual Behavior
+## Files
 
-- All of the above return `False` because the regex pattern `^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$` requires the local part to be purely alphanumeric (no dots) and the domain label to be purely alphanumeric (no hyphens), and only allows a single domain level.
-
-## How to Reproduce
-
-```python
-from validator import validate_email
-
-print(validate_email("user.name@example.com"))    # Expected True, returns False
-print(validate_email("test@my-domain.co.uk"))      # Expected True, returns False
-```
+- `src/jsonpath.py` — JSONPath evaluator implementation
+- `tests/test_jsonpath.py` — Test suite

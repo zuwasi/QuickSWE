@@ -1,1 +1,1 @@
-{"id": "task_019", "category": "bug_fix", "difficulty": "hard", "description": "Fix state machine that allows invalid transitions by not checking current state"}
+{"id": "task_019", "category": "bug_fix", "difficulty": "medium", "description": "Retry decorator with exponential backoff doesn't reset attempt counter between calls", "language": "python"}

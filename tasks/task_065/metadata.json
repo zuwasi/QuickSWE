@@ -1,7 +1,7 @@
 {
     "id": "task_065",
-    "language": "cpp",
     "category": "bug_fix",
     "difficulty": "hard",
-    "description": "Custom type traits is_pointer partial specialization doesn't handle const pointers"
+    "description": "Trie with compressed nodes (Patricia trie) and incorrect split logic",
+    "language": "cpp"
 }

@@ -1,27 +1,17 @@
-# Feature Request: Add Rate Limiting to API Client
+# Task 010: Cron Expression Parser — Day-of-Week Bug
 
-## Current State
+## Problem
 
-The `APIClient` class in `src/api_client.py` has:
-- `__init__(self)` — basic initialization
-- `call(endpoint)` — calls `self._execute(endpoint)` and returns the result
-- `_execute(endpoint)` — performs the API call (designed to be overridden)
+The `CronExpression` class parses standard 5-field cron expressions and computes the next run time. The day-of-week field uses `0=Monday` internally, but **standard cron uses `0=Sunday`**. This causes the parser to return incorrect next-run times for any expression that specifies a day of the week.
 
-Currently there is no rate limiting — calls happen as fast as they are made.
+## Expected Behavior
 
-## Requested Feature
+- In standard cron: 0=Sunday, 1=Monday, 2=Tuesday, ..., 6=Saturday
+- `"0 9 * * 0"` means "every Sunday at 9:00"
+- `"0 9 * * 5"` means "every Friday at 9:00"
+- The minute, hour, day-of-month, and month fields should continue to work correctly
 
-Add rate limiting so that the client enforces a maximum number of calls per second.
+## Files
 
-1. Add `max_calls_per_second` parameter to `__init__(self, max_calls_per_second=10)`
-2. Track call timestamps in a sliding window
-3. If a `call()` would exceed the rate limit, it should **block (sleep)** until the rate limit window allows it
-4. The rate limiter should use a 1-second sliding window
-
-## Acceptance Criteria
-
-1. `APIClient(max_calls_per_second=5)` allows at most 5 calls per second
-2. When rate limit is exceeded, `call()` blocks until a slot is available
-3. Basic `call()` still works and returns results from `_execute()`
-4. Rapid successive calls beyond the limit take at least the expected time
-5. Default rate limit is 10 calls per second
+- `src/cron_parser.py` — CronExpression implementation
+- `tests/test_cron_parser.py` — Test suite

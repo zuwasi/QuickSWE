@@ -1,48 +1,28 @@
-# Feature Request: Implement Efficient CUDA k-Nearest Neighbors
+# Bug Report: CSR SpMV Gives Wrong Results for Last Row and Empty Rows
 
 ## Summary
 
-The `knn_search.cu` file contains:
+Our CUDA sparse matrix-vector multiplication (CSR format) kernel produces
+wrong results. The last row always has an incorrect value and empty rows
+produce non-zero garbage instead of zero.
 
-- A working **CPU reference** k-NN implementation (`cpu_knn`).
-- A **brute-force distance computation kernel** that computes the full N×M
-  distance matrix between query points and dataset points.
-- A **stubbed** `gpu_knn_search()` function that currently returns the first k
-  indices for every query (obviously wrong).
+## Symptoms
 
-Implement an efficient GPU k-NN that:
+- The last row of the result vector is always wrong.
+- The kernel special-cases the last row using `nnz` instead of
+  `row_ptr[row+1]`, but this is incorrect when the last row doesn't
+  extend to the last non-zero.
+- Empty rows (where `row_ptr[i] == row_ptr[i+1]`) produce garbage
+  because the sum accumulator starts with an uninitialized value
+  instead of 0.
+- Interior rows with non-zero entries appear correct sometimes.
 
-1. For each query point, finds the k nearest dataset points.
-2. Uses a **max-heap of size k** per query to avoid sorting the full distance
-   array — maintain a heap of the k smallest distances seen so far, replacing
-   the max when a smaller distance is found.
-3. Uses **shared memory** to hold candidate lists and dataset tiles.
-4. Handles edge case where k > number of dataset points gracefully (return
-   all points, padded with -1 indices and FLT_MAX distances).
+## Expected Behavior
 
-## Acceptance Criteria
+- `y[i] = sum(val[j] * x[col[j]])` for `j` in `row_ptr[i]..row_ptr[i+1]-1`.
+- Empty rows should produce `y[i] = 0`.
+- Last row should be handled identically to other rows.
 
-- Results match CPU reference for k=1, k=5, k=10 with dataset sizes 100,
-  500, 1000, and 2000.
-- k > N_dataset handled without crash, returns valid subset.
-- No full sort of the distance array — must use partial selection.
+## Build Notes
 
-## Current State
-
-```c
-void gpu_knn_search(const float *queries, int n_queries, int dims,
-                    const float *dataset, int n_dataset,
-                    int k, int *out_indices, float *out_distances) {
-    // TODO: implement k-NN with max-heap selection
-    for (int q = 0; q < n_queries; q++) {
-        for (int j = 0; j < k; j++) {
-            out_indices[q * k + j] = j < n_dataset ? j : -1;
-            out_distances[q * k + j] = j < n_dataset ? 0.0f : FLT_MAX;
-        }
-    }
-}
-```
-
-## Environment
-
-- CUDA Toolkit 12.x, any NVIDIA GPU with compute capability >= 3.5
+Compile with: `nvcc -rdc=true -lcudadevrt -lm`

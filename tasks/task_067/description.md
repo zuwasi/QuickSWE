@@ -1,26 +1,19 @@
-# Bug: Virtual Dispatch with Object Slicing
+# Pratt Parser – Incorrect Precedence Binding
 
-## Description
+## Problem
 
-An inheritance hierarchy: `Shape` (base) -> `Circle`, `Rectangle`. A `ShapeFactory` has a `createShape()` method that returns `Shape` by value. This causes **object slicing**: the derived part (`Circle` or `Rectangle`) is sliced off when the object is copied into a `Shape` value, and virtual method calls dispatch to the base class instead of the derived class.
+A Pratt (top-down operator precedence) parser evaluates arithmetic expressions
+with `+`, `-`, `*`, `/`, `^` (power), and parentheses.
 
-The factory should return shapes by pointer (e.g., `std::unique_ptr<Shape>`) to preserve polymorphism.
+Users report:
 
-Additionally, a `processShapes()` function stores shapes in a `std::vector<Shape>` (by value), which also causes slicing. It should use `std::vector<std::unique_ptr<Shape>>`.
-
-## Expected Behavior
-
-- `createShape("circle", 5.0)` returns a Circle with area ≈ 78.54 and name "Circle".
-- `createShape("rectangle", 4.0, 6.0)` returns a Rectangle with area = 24.0 and name "Rectangle".
-- Shapes stored in a vector maintain their polymorphic behavior.
-
-## Actual Behavior
-
-- All shapes returned from factory report name "Shape" and area 0 (base class defaults).
-- Vector storage slices all derived data.
+1. `2 + 3 * 4` evaluates to 20 instead of 14 — multiplication does not bind
+   tighter than addition.
+2. `2 ^ 3 ^ 2` evaluates to 64 instead of 512 — right-associativity of `^`
+   is not implemented (it groups left instead of right).
+3. Unary minus `-3 + 4` evaluates incorrectly.
 
 ## Files
 
-- `src/shapes.h` — Shape hierarchy declarations
-- `src/shapes.cpp` — implementation
+- `src/pratt_parser.hpp` — tokenizer and Pratt parser
 - `src/main.cpp` — test driver

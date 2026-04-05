@@ -1,6 +1,1 @@
-{
-    "id": "task_028",
-    "category": "bug_fix",
-    "difficulty": "extreme",
-    "description": "Cache sometimes evicts recently accessed items instead of least recent. Happens more under heavy load."
-}
+{"id": "task_028", "category": "bug_fix", "difficulty": "hard", "description": "Middleware pipeline executes error handlers in wrong order", "language": "python"}

@@ -2,6 +2,6 @@
     "id": "task_070",
     "category": "bug_fix",
     "difficulty": "extreme",
-    "language": "cuda",
-    "description": "Fix CUDA Blelloch parallel prefix sum with off-by-one in up-sweep stride and missing inter-block combination for multi-block arrays."
+    "description": "Lock-free concurrent hash map with incorrect memory ordering (relaxed vs acquire/release)",
+    "language": "cpp"
 }

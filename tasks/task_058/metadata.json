@@ -1,7 +1,7 @@
 {
     "id": "task_058",
-    "category": "feature",
-    "difficulty": "extreme",
-    "language": "cuda",
-    "description": "Implement CUDA parallel reduction to compute the sum of a large float array using shared-memory tree-based reduction, handling arbitrary (non-power-of-2) array sizes."
+    "category": "bug_fix",
+    "difficulty": "medium",
+    "description": "Lock-free stack with ABA problem in compare_and_swap",
+    "language": "cpp"
 }

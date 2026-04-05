@@ -1,19 +1,20 @@
-# Bug Report: User Names Getting Cut Off
+# Task 037: Bytecode VM Stack Frame Corruption
 
-## Summary
-User names are getting cut off in the database. No errors appear in the logs. The full name is submitted in the form but only a portion is stored. Discovered when a user with a long name complained their profile was wrong.
+## Description
 
-## Steps to Reproduce
-1. Create a user with a name longer than 50 characters
-2. Save the record
-3. Retrieve the record — the name is truncated to 50 characters
-4. No error was raised during the save
+A stack-based virtual machine implements function calls using stack frames with a base
+pointer (frame pointer) and stack pointer. The RET instruction restores the stack pointer
+but fails to restore the base pointer, causing local variable access in the calling
+function to read from wrong stack locations after a CALL/RET sequence.
+
+## Bug
+
+The RET instruction pops the return value and restores SP, but does not restore BP
+(base pointer / frame pointer) from the saved frame. This means after returning from
+a function call, LOAD and STORE instructions in the caller use the wrong base offset,
+corrupting local variable access.
 
 ## Expected Behavior
-Either store the full name or raise a validation error telling the user the name is too long.
 
-## Additional Notes
-- The validator module has max_length checks, so we assumed it was covered
-- The serializer was refactored last month to improve performance
-- We're using our custom schema/serializer — not an ORM
-- Could be related to the encoding layer? Some users with unicode names also report issues
+RET should restore both SP and BP from the saved call frame, so the calling function's
+local variables remain accessible at their correct offsets.

@@ -1,6 +1,1 @@
-{
-    "id": "task_032",
-    "category": "feature",
-    "difficulty": "extreme",
-    "description": "Add SQL-like query engine for in-memory data with SELECT, WHERE, ORDER BY, GROUP BY, HAVING, JOIN, and aggregate functions across a multi-file query system."
-}
+{"id": "task_032", "category": "bug_fix", "difficulty": "hard", "description": "Template engine renders wrong variable in nested {% for %} blocks", "language": "python"}

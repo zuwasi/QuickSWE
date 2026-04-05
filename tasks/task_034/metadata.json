@@ -1,6 +1,1 @@
-{
-    "id": "task_034",
-    "category": "refactoring",
-    "difficulty": "extreme",
-    "description": "Refactor expression evaluator to support operator precedence, parentheses, unary operators, power operator (right-associative), comparison and boolean operators with proper AST nodes."
-}
+{"id": "task_034", "category": "bug_fix", "difficulty": "hard", "description": "Heap-based priority queue merge operation produces unsorted output", "language": "python"}

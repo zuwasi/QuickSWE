@@ -1,0 +1,7 @@
+{
+    "id": "task_095",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Fix custom GEMM kernel with incorrect shared memory tiling and double buffering bug causing wrong matrix multiplication."
+}

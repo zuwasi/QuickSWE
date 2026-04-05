@@ -1,6 +1,1 @@
-{
-    "id": "task_027",
-    "category": "bug_fix",
-    "difficulty": "extreme",
-    "description": "Users on private tenants sometimes see public data. Can't reproduce consistently — seems to depend on deployment order."
-}
+{"id": "task_027", "category": "bug_fix", "difficulty": "hard", "description": "AST transformer incorrectly renames variables in nested function scopes", "language": "python"}

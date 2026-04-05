@@ -1,0 +1,7 @@
+{
+    "id": "task_090",
+    "category": "bug_fix",
+    "difficulty": "hard",
+    "language": "cuda",
+    "description": "Fix warp-divergent branch optimization with incorrect predication causing wrong results in conditional computation."
+}

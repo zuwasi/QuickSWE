@@ -1,39 +1,18 @@
-# Task 012: Replace Magic Numbers with Named Constants
+# Task 012 – Memoization Decorator Returns Stale Results
 
-## Current State
+## Problem
+The `memoize` decorator caches function results keyed by their arguments.
+When a mutable argument (e.g. a list) is passed, the decorator stores the
+list object reference as part of the cache key. If the caller later mutates
+that list object and calls the function again, the cache returns the stale
+result from the first call because the key object is the same identity.
 
-`src/game_engine.py` implements a simple 2-D game engine with functions for player movement, collision detection, and score calculation. The code is riddled with **magic numbers** — raw numeric literals sprinkled throughout:
+## Expected Behaviour
+- Arguments should be frozen (deep-copied / converted to hashable form)
+  before being used as cache keys.
+- Mutating a list after a call must not affect future cache lookups.
+- The decorator should still work correctly for immutable arguments.
 
-| Number | Meaning |
-|--------|---------|
-| `800`  | Screen width in pixels |
-| `600`  | Screen height in pixels |
-| `32`   | Tile size in pixels |
-| `100`  | Maximum player health |
-| `1.5`  | Speed multiplier for sprinting |
-
-These appear multiple times across different functions. Anyone reading the code must guess what `800` means in context.
-
-## Code Smell
-
-- **Magic Numbers** — unnamed numeric literals that obscure intent and create a maintenance burden.
-
-## Requested Refactoring
-
-Define named constants at module level:
-
-```python
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
-TILE_SIZE = 32
-MAX_HEALTH = 100
-SPEED_MULTIPLIER = 1.5
-```
-
-Replace every occurrence of the raw number with the corresponding constant. All game functions must use these constants instead of literals.
-
-## Acceptance Criteria
-
-- [ ] `SCREEN_WIDTH`, `SCREEN_HEIGHT`, `TILE_SIZE`, `MAX_HEALTH`, `SPEED_MULTIPLIER` are importable module-level attributes of `src.game_engine`.
-- [ ] No magic numbers (`800`, `600`, `32`, `100`, `1.5`) remain as raw literals in the function bodies.
-- [ ] All game functions continue to produce the same results.
+## Files
+- `src/memoize.py` – the buggy decorator
+- `tests/test_memoize.py` – test suite

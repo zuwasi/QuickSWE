@@ -1,7 +1,7 @@
 {
     "id": "task_076",
-    "category": "feature",
-    "difficulty": "extreme",
+    "category": "bug_fix",
+    "difficulty": "easy",
     "language": "cuda",
-    "description": "Implement tiled GEMM with shared memory and register-level 4x4 sub-tile blocking, handling non-tile-aligned matrix dimensions."
+    "description": "Fix vector addition kernel with incorrect grid/block dimension calculation causing partial results."
 }

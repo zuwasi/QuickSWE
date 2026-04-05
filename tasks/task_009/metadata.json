@@ -1,6 +1,1 @@
-{
-    "id": "task_009",
-    "category": "feature",
-    "difficulty": "easy",
-    "description": "Add search and total value calculation to Inventory system"
-}
+{"id": "task_009", "category": "feature", "difficulty": "easy", "description": "Markdown table parser doesn't handle escaped pipes in cell content", "language": "python"}

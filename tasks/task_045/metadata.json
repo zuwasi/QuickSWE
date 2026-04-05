@@ -1,1 +1,1 @@
-{"id": "task_045", "category": "refactoring", "difficulty": "extreme", "description": "Convert monolithic procedural ETL function to declarative pipeline with configurable Step classes"}
+{"id": "task_045", "category": "bug_fix", "difficulty": "extreme", "description": "LSM-tree compaction merge doesn't properly handle tombstone markers", "language": "python"}

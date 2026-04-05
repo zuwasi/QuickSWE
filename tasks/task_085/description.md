@@ -1,44 +1,27 @@
-# Bug Report: Quadtree Processing Hangs or Produces Wrong Results
+# Bug Report: Radix Sort Wrong Order for Signed Integers
 
 ## Summary
 
-Our CUDA dynamic parallelism-based quadtree processor hangs or produces
-wrong results depending on the tree configuration. It uses parent kernels
-that launch child kernels to recursively process quadtree nodes.
+Our CUDA radix sort works correctly for unsigned (positive) integers but
+produces wrong ordering when the input contains negative numbers. All
+negative values end up after the positive values instead of before them.
 
 ## Symptoms
 
-- Small trees (depth 1-2, 4-16 nodes) sometimes work correctly.
-- Deeper trees (depth 3+, 64+ nodes) either:
-  - Hang indefinitely (appears to deadlock)
-  - Produce wrong accumulated values in the output buffer
-- The wrong values look like partial results — some child contributions
-  are missing while others appear duplicated.
-- Reducing the number of parent threads sometimes makes it work, but
-  using 1 thread defeats the purpose of parallelism.
-- The hang seems to correlate with having many parent threads active
-  simultaneously.
-
-## What We've Tried
-
-- Verified the CPU recursive reference produces correct results.
-- Added `cudaDeviceSynchronize()` after child launches — makes the hang
-  WORSE (almost always deadlocks now).
-- Tried using separate streams for child kernels — didn't help.
-- Reduced max recursion depth — still hangs at depth 3.
+- Arrays of all-positive integers sort correctly.
+- Mixed positive/negative arrays produce: [positive sorted...] [negative sorted...]
+  instead of [negative sorted...] [positive sorted...].
+- The sign bit (bit 31) is treated as a regular bit, so all negative
+  numbers (sign bit = 1) sort after all positive numbers (sign bit = 0).
+- Need to flip the sign bit before sorting and flip it back after, so
+  that negative numbers (originally 1xxx) become 0xxx and sort first.
 
 ## Expected Behavior
 
-- Quadtree nodes should be processed correctly at any depth up to 5.
-- Each leaf node contributes its value to the output buffer.
-- Internal nodes correctly aggregate child results.
-- No deadlocks regardless of tree configuration.
+- Signed integers should sort in correct ascending order:
+  -100, -50, -1, 0, 1, 50, 100
+- Must handle mixed positive/negative inputs.
 
 ## Build Notes
 
-Must compile with: `nvcc -rdc=true -lcudadevrt`
-
-## Environment
-
-- CUDA Toolkit 12.x, any NVIDIA GPU with compute capability >= 3.5
-  (dynamic parallelism requires >= 3.5)
+Compile with: `nvcc -rdc=true -lcudadevrt -lm`

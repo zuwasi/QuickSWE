@@ -1,1 +1,1 @@
-{"id": "task_021", "category": "feature", "difficulty": "hard", "description": "Add middleware pipeline to request handler with chain execution and short-circuit support"}
+{"id": "task_021", "category": "bug_fix", "difficulty": "hard", "description": "Red-black tree loses nodes after deletion when uncle is black and requires double rotation", "language": "python"}

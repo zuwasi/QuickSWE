@@ -1,7 +1,7 @@
 {
     "id": "task_066",
-    "language": "cpp",
-    "category": "feature",
+    "category": "bug_fix",
     "difficulty": "hard",
-    "description": "Add begin()/end() iterators to SkipList container for range-for and STL algorithm support"
+    "description": "Graph: Tarjan's SCC algorithm with incorrect lowlink update",
+    "language": "cpp"
 }

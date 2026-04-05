@@ -236,7 +236,8 @@ def main():
     )
     parser.add_argument("--runs", type=int, default=3,
                         help="Number of full runs (default: 3)")
-    parser.add_argument("--agent", choices=["amp", "claude", "both"], default="both",
+    parser.add_argument("--agent", choices=["amp", "amp-deep3", "claude", "both", "deep3-vs-claude"],
+                        default="both",
                         help="Which agent(s) to run (default: both)")
     parser.add_argument("--tasks", default="all",
                         help="Comma-separated task IDs or 'all' (default: all)")
@@ -246,7 +247,12 @@ def main():
                         help="Seconds to pause between runs (default: 30)")
     args = parser.parse_args()
 
-    agents = ["amp", "claude"] if args.agent == "both" else [args.agent]
+    if args.agent == "both":
+        agents = ["amp", "claude"]
+    elif args.agent == "deep3-vs-claude":
+        agents = ["amp-deep3", "claude"]
+    else:
+        agents = [args.agent]
     tasks = discover_tasks(args.tasks)
 
     if not tasks:

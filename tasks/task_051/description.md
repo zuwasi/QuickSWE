@@ -1,27 +1,25 @@
-# Bug Report: Dynamic Array Crashes on First Insert
+# Circular Buffer – Incorrect Wrap-Around Logic
 
-## Summary
-Our dynamic array library segfaults or produces garbage values intermittently.
-Sometimes the first `push()` works, sometimes it doesn't. Users also report being
-able to read values at indices way beyond what they inserted, getting random memory
-contents back instead of an error.
+## Problem
 
-## Steps to Reproduce
-1. Create a new dynamic array with `dynarray_init()`
-2. Push a few values
-3. Try to read values — sometimes garbage is returned
-4. Try to read at an index that was never written — no error, just garbage
+A `CircularBuffer<T>` template class implements a fixed-size ring buffer supporting
+`push_back`, `pop_front`, `front`, `back`, `full`, `empty`, and `size` operations.
 
-## Expected Behavior
-- Push should reliably grow the array
-- Get at valid indices returns correct values
-- Get at invalid indices returns an error code
+Users report that:
 
-## Environment
-- GCC on Windows/Linux
-- Crashes are intermittent, sometimes works fine with small arrays
+1. After filling the buffer and then pushing additional elements (overwrite mode),
+   the oldest elements are **not** correctly discarded — the buffer returns stale data.
+2. The `size()` method returns wrong values once the internal indices wrap around.
+3. Iterating the buffer after wrap-around yields elements in the wrong order.
 
-## Reporter Notes
-I think there's something wrong with the memory allocation but I can't pin it down.
-The array seems to work fine if I manually set an initial capacity before pushing,
-but the default initialization path is broken.
+## Files
+
+- `src/circular_buffer.hpp` — the buffer implementation
+- `src/main.cpp` — driver that runs selected test cases based on command-line args
+
+## Expected Behaviour
+
+- `push_back` on a full buffer should overwrite the oldest entry and advance the
+  head pointer.
+- `size()` must always return the correct number of valid elements (≤ capacity).
+- Iteration from oldest to newest must respect insertion order after wrap-around.

@@ -1,0 +1,7 @@
+{
+    "id": "task_091",
+    "category": "bug_fix",
+    "difficulty": "hard",
+    "language": "cuda",
+    "description": "Fix tensor core WMMA with incorrect fragment layout (row vs col major mismatch) producing wrong GEMM results."
+}

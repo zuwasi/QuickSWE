@@ -1,0 +1,7 @@
+{
+    "id": "task_099",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Fix ray tracing AABB intersection test and BVH traversal stack management causing missed intersections."
+}

@@ -1,0 +1,7 @@
+{
+    "id": "task_088",
+    "category": "refactoring",
+    "difficulty": "hard",
+    "language": "cuda",
+    "description": "Fix unified memory prefetch hints causing page thrashing and incorrect results in iterative solver."
+}

@@ -1,28 +1,27 @@
-# Bug Report: BST Corrupted After Deleting Nodes
+# Hash Map – Incorrect Linear Probing Collision Resolution
 
-## Summary
-Our binary search tree implementation produces incorrect results after certain
-delete sequences. After deleting specific nodes, the in-order traversal is no
-longer sorted, and some elements that should be in the tree become unfindable.
+## Problem
 
-## Steps to Reproduce
-1. Insert elements: 50, 30, 70, 20, 40, 60, 80, 35, 45, 75, 85
-2. Delete node 70 (has two children: 60 and 80)
-3. In-order traversal should be: 20 30 35 40 45 50 60 75 80 85
-4. Try to find all remaining elements
+A simple open-addressing hash map uses linear probing for collision resolution.
+It supports `insert`, `get`, `remove`, `contains`, and `size`.
 
-## Observed Behavior
-- After deleting 70, the in-order successor (75) replaces it correctly
-- BUT 75's right child (if any) or the subtree gets lost
-- Some elements become unfindable even though they should still be in the tree
-- In-order traversal may show elements out of order
+Users report:
 
-## Expected Behavior
-Deleting a node with two children should:
-1. Find in-order successor (leftmost node in right subtree)
-2. Copy successor's value to the node being deleted
-3. Delete the successor node, properly relinking its right child to its parent
+1. After inserting keys that hash to the same bucket, `get()` fails to find some
+   keys even though they were successfully inserted.
+2. After removing a key, looking up a different key that was placed after the
+   removed key (due to collision) returns "not found" — the probe sequence stops
+   at the deleted slot instead of continuing.
+3. Reinsertion after deletion sometimes creates duplicates.
 
-## Impact
-This breaks our sorted data structure. After a few deletes, the tree is corrupted
-and lookups return wrong results.
+## Files
+
+- `src/hashmap.hpp` — HashMap implementation
+- `src/main.cpp` — test driver
+
+## Expected Behaviour
+
+- Linear probing must skip over tombstone (deleted) entries during lookup.
+- Insert must reuse tombstone slots but still check for existing keys further
+  along the probe chain to prevent duplicates.
+- The map must handle wrap-around at table boundaries correctly.

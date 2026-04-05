@@ -1,7 +1,7 @@
 {
     "id": "task_073",
-    "category": "feature",
+    "category": "bug_fix",
     "difficulty": "extreme",
-    "language": "cuda",
-    "description": "Implement CUDA bitonic sort for arbitrary-length arrays, including padding to next power of 2 and extracting valid elements."
+    "description": "Compile-time ray tracer using constexpr with incorrect reflection vector",
+    "language": "cpp"
 }

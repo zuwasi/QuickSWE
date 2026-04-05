@@ -1,30 +1,20 @@
-# Bug: RAII Resource Handle with Double-Free
+# NFA-to-DFA – Incorrect Epsilon Closure
 
-## Description
+## Problem
 
-A `FileHandle` RAII wrapper manages a "file descriptor" (simulated via a mock filesystem that tracks open/close counts). The class has a constructor and destructor, but is missing proper copy/move semantics:
+A mini regex engine builds an NFA from a simple regex pattern (supporting
+concatenation, `|`, `*`, `+`, `?`) and converts it to a DFA via subset
+construction. The epsilon-closure computation has bugs.
 
-1. **Missing copy constructor/assignment**: The compiler-generated copy constructor does a shallow copy of the file descriptor. When both the original and the copy are destroyed, the descriptor is closed twice (double-free).
+Users report:
 
-2. **Missing move semantics**: There's no move constructor or move assignment, so returning a `FileHandle` from a function or inserting into a vector triggers copies (and thus double-frees).
-
-The fix should:
-- Delete the copy constructor and copy assignment operator (files shouldn't be silently copied).
-- Add move constructor and move assignment operator that transfer ownership.
-
-## Expected Behavior
-
-- After copying is prevented and move semantics are added, open_count should always equal close_count at program end.
-- A `FileHandle` can be returned from a factory function without double-free.
-- `FileHandle` can be stored in a `std::vector` via move.
-
-## Actual Behavior
-
-- Copying a FileHandle leads to double-close (close_count > open_count).
-- Program may crash or report mismatched open/close counts.
+1. The pattern `a|b` matches "a" but not "b" — the epsilon closure from the
+   start state does not reach the branch for "b".
+2. The pattern `a*` matches "" and "a" but not "aaa" — the closure after
+   consuming one "a" does not loop back correctly.
+3. Patterns with `+` (one or more) incorrectly accept the empty string.
 
 ## Files
 
-- `src/filehandle.h` — FileHandle RAII wrapper and MockFS
-- `src/filehandle.cpp` — implementation
+- `src/regex_engine.hpp` — NFA construction and subset construction
 - `src/main.cpp` — test driver

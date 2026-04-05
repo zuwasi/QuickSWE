@@ -1,61 +1,28 @@
-# Bug Report: Incorrect CUDA Grid Dimensions for Non-Power-of-2 Arrays
+# SFINAE Type Dispatch – Fails for Const References
 
-## Summary
+## Problem
 
-The `vector_add` CUDA kernel produces incorrect results for arrays whose size
-is not evenly divisible by the block size (e.g., N=1000 with BLOCK_SIZE=256).
-The last portion of the array contains uninitialized or stale values instead of
-the expected sum.
+A utility library uses SFINAE to dispatch different serialization strategies based
+on type traits: arithmetic types get `to_string`, types with a `.serialize()`
+method get custom handling, and everything else gets a fallback.
 
-## Steps to Reproduce
+Users report:
 
-1. Compile `src/vector_add.cu` with `nvcc`.
-2. Run the resulting binary with `--size 1000`.
-3. Observe that elements beyond index 767 are incorrect (typically zero or
-   garbage values instead of the correct vector sum).
+1. Passing `const int&` or `const double&` to `serialize()` fails — it falls
+   through to the fallback instead of matching the arithmetic overload.
+2. Passing a `const` reference to a class with `.serialize()` method does not
+   match the custom serialization overload.
+3. The `has_serialize` trait gives incorrect results for reference-qualified types.
 
-## Expected Behavior
+## Files
 
-All 1000 elements of the output array should contain the correct sum of the
-corresponding elements from vectors A and B.
+- `src/sfinae_dispatch.hpp` — type traits and dispatch functions
+- `src/main.cpp` — test driver
 
-For `a[i] = i` and `b[i] = i * 2`, the expected result is `c[i] = i + i*2 = 3*i`
-for every `i` in `[0, 999]`.
+## Expected Behaviour
 
-## Actual Behavior
-
-Elements at indices 768–999 are **not computed** by the kernel. The output for
-those indices is zero (as initialized by `cudaMemset` / `cudaMalloc` behavior)
-instead of the expected values.
-
-## Root Cause Analysis
-
-There are **two bugs** in `vector_add.cu`:
-
-1. **Grid dimension truncation**: The grid size is computed as:
-   ```c
-   int grid = N / BLOCK_SIZE;
-   ```
-   For N=1000 and BLOCK_SIZE=256, this yields `grid = 3` (integer division
-   truncates). Only `3 * 256 = 768` threads are launched, leaving elements
-   768–999 unprocessed. The fix is to round up:
-   ```c
-   int grid = (N + BLOCK_SIZE - 1) / BLOCK_SIZE;
-   ```
-
-2. **Missing bounds check in kernel**: Once the grid is rounded up (grid=4,
-   launching 1024 threads), threads with index >= N will perform out-of-bounds
-   memory accesses. The kernel must include:
-   ```c
-   if (i < N) { ... }
-   ```
-
-Both bugs must be fixed together. Fixing only the grid dimension without adding
-the bounds check causes undefined behavior. Fixing only the bounds check
-without the grid rounding still leaves trailing elements unprocessed.
-
-## Environment
-
-- CUDA Toolkit 12.x
-- Windows 11 / Linux
-- Any NVIDIA GPU with compute capability >= 3.5
+- `serialize(42)`, `serialize(const_ref_to_int)`, and `serialize(3.14)` should
+  all use the arithmetic path.
+- `serialize(obj_with_serialize)` and `serialize(const_ref_to_obj)` should
+  both call the custom `.serialize()` path.
+- The SFINAE traits must strip reference and cv-qualifiers before checking.

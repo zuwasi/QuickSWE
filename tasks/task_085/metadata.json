@@ -1,7 +1,7 @@
 {
     "id": "task_085",
     "category": "bug_fix",
-    "difficulty": "extreme",
+    "difficulty": "medium",
     "language": "cuda",
-    "description": "Fix CUDA dynamic parallelism quadtree traversal with child kernel synchronization and deadlock issues."
+    "description": "Fix radix sort with incorrect digit extraction for signed integers causing negative numbers to sort incorrectly."
 }

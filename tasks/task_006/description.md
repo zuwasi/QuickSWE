@@ -1,25 +1,17 @@
-# Feature Request: Add Sorting to DataTable
+# Task 006: Matrix Spiral Traversal
 
-## Current State
+## Problem
 
-The `DataTable` class in `src/data_table.py` supports:
-- `add_row(row_dict)` — adds a row (dict) to the table
-- `get_rows()` — returns all rows as a list of dicts
-- `filter_by(column, value)` — returns rows where `column == value`
+The `spiral_order(matrix)` function traverses a 2D matrix in spiral order (right → down → left → up, repeating inward). It works correctly for square matrices but **skips inner elements for non-square (rectangular) matrices** due to an off-by-one error in the boundary update logic.
 
-## Requested Feature
+## Expected Behavior
 
-Add a `sort_by(column, reverse=False)` method that returns the rows sorted by the given column's values.
+- `spiral_order([[1,2,3],[4,5,6],[7,8,9]])` → `[1,2,3,6,9,8,7,4,5]`
+- `spiral_order([[1,2,3,4],[5,6,7,8],[9,10,11,12]])` → `[1,2,3,4,8,12,11,10,9,5,6,7]`
+- Single row and single column matrices should also work
+- Empty matrix returns empty list
 
-- `column` (str): the column name to sort by
-- `reverse` (bool, default False): if True, sort in descending order
-- Returns a new list of the rows sorted by that column (does NOT mutate internal state)
-- If a row is missing the specified column, it should be placed at the end of the sorted result
+## Files
 
-## Acceptance Criteria
-
-1. `sort_by("age")` returns rows sorted by the "age" column in ascending order
-2. `sort_by("age", reverse=True)` returns rows sorted descending
-3. Rows missing the sort column are placed at the end
-4. The internal row order is not mutated by sorting
-5. All existing functionality (add_row, get_rows, filter_by) continues to work
+- `src/spiral.py` — spiral_order implementation
+- `tests/test_spiral.py` — Test suite

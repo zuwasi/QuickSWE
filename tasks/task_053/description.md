@@ -1,26 +1,21 @@
-# Feature Request: Tokenizer Should Handle Escaping and Quoting
+# Matrix Multiplication – Incorrect Dimension Indexing
 
-## Summary
-Our string tokenizer works great for simple CSV-like splitting but users need to
-be able to include the delimiter character in their data. Two common conventions
-need to be supported:
+## Problem
 
-1. **Backslash escaping**: `\,` should produce a literal comma, not split
-2. **Quoted strings**: content inside double quotes `"..."` should be treated as
-   literal — delimiters inside quotes don't cause a split
+A `Matrix` class supports dynamic-size matrix creation, element access, and
+multiplication. Users report that matrix multiplication produces wrong results:
 
-## Current Behavior
-- `"hello,world,foo"` with delimiter `,` → `["hello", "world", "foo"]` ✓
-- `"hello\,world,foo"` with delimiter `,` → `["hello\", "world", "foo"]` ✗
-- `'"a,b",c'` with delimiter `,` → `['"a', 'b"', 'c']` ✗
+1. Multiplying non-square matrices (e.g., 2×3 * 3×2) gives incorrect values.
+2. The identity matrix property `A * I = A` fails for rectangular matrices.
+3. Transposing the product `(A*B)^T` does not equal `B^T * A^T`.
 
-## Expected Behavior
-- `"hello\,world,foo"` → `["hello,world", "foo"]`
-- `'"a,b",c'` → `["a,b", "c"]`
-- `'"hello \"world\"",test'` → `["hello \"world\"", "test"]` (escaped quotes inside quotes)
+## Files
 
-## Notes
-- The backslash itself can be escaped: `\\` produces a literal backslash
-- The tokenizer should allocate result strings that have escape sequences resolved
-  (i.e., the output tokens should not contain the backslash escape characters)
-- Empty tokens between delimiters should be preserved
+- `src/matrix.hpp` — Matrix class with multiply, transpose, and helpers
+- `src/main.cpp` — test driver
+
+## Expected Behaviour
+
+- Standard matrix multiplication: `C[i][j] = sum(A[i][k] * B[k][j])` for k in
+  0..A.cols-1, where result dimensions are A.rows × B.cols.
+- The result matrix must have `A.rows` rows and `B.cols` columns.

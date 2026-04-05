@@ -1,26 +1,15 @@
-# Bug Report: Application hangs when certain event combinations are triggered
-
-## Summary
-
-Our event-driven system uses an `EventBus` for decoupled communication between components. The `Dispatcher` routes domain events through the bus to registered handlers.
+# Task 017 – Expression Evaluator Ignores Operator Precedence
 
 ## Problem
+The `evaluate()` function parses and evaluates arithmetic expressions.
+It currently evaluates operators strictly left-to-right, so `3 + 4 * 2`
+returns 14 instead of the correct 11.
 
-The application intermittently hangs (becomes completely unresponsive) when processing certain sequences of events. It seems to happen when multiple handlers are registered and specific combinations of events are published. Eventually it crashes with a `RecursionError`.
+## Expected Behaviour
+- Multiplication and division bind tighter than addition and subtraction.
+- Parenthesised sub-expressions are evaluated first.
+- `evaluate("3+4*2")` → 11, not 14.
 
-Users report that it works fine when there are only a few handlers, but as more features were added with more event handlers, the system started hanging.
-
-## Steps to Reproduce
-
-1. Register multiple handlers that react to different event types
-2. Trigger events that cause handlers to publish additional events
-3. Under certain combinations, the system hangs or crashes
-
-## Expected Behavior
-
-The event system should handle any combination of event subscriptions gracefully. If a problematic event chain is detected, it should raise a clear error instead of hanging.
-
-## Environment
-
-- Python 3.10+
-- Custom event bus system (no external dependencies)
+## Files
+- `src/evaluator.py` – the buggy evaluator
+- `tests/test_evaluator.py` – test suite

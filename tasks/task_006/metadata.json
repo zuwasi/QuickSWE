@@ -1,6 +1,1 @@
-{
-    "id": "task_006",
-    "category": "feature",
-    "difficulty": "easy",
-    "description": "Add sort_by(column, reverse) method to DataTable class"
-}
+{"id": "task_006", "category": "bug_fix", "difficulty": "easy", "description": "Matrix spiral traversal skips inner elements for non-square matrices", "language": "python"}

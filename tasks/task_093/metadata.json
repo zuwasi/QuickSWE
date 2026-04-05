@@ -1,0 +1,7 @@
+{
+    "id": "task_093",
+    "category": "bug_fix",
+    "difficulty": "hard",
+    "language": "cuda",
+    "description": "Fix multi-stream pipeline with incorrect event dependency graph (missing cudaStreamWaitEvent) causing data races."
+}

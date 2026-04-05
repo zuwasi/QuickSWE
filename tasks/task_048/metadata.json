@@ -1,1 +1,1 @@
-{"id": "task_048", "category": "refactoring", "difficulty": "hard", "description": "Add transparent caching layer with TTL-based expiration and invalidation to repository pattern"}
+{"id": "task_048", "category": "bug_fix", "difficulty": "extreme", "description": "Incremental parser loses partial parse state after error recovery", "language": "python"}

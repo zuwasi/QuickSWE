@@ -1,1 +1,1 @@
-{"id": "task_024", "category": "feature", "difficulty": "hard", "description": "Add undo/redo with command pattern and transaction grouping to text editor"}
+{"id": "task_024", "category": "bug_fix", "difficulty": "hard", "description": "Plugin loader resolves dependencies in wrong order causing initialization failures", "language": "python"}

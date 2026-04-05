@@ -17,6 +17,9 @@ RESULTS_DIR = Path(__file__).parent / "results"
 TASKS_DIR = Path(__file__).parent / "tasks"
 
 
+GITHUB_REPO = "https://github.com/zuwasi/QuickSWE"
+
+
 def get_task_language(task_id: str) -> str:
     """Return the language for a task by reading its metadata.json."""
     meta_path = TASKS_DIR / task_id / "metadata.json"
@@ -28,6 +31,32 @@ def get_task_language(task_id: str) -> str:
             return "c_cpp"
         return lang
     return "python"
+
+
+def get_task_info(task_id: str) -> dict:
+    """Return full task metadata including description for dashboard links."""
+    info = {"id": task_id, "description": "", "difficulty": "unknown",
+            "category": "unknown", "language": "python", "src_files": []}
+    meta_path = TASKS_DIR / task_id / "metadata.json"
+    if meta_path.exists():
+        with open(meta_path, encoding="utf-8") as f:
+            info.update(json.load(f))
+    desc_path = TASKS_DIR / task_id / "description.md"
+    if desc_path.exists():
+        with open(desc_path, encoding="utf-8") as f:
+            # First non-empty line after stripping '#'
+            for line in f:
+                line = line.strip().lstrip("#").strip()
+                if line:
+                    info["description"] = line
+                    break
+    src_dir = TASKS_DIR / task_id / "src"
+    if src_dir.is_dir():
+        info["src_files"] = [
+            f.name for f in sorted(src_dir.iterdir())
+            if f.is_file() and f.name != "__init__.py"
+        ]
+    return info
 
 # ── data loading ─────────────────────────────────────────────────────────────
 
@@ -239,14 +268,24 @@ def _filter_agg_by_lang(agg: dict, lang: str) -> dict:
     }
 
 
+AGENT_COLORS = {
+    "amp": "#00B4D8",
+    "amp-deep": "#9B59B6",
+    "amp-deep3": "#2ECC71",
+    "claude": "#FF6B35",
+}
+
+
 def generate_html(agg: dict, output_path: Path):
     """Generate the full dashboard HTML."""
     agents = agg["agents"]
     a1 = agents[0] if agents else "amp"
     a2 = agents[1] if len(agents) > 1 else "claude"
+    a3 = agents[2] if len(agents) > 2 else None
 
-    a1_color = "#00B4D8"
-    a2_color = "#FF6B35"
+    a1_color = AGENT_COLORS.get(a1, "#00B4D8")
+    a2_color = AGENT_COLORS.get(a2, "#FF6B35")
+    a3_color = AGENT_COLORS.get(a3, "#2ECC71") if a3 else None
 
     languages = agg.get("languages", ["python"])
     # Always include the three canonical tabs even if empty
@@ -292,7 +331,7 @@ def generate_html(agg: dict, output_path: Path):
             )
             continue
 
-        chart_data = build_chart_data(lang_agg, a1, a2)
+        chart_data = build_chart_data(lang_agg, a1, a2, a3)
 
         # Determine which charts to include
         is_full = (lang == "python")
@@ -303,11 +342,11 @@ def generate_html(agg: dict, output_path: Path):
         l_a1_time = chart_data["a1_avg_time"]
         l_a2_time = chart_data["a2_avg_time"]
         l_speed = chart_data["speed_multiplier"]
-        if l_r1 > l_r2:
-            l_winner = a1.capitalize()
-        elif l_r2 > l_r1:
-            l_winner = a2.capitalize()
-        else:
+        rates = [(a1, l_r1), (a2, l_r2)]
+        if a3:
+            rates.append((a3, lang_agg["overall"].get(a3, {}).get("resolve_rate", 0)))
+        l_winner = max(rates, key=lambda x: x[1])[0].capitalize()
+        if all(r == rates[0][1] for _, r in rates):
             l_winner = "Tie"
 
         # Build HTML cards for this tab — start with summary cards
@@ -318,6 +357,7 @@ def generate_html(agg: dict, output_path: Path):
             f'  <div class="scard"><div class="val">{count}</div><div class="lbl">Tasks</div></div>\n'
             f'  <div class="scard"><div class="val" style="color:{a1_color}">{l_r1*100:.1f}%</div><div class="lbl">{a1.capitalize()} Resolve Rate</div></div>\n'
             f'  <div class="scard"><div class="val" style="color:{a2_color}">{l_r2*100:.1f}%</div><div class="lbl">{a2.capitalize()} Resolve Rate</div></div>\n'
+            + (f'  <div class="scard"><div class="val" style="color:{a3_color}">{rates[2][1]*100:.1f}%</div><div class="lbl">{a3.capitalize()} Resolve Rate</div></div>\n' if a3 else '') +
             f'  <div class="scard" style="border:2px solid #f1c40f;"><div class="val" style="color:#f1c40f">{l_speed}x</div><div class="lbl">{a1.capitalize()} Speed Advantage</div></div>\n'
             f'  <div class="scard"><div class="val" style="color:{a1_color}">{l_a1_time}s</div><div class="lbl">{a1.capitalize()} Avg Time</div></div>\n'
             f'  <div class="scard"><div class="val" style="color:{a2_color}">{l_a2_time}s</div><div class="lbl">{a2.capitalize()} Avg Time</div></div>\n'
@@ -419,6 +459,7 @@ def generate_html(agg: dict, output_path: Path):
             )
 
         # Heatmap table (all tabs)
+        a3_th = f'      <th style="color:{a3_color}">{a3.capitalize()} Resolve</th><th style="color:{a3_color}">Time</th>\n' if a3 else ''
         tab_html += (
             f'<div class="card full">\n'
             f'  <h2>🗺️ Head-to-Head Results Matrix</h2>\n'
@@ -428,6 +469,7 @@ def generate_html(agg: dict, output_path: Path):
             f'      <th>Task</th><th>Category</th>\n'
             f'      <th style="color:{a1_color}">{a1.capitalize()} Resolve</th><th style="color:{a1_color}">Time</th>\n'
             f'      <th style="color:{a2_color}">{a2.capitalize()} Resolve</th><th style="color:{a2_color}">Time</th>\n'
+            f'      {a3_th}'
             f'    </tr></thead>\n'
             f'    <tbody>{chart_data["heatmap_rows"]}</tbody>\n'
             f'  </table>\n'
@@ -442,14 +484,16 @@ def generate_html(agg: dict, output_path: Path):
         # Build JavaScript for this tab's charts
         agent1 = a1.capitalize()
         agent2 = a2.capitalize()
+        agent3 = a3.capitalize() if a3 else None
         js = ""
 
         # Overall
         js += (
             f"(function(){{\n"
             f"  const d = {chart_data['overall_data']};\n"
+            f"  const vals = [d.a1,d.a2]; const cols = [A1,A2]; if(d.a3!==undefined){{ vals.push(d.a3); cols.push(A3); }}\n"
             f"  new Chart('overallChart{suffix}', darkOpts({{\n"
-            f"    type:'bar', data:{{ labels:d.labels, datasets:[{{ data:[d.a1,d.a2], backgroundColor:[A1,A2], borderRadius:6 }}] }},\n"
+            f"    type:'bar', data:{{ labels:d.labels, datasets:[{{ data:vals, backgroundColor:cols, borderRadius:6 }}] }},\n"
             f"    options:{{ indexAxis:'y', plugins:{{ legend:{{display:false}}, datalabels:{{ anchor:'end',align:'left',color:'#fff',font:{{weight:'bold',size:16}},formatter:v=>v+'%' }} }},\n"
             f"      scales:{{ x:{{ max:100, title:{{display:true,text:'Resolve Rate %',color:'#aaa'}} }} }} }}\n"
             f"  }}));\n}})();\n"
@@ -461,14 +505,15 @@ def generate_html(agg: dict, output_path: Path):
             f"  const d = {chart_data['speed_ratio_data']};\n"
             f"  const n = Math.min(15, d.labels.length);\n"
             f"  const labels = d.labels.slice(0,n); const ratios = d.ratios.slice(0,n);\n"
+            f"  const badges = (d.badges||[]).slice(0,n);\n"
             f"  const a1t = d.a1_times.slice(0,n); const a2t = d.a2_times.slice(0,n);\n"
-            f"  new Chart('speedRatioChart{suffix}', darkOpts({{\n"
-            f"    type:'bar', data:{{ labels:labels.map((l,i)=>l+' ('+ratios[i]+'x)'),\n"
+            f"  const ch = new Chart('speedRatioChart{suffix}', darkOpts({{\n"
+            f"    type:'bar', data:{{ labels:labels.map((l,i)=>(badges[i]||'')+' '+l+' ('+ratios[i]+'x)'),\n"
             f"      datasets:[\n"
             f"        {{ label:'{agent1}', data:a1t, backgroundColor:A1, borderRadius:5, barPercentage:0.8 }},\n"
             f"        {{ label:'{agent2}', data:a2t, backgroundColor:A2, borderRadius:5, barPercentage:0.8 }}\n"
             f"      ] }},\n"
-            f"    options:{{ indexAxis:'y',\n"
+            f"    options:{{ indexAxis:'y', onClick:(e,el)=>{{ if(el.length){{ const idx=el[0].index; window.open(REPO+'/tree/main/tasks/'+labels[idx],'_blank'); }} }},\n"
             f"      plugins:{{ legend:{{ position:'top', labels:{{color:'#e0e0e0', font:{{size:13,weight:'bold'}}, padding:20}} }},\n"
             f"        datalabels:{{ anchor:'end', align:'left', color:'#fff', font:{{size:11}}, formatter:v=>v>0?v.toFixed(0)+'s':'' }} }},\n"
             f"      scales:{{ x:{{ title:{{display:true,text:'Seconds',color:'#aaa'}}, grid:{{color:'#ffffff10'}} }}, y:{{ ticks:{{font:{{size:12}}}}, grid:{{display:false}} }} }} }}\n"
@@ -491,26 +536,28 @@ def generate_html(agg: dict, output_path: Path):
 
         if is_full:
             # Category
+            a3_cat_ds = f", {{ label:'{agent3}', data:d.a3, backgroundColor:A3, borderRadius:4 }}" if agent3 else ""
             js += (
                 f"(function(){{\n"
                 f"  const d = {chart_data['category_data']};\n"
                 f"  new Chart('categoryChart{suffix}', darkOpts({{\n"
                 f"    type:'bar', data:{{ labels:d.labels, datasets:[\n"
                 f"      {{ label:'{agent1}', data:d.a1, backgroundColor:A1, borderRadius:4 }},\n"
-                f"      {{ label:'{agent2}', data:d.a2, backgroundColor:A2, borderRadius:4 }}\n"
+                f"      {{ label:'{agent2}', data:d.a2, backgroundColor:A2, borderRadius:4 }}{a3_cat_ds}\n"
                 f"    ] }},\n"
                 f"    options:{{ plugins:{{ datalabels:{{ color:'#fff',font:{{size:11}},formatter:v=>v+'%' }} }},\n"
                 f"      scales:{{ y:{{ max:100, title:{{display:true,text:'%',color:'#aaa'}} }} }} }}\n"
                 f"  }}));\n}})();\n"
             )
             # Difficulty
+            a3_diff_ds = f", {{ label:'{agent3}', data:d.a3, backgroundColor:A3, borderRadius:4 }}" if agent3 else ""
             js += (
                 f"(function(){{\n"
                 f"  const d = {chart_data['difficulty_data']};\n"
                 f"  new Chart('difficultyChart{suffix}', darkOpts({{\n"
                 f"    type:'bar', data:{{ labels:d.labels, datasets:[\n"
                 f"      {{ label:'{agent1}', data:d.a1, backgroundColor:A1, borderRadius:4 }},\n"
-                f"      {{ label:'{agent2}', data:d.a2, backgroundColor:A2, borderRadius:4 }}\n"
+                f"      {{ label:'{agent2}', data:d.a2, backgroundColor:A2, borderRadius:4 }}{a3_diff_ds}\n"
                 f"    ] }},\n"
                 f"    options:{{ plugins:{{ datalabels:{{ color:'#fff',font:{{size:11}},formatter:v=>v+'%' }} }},\n"
                 f"      scales:{{ y:{{ max:100 }} }} }}\n"
@@ -580,15 +627,18 @@ def generate_html(agg: dict, output_path: Path):
                 f"  }}));\n}})();\n"
             )
             # Per-task
+            a3_pt_ds = f", {{ label:'{agent3}', data:d.a3, backgroundColor:A3, borderRadius:3 }}" if agent3 else ""
             js += (
                 f"(function(){{\n"
                 f"  const d = {chart_data['per_task_data']};\n"
+                f"  const tids = d.task_ids || d.labels;\n"
                 f"  new Chart('perTaskChart{suffix}', darkOpts({{\n"
                 f"    type:'bar', data:{{ labels:d.labels, datasets:[\n"
                 f"      {{ label:'{agent1}', data:d.a1, backgroundColor:A1, borderRadius:3 }},\n"
-                f"      {{ label:'{agent2}', data:d.a2, backgroundColor:A2, borderRadius:3 }}\n"
+                f"      {{ label:'{agent2}', data:d.a2, backgroundColor:A2, borderRadius:3 }}{a3_pt_ds}\n"
                 f"    ] }},\n"
-                f"    options:{{ indexAxis:'y', plugins:{{ datalabels:{{ display:false }} }},\n"
+                f"    options:{{ indexAxis:'y', onClick:(e,el)=>{{ if(el.length){{ const idx=el[0].index; window.open(REPO+'/tree/main/tasks/'+tids[idx],'_blank'); }} }},\n"
+                f"      plugins:{{ datalabels:{{ display:false }}, tooltip:{{ callbacks:{{ afterLabel:(ctx)=>{{ const i=ctx.dataIndex; return d.descs?d.descs[i]:''; }} }} }} }},\n"
                 f"      scales:{{ x:{{ max:100, title:{{display:true,text:'Resolve Rate %',color:'#aaa'}} }} }} }}\n"
                 f"  }}));\n}})();\n"
             )
@@ -605,6 +655,8 @@ def generate_html(agg: dict, output_path: Path):
         a2_color=a2_color,
         lang_tabs=lang_tabs_html,
         lang_charts_js=lang_charts_js,
+        github_repo=GITHUB_REPO,
+        a3_color=a3_color or "#2ECC71",
     )
 
     output_path.parent.mkdir(exist_ok=True)
@@ -612,7 +664,7 @@ def generate_html(agg: dict, output_path: Path):
         f.write(html)
 
 
-def build_chart_data(agg: dict, a1: str, a2: str) -> dict:
+def build_chart_data(agg: dict, a1: str, a2: str, a3: str | None = None) -> dict:
     """Build all chart data as JSON strings for template insertion."""
     overall = agg["overall"]
     per_task = agg["per_task"]
@@ -622,41 +674,61 @@ def build_chart_data(agg: dict, a1: str, a2: str) -> dict:
     trends = agg["run_trends"]
 
     # 1. Overall resolve rates
-    overall_data = json.dumps({
+    od = {
         "labels": [a1.capitalize(), a2.capitalize()],
         "a1": round(overall.get(a1, {}).get("resolve_rate", 0) * 100, 1),
         "a2": round(overall.get(a2, {}).get("resolve_rate", 0) * 100, 1),
-    })
+    }
+    if a3:
+        od["labels"].append(a3.capitalize())
+        od["a3"] = round(overall.get(a3, {}).get("resolve_rate", 0) * 100, 1)
+    overall_data = json.dumps(od)
 
     # 2. By category
     categories = sorted(by_cat.keys())
-    cat_data = json.dumps({
+    cd = {
         "labels": [c.replace("_", " ").title() for c in categories],
         "a1": [round(by_cat[c].get(a1, {}).get("resolve_rate", 0) * 100, 1) for c in categories],
         "a2": [round(by_cat[c].get(a2, {}).get("resolve_rate", 0) * 100, 1) for c in categories],
-    })
+    }
+    if a3:
+        cd["a3"] = [round(by_cat[c].get(a3, {}).get("resolve_rate", 0) * 100, 1) for c in categories]
+    cat_data = json.dumps(cd)
 
     # 3. By difficulty
-    diff_order = ["easy", "medium", "hard"]
+    diff_order = ["easy", "medium", "hard", "extreme"]
     diffs = [d for d in diff_order if d in by_diff]
-    diff_data = json.dumps({
+    dd = {
         "labels": [d.title() for d in diffs],
         "a1": [round(by_diff[d].get(a1, {}).get("resolve_rate", 0) * 100, 1) for d in diffs],
         "a2": [round(by_diff[d].get(a2, {}).get("resolve_rate", 0) * 100, 1) for d in diffs],
-    })
+    }
+    if a3:
+        dd["a3"] = [round(by_diff[d].get(a3, {}).get("resolve_rate", 0) * 100, 1) for d in diffs]
+    diff_data = json.dumps(dd)
 
     # 4. Per-task comparison (sorted by biggest difference)
     task_pairs = []
     for tid in task_ids:
         r1 = per_task.get(tid, {}).get(a1, {}).get("resolve_rate", 0)
         r2 = per_task.get(tid, {}).get(a2, {}).get("resolve_rate", 0)
-        task_pairs.append((tid, r1, r2, abs(r1 - r2)))
+        r3 = per_task.get(tid, {}).get(a3, {}).get("resolve_rate", 0) if a3 else 0
+        info = get_task_info(tid)
+        desc = info.get("description", "")[:60]
+        diff_badge = {"easy": "🟢", "medium": "🟡", "hard": "🟠", "extreme": "🔴"}.get(
+            info.get("difficulty", ""), "⚪")
+        task_pairs.append((tid, r1, r2, abs(r1 - r2), desc, diff_badge, r3))
     task_pairs.sort(key=lambda x: -x[3])
-    per_task_data = json.dumps({
-        "labels": [t[0] for t in task_pairs],
+    ptd = {
+        "labels": [f"{t[5]} {t[0]}" for t in task_pairs],
+        "task_ids": [t[0] for t in task_pairs],
+        "descs": [t[4] for t in task_pairs],
         "a1": [round(t[1] * 100, 1) for t in task_pairs],
         "a2": [round(t[2] * 100, 1) for t in task_pairs],
-    })
+    }
+    if a3:
+        ptd["a3"] = [round(t[6] * 100, 1) for t in task_pairs]
+    per_task_data = json.dumps(ptd)
 
     # 5. Time comparison
     time_data = json.dumps({
@@ -692,12 +764,13 @@ def build_chart_data(agg: dict, a1: str, a2: str) -> dict:
         "a2": round(overall.get(a2, {}).get("regression_rate", 0) * 100, 1),
     })
 
-    # 9. Heatmap table rows
+    # 9. Heatmap table rows (with clickable task links)
     heatmap_rows = ""
     for tid in task_ids:
         t1 = per_task.get(tid, {}).get(a1, {})
         t2 = per_task.get(tid, {}).get(a2, {})
         cat = t1.get("category", t2.get("category", ""))
+        diff = t1.get("difficulty", t2.get("difficulty", ""))
         r1 = t1.get("resolve_rate", 0)
         r2 = t2.get("resolve_rate", 0)
         rg1 = t1.get("regression_rate", 0)
@@ -716,10 +789,28 @@ def build_chart_data(agg: dict, a1: str, a2: str) -> dict:
 
         c1 = cell_class(r1, rg1)
         c2 = cell_class(r2, rg2)
+        task_info = get_task_info(tid)
+        task_url = f"{GITHUB_REPO}/tree/main/tasks/{tid}"
+        desc_short = task_info.get("description", "")[:80]
+        diff_badge = {
+            "easy": "🟢", "medium": "🟡", "hard": "🟠", "extreme": "🔴"
+        }.get(diff, "⚪")
+        a3_cells = ""
+        if a3:
+            t3 = per_task.get(tid, {}).get(a3, {})
+            r3 = t3.get("resolve_rate", 0)
+            rg3 = t3.get("regression_rate", 0)
+            tm3 = t3.get("avg_time", 0)
+            c3 = cell_class(r3, rg3)
+            a3_cells = f'<td class="{c3}">{r3*100:.0f}%</td><td>{tm3:.1f}s</td>'
         heatmap_rows += (
-            f'<tr><td>{tid}</td><td>{cat.replace("_"," ").title()}</td>'
+            f'<tr>'
+            f'<td><a href="{task_url}" target="_blank" class="task-link" '
+            f'title="{desc_short}">{diff_badge} {tid}</a></td>'
+            f'<td>{cat.replace("_"," ").title()}</td>'
             f'<td class="{c1}">{r1*100:.0f}%</td><td>{tm1:.1f}s</td>'
-            f'<td class="{c2}">{r2*100:.0f}%</td><td>{tm2:.1f}s</td></tr>\n'
+            f'<td class="{c2}">{r2*100:.0f}%</td><td>{tm2:.1f}s</td>'
+            f'{a3_cells}</tr>\n'
         )
 
     # 10. Radar data
@@ -809,13 +900,17 @@ def build_chart_data(agg: dict, a1: str, a2: str) -> dict:
         t1 = per_task.get(tid, {}).get(a1, {}).get("avg_time", 1)
         t2 = per_task.get(tid, {}).get(a2, {}).get("avg_time", 1)
         ratio = round(t2 / max(t1, 0.1), 2)
-        speed_ratios.append((tid, ratio, t1, t2))
+        info = get_task_info(tid)
+        diff_badge = {"easy": "🟢", "medium": "🟡", "hard": "🟠", "extreme": "🔴"}.get(
+            info.get("difficulty", ""), "⚪")
+        speed_ratios.append((tid, ratio, t1, t2, diff_badge))
     speed_ratios.sort(key=lambda x: -x[1])
     speed_ratio_data = json.dumps({
         "labels": [s[0] for s in speed_ratios],
         "ratios": [s[1] for s in speed_ratios],
         "a1_times": [s[2] for s in speed_ratios],
         "a2_times": [s[3] for s in speed_ratios],
+        "badges": [s[4] for s in speed_ratios],
     })
 
     # 13. Speed summary stats
@@ -885,6 +980,8 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   .cell-partial {{ background:#1a3a5c; color:#3498db; }}
   .cell-warn {{ background:#4d3a1a; color:#f39c12; }}
   .cell-fail {{ background:#4d1a1a; color:#e74c3c; }}
+  .task-link {{ color:#58a6ff; text-decoration:none; font-weight:600; transition:color .2s; }}
+  .task-link:hover {{ color:#79c0ff; text-decoration:underline; }}
   footer {{ text-align:center; color:var(--muted); font-size:.8rem; margin-top:30px; }}
   .achievement {{ background: linear-gradient(135deg, #1a3a1a 0%, #16213e 100%); border:2px solid #2ecc71; border-radius:14px; padding:28px; margin-bottom:24px; }}
   .achievement h2 {{ color:#2ecc71; font-size:1.3rem; margin-bottom:12px; }}
@@ -947,8 +1044,9 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 
 <script>
 Chart.register(ChartDataLabels);
-const A1 = '{a1_color}', A2 = '{a2_color}';
-const A1a = '{a1_color}88', A2a = '{a2_color}88';
+const REPO = '{github_repo}';
+const A1 = '{a1_color}', A2 = '{a2_color}', A3 = '{a3_color}';
+const A1a = '{a1_color}88', A2a = '{a2_color}88', A3a = '{a3_color}88';
 const FONT = {{ color: '#e0e0e0' }};
 const GRID = {{ color: '#ffffff15' }};
 function darkOpts(o) {{
@@ -977,6 +1075,11 @@ def main():
     parser.add_argument("--output", type=Path, default=RESULTS_DIR / "dashboard.html")
     parser.add_argument("--aggregate", type=Path, default=None)
     parser.add_argument("--no-open", action="store_true", help="Don't open in browser")
+    parser.add_argument(
+        "--agents", type=str, default=None,
+        help="Comma-separated list of agents to include (e.g. 'amp,amp-deep3,claude'). "
+             "Default: auto-detect from result files.",
+    )
     args = parser.parse_args()
 
     # Always build from individual run files for consistent structure
@@ -984,7 +1087,17 @@ def main():
     if not runs:
         print("ERROR: No result files found in", RESULTS_DIR)
         sys.exit(1)
-    print(f"Building aggregate from {len(runs)} individual run file(s)...")
+
+    # Filter to requested agents
+    if args.agents:
+        wanted = {a.strip() for a in args.agents.split(",")}
+        runs = [r for r in runs if r["agent"] in wanted]
+        if not runs:
+            print(f"ERROR: No result files found for agents: {wanted}")
+            sys.exit(1)
+
+    found_agents = sorted({r["agent"] for r in runs})
+    print(f"Building aggregate from {len(runs)} run file(s) — agents: {', '.join(found_agents)}")
     agg = aggregate_from_runs(runs)
 
     generate_html(agg, args.output)

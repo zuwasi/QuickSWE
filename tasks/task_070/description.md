@@ -1,47 +1,23 @@
-# Bug Fix: CUDA Prefix Sum (Scan) — Off-by-One & Missing Inter-Block Sync
+# Lock-Free Concurrent Hash Map – Incorrect Memory Ordering
 
-## Summary
+## Problem
 
-The `prefix_sum.cu` file implements a Blelloch-style exclusive parallel prefix
-sum (scan) in CUDA. There are two bugs:
+A concurrent hash map uses atomic operations for thread-safe access. It uses
+separate chaining with atomic bucket heads. The memory ordering on atomic ops
+is incorrect, causing visibility issues even in single-threaded test scenarios
+due to compiler reordering.
 
-1. **Off-by-one in up-sweep stride**: The up-sweep loop's stride calculation
-   uses `stride < blockDim.x` instead of `stride <= blockDim.x / 2` (or
-   equivalently `stride < blockDim.x`  but starting from the wrong value),
-   causing the last reduction step to be skipped. The root element of each
-   block's tree is never fully reduced.
+Users report:
 
-2. **Missing inter-block combination**: When the array spans multiple blocks,
-   each block independently produces a local prefix sum but the block-level
-   partial sums are never propagated. A correct implementation must:
-   - Collect per-block totals.
-   - Run a scan on those totals.
-   - Add the scanned block offset to every element in subsequent blocks.
+1. `insert` followed by `find` sometimes returns `nullopt` because the store
+   to the bucket head uses `memory_order_relaxed`, which the compiler may
+   reorder relative to the node initialization.
+2. The size counter is incremented with `relaxed` ordering, causing `size()`
+   to be inconsistent with actual contents.
+3. `remove` marks a node as deleted but uses wrong ordering, so concurrent
+   `find` still sees the deleted node.
 
-## Acceptance Criteria
+## Files
 
-- Exclusive prefix sum must be correct for:
-  - N = 128 (fits in one block)
-  - N = 1000 (multiple blocks, arbitrary size)
-  - N = 10000 (many blocks)
-- GPU result must match CPU reference (exact integer match — inputs are ints).
-- The binary prints MATCH=1 when correct.
-
-## Current Bugs
-
-```c
-// BUG 1 — up-sweep: stride starts at 1 but loop condition is wrong
-for (int stride = 1; stride < blockDim.x; stride *= 2) {
-    // should be: stride <= blockDim.x / 2
-    // OR the indexing inside uses (2*stride - 1) which goes out of range
-    ...
-}
-
-// BUG 2 — multi-block: block sums are stored but never scanned/added back
-```
-
-## Environment
-
-- CUDA Toolkit 12.x
-- Windows 11 / Linux
-- Any NVIDIA GPU with compute capability >= 3.5
+- `src/concurrent_map.hpp` — lock-free hash map
+- `src/main.cpp` — test driver

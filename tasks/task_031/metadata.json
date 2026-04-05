@@ -1,6 +1,1 @@
-{
-    "id": "task_031",
-    "category": "feature",
-    "difficulty": "extreme",
-    "description": "Add reactive data binding system with automatic dependency tracking, computed values, two-way bindings, and diamond dependency resolution across a multi-file reactive framework."
-}
+{"id": "task_031", "category": "bug_fix", "difficulty": "hard", "description": "Distributed hash table uses wrong consistent hashing ring lookup direction", "language": "python"}

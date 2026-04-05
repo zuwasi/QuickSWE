@@ -1,1 +1,1 @@
-{"id": "task_022", "category": "feature", "difficulty": "hard", "description": "Add JOIN support with table prefixes to the ORM query builder"}
+{"id": "task_022", "category": "bug_fix", "difficulty": "hard", "description": "A* pathfinder returns suboptimal path due to inconsistent heuristic tie-breaking", "language": "python"}

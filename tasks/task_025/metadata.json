@@ -1,1 +1,1 @@
-{"id": "task_025", "category": "refactoring", "difficulty": "hard", "description": "Replace deep notification inheritance hierarchy with composition using channels and modifiers"}
+{"id": "task_025", "category": "bug_fix", "difficulty": "hard", "description": "Schema validator rejects valid covariant types in nested containers", "language": "python"}

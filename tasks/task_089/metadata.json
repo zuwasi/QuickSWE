@@ -1,0 +1,7 @@
+{
+    "id": "task_089",
+    "category": "bug_fix",
+    "difficulty": "hard",
+    "language": "cuda",
+    "description": "Fix custom CUDA memory allocator with incorrect coalescing of free blocks causing memory corruption."
+}

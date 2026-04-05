@@ -1,6 +1,1 @@
-{
-    "id": "task_008",
-    "category": "feature",
-    "difficulty": "medium",
-    "description": "Add JSON export and file export method to ReportGenerator"
-}
+{"id": "task_008", "category": "bug_fix", "difficulty": "easy", "description": "Run-length encoding decoder drops last character group", "language": "python"}

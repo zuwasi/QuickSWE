@@ -1,0 +1,7 @@
+{
+    "id": "task_097",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Fix FFT (Cooley-Tukey) with incorrect twiddle factor computation and bit-reversal permutation."
+}

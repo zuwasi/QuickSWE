@@ -1,0 +1,7 @@
+{
+    "id": "task_094",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Fix dynamic parallelism with incorrect nested kernel launch stream management causing deadlock and wrong results."
+}

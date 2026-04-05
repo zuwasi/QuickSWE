@@ -1,7 +1,7 @@
 {
     "id": "task_054",
     "category": "bug_fix",
-    "difficulty": "extreme",
-    "language": "c",
-    "description": "Race condition in producer-consumer queue due to incorrect empty-check logic after wait, demonstrated via callback interleaving"
+    "difficulty": "easy",
+    "description": "Priority queue (min-heap) with incorrect sift-down",
+    "language": "cpp"
 }

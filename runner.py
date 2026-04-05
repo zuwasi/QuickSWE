@@ -15,7 +15,7 @@ TASKS_DIR = Path(__file__).parent / "tasks"
 RESULTS_DIR = Path(__file__).parent / "results"
 
 PROMPT_TEMPLATE = (
-    "You are in a Python project. Fix the issue described below. "
+    "Fix the issue described below. "
     "Only modify files in the current directory.\n\n{issue}"
 )
 
@@ -108,6 +108,13 @@ def invoke_agent(agent: str, prompt: str, work_dir: Path,
         cmd = ["amp", "--dangerously-allow-all", "-x", prompt]
     elif agent == "amp-deep":
         cmd = ["amp", "--dangerously-allow-all", "--mode", "deep", "-x", prompt]
+    elif agent == "amp-deep3":
+        # Write temp settings for deep³ (xhigh reasoning)
+        settings_file = work_dir / "_amp_settings.json"
+        with open(settings_file, "w") as sf:
+            json.dump({"amp.agent.deepReasoningEffort": "xhigh"}, sf)
+        cmd = ["amp", "--dangerously-allow-all", "--mode", "deep",
+               "--settings-file", str(settings_file), "-x", prompt]
     elif agent == "amp-rush":
         cmd = ["amp", "--dangerously-allow-all", "--mode", "rush", "-x", prompt]
     elif agent == "claude":
@@ -132,9 +139,10 @@ def invoke_agent(agent: str, prompt: str, work_dir: Path,
         proc = subprocess.run(
             cmd, cwd=str(work_dir), capture_output=True, text=True,
             timeout=timeout, env=env, shell=use_shell,
+            encoding="utf-8", errors="replace",
         )
         elapsed = time.perf_counter() - start
-        output = proc.stdout + proc.stderr
+        output = (proc.stdout or "") + (proc.stderr or "")
         return elapsed, True, output
     except subprocess.TimeoutExpired:
         elapsed = time.perf_counter() - start
@@ -289,7 +297,8 @@ def main():
         description="QuickSWE — benchmark coding agents on SWE tasks",
     )
     parser.add_argument(
-        "--agent", choices=["amp", "claude", "both"], default="both",
+        "--agent", choices=["amp", "amp-deep3", "claude", "both", "deep3-vs-claude"],
+        default="both",
         help="Which agent(s) to run (default: both)",
     )
     parser.add_argument(
@@ -302,7 +311,12 @@ def main():
     )
     args = parser.parse_args()
 
-    agents = ["amp", "claude"] if args.agent == "both" else [args.agent]
+    if args.agent == "both":
+        agents = ["amp", "claude"]
+    elif args.agent == "deep3-vs-claude":
+        agents = ["amp-deep3", "claude"]
+    else:
+        agents = [args.agent]
     tasks = discover_tasks(args.tasks)
 
     if not tasks:

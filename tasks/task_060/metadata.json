@@ -1,7 +1,7 @@
 {
     "id": "task_060",
-    "language": "c",
     "category": "bug_fix",
-    "difficulty": "extreme",
-    "description": "Stack-based postfix expression evaluator missing overflow check and division-by-zero handling"
+    "difficulty": "medium",
+    "description": "Variadic template fold expression with incorrect pack expansion",
+    "language": "cpp"
 }

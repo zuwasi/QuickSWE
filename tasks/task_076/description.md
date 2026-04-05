@@ -1,51 +1,24 @@
-# Feature Request: Implement High-Performance Tiled Matrix Multiply
+# Bug Report: Vector Addition Produces Wrong Results for Non-Multiple-of-BlockSize Arrays
 
 ## Summary
 
-The `tiled_gemm.cu` file contains:
+Our CUDA vector addition kernel produces correct results only when the
+array size is an exact multiple of the block size. For any other size,
+the last few elements are wrong (contain zeros or garbage).
 
-- A working **CPU reference** GEMM (`cpu_gemm`).
-- A working but **naive GPU kernel** (`naive_gemm_kernel`) that does one
-  multiply-add per thread with no tiling.
-- A **stubbed function** `tiled_gemm()` that currently falls back to
-  the naive kernel.
+## Symptoms
 
-Implement a fully tiled GEMM using shared memory tiles AND register-level
-blocking where each thread computes a 4×4 sub-tile of the output matrix.
+- Arrays of size 1024, 2048, etc. work fine.
+- Array of size 1000 produces wrong results starting around element 960.
+- Array of size 1025 has element 1024 as zero instead of the expected sum.
+- The number of wrong elements seems related to `N % BLOCK_SIZE`.
 
-## Acceptance Criteria
+## Expected Behavior
 
-- `tiled_gemm()` must produce results matching `cpu_gemm()` within
-  floating-point tolerance (max element-wise error < 1e-2) for:
-  - 64×64  × 64×64
-  - 100×100 × 100×100  (non-tile-aligned)
-  - 256×128 × 128×256
-  - 500×300 × 300×400  (non-aligned, rectangular)
-- The existing `cpu_gemm()` and `naive_gemm_kernel()` must remain unchanged.
-- Must handle arbitrary M, N, K (not just multiples of the tile size).
+- Vector addition `C[i] = A[i] + B[i]` should work for any array size.
+- All N elements should be correctly computed.
+- No out-of-bounds memory accesses.
 
-## Current State
+## Build Notes
 
-```c
-void tiled_gemm(const float *A, const float *B, float *C,
-                int M, int N, int K) {
-    // TODO: implement tiled GEMM with register blocking
-    // Falls back to naive kernel for now
-    ...
-}
-```
-
-## Design Hints
-
-1. Choose a tile size (e.g., TILE=32).  Each thread-block loads a
-   TILE×TILE sub-matrix of A and B into shared memory.
-2. Each thread computes a THREAD_TILE×THREAD_TILE (4×4) sub-tile of C,
-   accumulating into registers across K-dimension tiles.
-3. Guard shared memory loads and stores for boundary tiles where
-   M, N, or K is not a multiple of TILE.
-
-## Environment
-
-- CUDA Toolkit 12.x
-- Windows 11 / Linux
-- Any NVIDIA GPU with compute capability >= 3.5
+Compile with: `nvcc -rdc=true -lcudadevrt -lm`

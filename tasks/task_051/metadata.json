@@ -1,7 +1,7 @@
 {
     "id": "task_051",
     "category": "bug_fix",
-    "difficulty": "hard",
-    "language": "c",
-    "description": "Buffer overflow in dynamic array implementation due to incorrect realloc sizing and missing bounds checking on get operations"
+    "difficulty": "easy",
+    "description": "Circular buffer with incorrect wrap-around logic",
+    "language": "cpp"
 }

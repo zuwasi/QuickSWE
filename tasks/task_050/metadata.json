@@ -1,1 +1,1 @@
-{"id": "task_050", "category": "refactoring", "difficulty": "extreme", "description": "Convert deeply nested callback-hell pipeline to clean async/await architecture with asyncio and cancellation support"}
+{"id": "task_050", "category": "bug_fix", "difficulty": "extreme", "description": "Write-ahead log recovery replays committed transactions in wrong order", "language": "python"}

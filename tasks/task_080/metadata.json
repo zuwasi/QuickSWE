@@ -1,7 +1,7 @@
 {
     "id": "task_080",
     "category": "bug_fix",
-    "difficulty": "extreme",
+    "difficulty": "easy",
     "language": "cuda",
-    "description": "Fix CUDA N-body gravitational simulation with softening error and force accumulation precision loss."
+    "description": "Fix 1D convolution kernel with incorrect halo cell boundary handling causing wrong edge results."
 }

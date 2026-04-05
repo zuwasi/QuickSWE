@@ -1,21 +1,29 @@
-# Bug: Matrix Multiplication with Wrong Indexing
+# Red-Black Tree – Incorrect Uncle Color Check During Insertion
 
-## Description
+## Problem
 
-A matrix multiplication function computes C = A × B. The inner loop accumulates the dot product but writes to the wrong index: `C[i][k] += A[i][k] * B[k][j]` instead of `C[i][j] += A[i][k] * B[k][j]`.
+A red-black tree implementation supports `insert`, `search`, `inorder`, and
+validates its own invariants. The insertion fix-up procedure has bugs.
 
-This bug is sneaky because it produces correct results for square identity-like tests where the indices happen to align, but produces garbage for non-square matrices or general rectangular matrix multiplication.
+Users report:
 
-## Expected Behavior
+1. Inserting a sorted sequence (1..10) creates an unbalanced tree that violates
+   the black-height property.
+2. The `validate()` method returns false after certain insertion patterns.
+3. In-order traversal after insertions produces correct elements but the tree
+   structure degenerates, causing O(n) lookup instead of O(log n).
 
-For A (2×3) and B (3×2), the result C (2×2) should be the correct matrix product.
-
-## Actual Behavior
-
-The result C has wrong values because each inner-loop iteration overwrites `C[i][k]` instead of accumulating into `C[i][j]`.
+The fix-up checks the uncle node's color but has an error in which case it
+selects — it confuses the uncle-is-red case with the uncle-is-black case,
+applying recoloring when it should rotate and vice versa.
 
 ## Files
 
-- `src/matrix.h` — struct and function declarations
-- `src/matrix.c` — matrix multiplication implementation with the bug
-- `src/main.c` — test driver
+- `src/rbtree.hpp` — red-black tree implementation (~250 lines)
+- `src/main.cpp` — test driver
+
+## Expected Behaviour
+
+- All five RB-tree invariants are maintained after every insertion.
+- `validate()` returns true after any sequence of insertions.
+- The tree height is O(log n).

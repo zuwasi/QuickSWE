@@ -1,24 +1,20 @@
-# Bug Report: Multi-stream processing produces duplicates and occasional garbage values
+# HAMTrie – Incorrect Structural Sharing
 
 ## Problem
 
-We split an array across two CUDA streams for parallel processing (each
-element is squared, then the two halves are merged). The merged result
-contains duplicate values near the partition boundary and sometimes has
-garbage (very large or negative numbers) scattered throughout.
+A Hash Array Mapped Trie (HAMT) implements a persistent (immutable) map.
+`insert` and `remove` return new tries sharing structure with the original.
 
-## How to Reproduce
+Users report:
 
-```
-./multi_stream --size 1024 --seed 42   # sometimes looks OK
-./multi_stream --size 1000 --seed 42   # duplicates near midpoint
-./multi_stream --size 500  --seed 7    # garbage values appear
-```
+1. After inserting into a new version, the original version is also modified —
+   structural sharing copies the pointer but not the node, violating persistence.
+2. The bitmap population count (`popcount`) used to index into the compressed
+   child array is computed incorrectly, causing writes to wrong positions.
+3. After removing a key from a derived version, the key also disappears from
+   the original.
 
-## Expected Behaviour
+## Files
 
-Every element should appear exactly once in the output and equal `input[i] * input[i]`.
-
-## Environment
-
-- CUDA Toolkit 12.x, any GPU (uses 2 streams on one GPU)
+- `src/hamtrie.hpp` — HAMT persistent map
+- `src/main.cpp` — test driver

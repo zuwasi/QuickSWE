@@ -1,119 +1,113 @@
-# QuickSWE
+# QuickSWE v2
 
-**A fast, rigorous benchmark for evaluating AI coding agents on real-world Python tasks.**
+**A fast, rigorous benchmark for evaluating AI coding agents across Python, C++, and CUDA.**
 
-QuickSWE runs on your laptop in hours — not days — with no Docker, no cloud infrastructure, and no terabytes of storage. Each of its 35 tasks (easy → extreme) is validated by real pytest suites, and built-in statistical multi-run aggregation delivers results you can trust. This is not a toy benchmark. It's a practical, repeatable measurement tool that tells you exactly how well your AI coding agent handles bug fixes, feature implementation, and code refactoring.
+QuickSWE v2 features **100 stress-test tasks** across three languages and four difficulty tiers, designed to push frontier AI coding agents to their limits. The v1 benchmark had 100% solve rates on Python and C++ — v2 fixes that with genuinely hard tasks requiring deep algorithmic reasoning.
 
 ---
 
-## 🏆 Notable Finding: Amp Catches a Benchmark Bug
+## What's New in v2
 
-During the first full run, **Amp identified and refused to comply with an incorrect test assertion** in task\_032 (SQL query engine). The test expected `len(result) == 2` for a `WHERE amount > 200` query, but the correct answer was 3 (amounts 250, 300, 450 all satisfy `> 200`). Instead of blindly producing code to pass the wrong test, Amp analyzed the data and correctly flagged the discrepancy.
-
-Claude Code brute-forced a solution that happened to pass the incorrect assertion on some runs (67% success), while Amp consistently refused (0% — but for the right reason).
-
-**This demonstrates reasoning integrity over blind test compliance** — arguably a more important quality in a production coding agent than raw pass rates.
+- **100 tasks** (up from 85): 50 Python · 25 C++ · 25 CUDA
+- **Much harder tasks**: Red-black trees, compilers, VMs, GCs, type inference, CUDA dynamic parallelism, lock-free data structures
+- **Amp Deep³ vs Claude Code**: Head-to-head comparison using Amp's maximum reasoning mode (`xhigh`)
+- **Clickable dashboard**: Task bars and heatmap rows link directly to source code on GitHub
+- **Difficulty badges**: 🟢 Easy · 🟡 Medium · 🟠 Hard · 🔴 Extreme
 
 ---
 
 ## Why QuickSWE?
 
-|                        | **QuickSWE**                       | **SWE-Bench Verified**     | **SWE-Bench Pro**            |
+|                        | **QuickSWE v2**                    | **SWE-Bench Verified**     | **SWE-Bench Pro**            |
 |------------------------|-------------------------------------|----------------------------|------------------------------|
-| **Tasks**              | 15 (curated, multi-category)       | 500                        | 731                          |
-| **Languages**          | Python                             | Python                     | Python, Go, TS, JS           |
+| **Tasks**              | 100 (curated, multi-language)      | 500                        | 731                          |
+| **Languages**          | Python, C++, CUDA                  | Python                     | Python, Go, TS, JS           |
 | **Requires Docker**    | No                                 | Yes                        | Yes                          |
 | **Storage needed**     | < 100 MB                           | ~50 GB                     | ~200 GB                      |
-| **Run time (1 pass)**  | ~1 hour                            | ~8 hours                   | ~24 hours                    |
 | **Runs on laptop**     | ✅ Yes                              | ⚠️ Barely                   | ❌ No                         |
 | **Task categories**    | Bug fix, Feature, Refactoring      | Bug fix only               | Mixed                        |
 | **Statistical runs**   | Built-in (N runs + aggregation)    | Manual                     | Manual                       |
-| **Visual dashboard**   | Built-in (10 interactive charts)   | No                         | No                           |
-| **Measures regressions** | ✅ Yes                            | No                         | No                           |
-
-QuickSWE is **not** a dumbed-down version of SWE-Bench. It's a fundamentally different design philosophy. Instead of 500 tasks you can barely run once on expensive hardware, QuickSWE gives you 15 carefully designed tasks you can run 5 times each with full statistical analysis. Multiple runs catch the non-deterministic behavior that single-pass benchmarks miss entirely — an agent that scores 80% on one run and 40% on the next isn't reliable, and you'd never know from a single pass. QuickSWE makes that visible.
+| **Visual dashboard**   | Built-in (10+ interactive charts)  | No                         | No                           |
+| **GPU tasks**          | ✅ 25 CUDA tasks                    | No                         | No                           |
 
 ---
 
 ## Quick Start
 
-### One-click (Windows)
-
-```powershell
-# Quick test — 3 tasks, ~15 minutes
-run_quick_test.bat
-
-# Full benchmark — 15 tasks, 3 runs, ~4 hours
-run_benchmark.bat
-```
-
-### Python
-
 ```powershell
 pip install -r requirements.txt
 
-# Run the benchmark (3 statistical runs, both agents)
-python multi_runner.py --runs 3 --agent both
+# Amp Deep³ vs Claude Code — full benchmark
+python multi_runner.py --runs 3 --agent deep3-vs-claude --timeout 600
 
 # Generate the interactive dashboard
 python dashboard.py
 ```
 
+### Agent Modes
+
+| Flag | Agents | Description |
+|------|--------|-------------|
+| `--agent both` | Amp (Smart) + Claude Code | Default comparison |
+| `--agent deep3-vs-claude` | Amp Deep³ + Claude Code | Maximum reasoning head-to-head |
+| `--agent amp-deep3` | Amp Deep³ only | Deep³ = `xhigh` reasoning effort |
+| `--agent amp` | Amp (Smart) only | Standard balanced mode |
+| `--agent claude` | Claude Code only | Claude Code CLI |
+
 ---
 
-## The 15 Tasks
+## The 100 Tasks
 
-| Task | Category | Difficulty | What It Tests |
-|------|----------|------------|---------------|
-| `task_001` | Bug Fix | Easy | Off-by-one error in paginator (0-indexed vs 1-indexed) |
-| `task_002` | Bug Fix | Medium | CSV parser crash on empty input and trailing commas |
-| `task_003` | Bug Fix | Easy | Wrong default encoding (ascii instead of utf-8) |
-| `task_004` | Bug Fix | Medium | Email validation regex rejects valid addresses |
-| `task_005` | Bug Fix | Hard | Shallow merge overwrites nested dicts instead of deep-merging |
-| `task_006` | Feature | Easy | Add `sort_by(column, reverse)` to DataTable |
-| `task_007` | Feature | Medium | Add retry with exponential backoff to HTTP client |
-| `task_008` | Feature | Medium | Add JSON and file export to report generator |
-| `task_009` | Feature | Easy | Add search and value calculation to inventory system |
-| `task_010` | Feature | Hard | Add rate limiting (max N calls/sec) to API client |
-| `task_011` | Refactoring | Easy | Extract duplicated validation into reusable functions |
-| `task_012` | Refactoring | Easy | Replace magic numbers with named constants |
-| `task_013` | Refactoring | Hard | Decompose god class into three focused components |
-| `task_014` | Refactoring | Medium | Convert tuple-return error handling to exceptions |
-| `task_015` | Refactoring | Medium | Flatten nested conditionals with early returns |
+### 🐍 Python (50 tasks)
 
-**Distribution:** 5 bug fixes · 5 features · 5 refactoring tasks — 4 easy · 6 medium · 3 hard
+| Tier | Count | Examples |
+|------|-------|---------|
+| 🟢 Easy (1–10) | 10 | Interval tree merge, LRU eviction, token bucket, trie autocomplete |
+| 🟡 Medium (11–20) | 10 | Async race condition, memoize mutation, Dijkstra zero-weight, FSM validation |
+| 🟠 Hard (21–35) | 15 | Red-black tree deletion, A* tie-breaking, B-tree split, segment tree lazy propagation |
+| 🔴 Extreme (36–50) | 15 | Compiler lexer, bytecode VM, transaction engine, GC mark-sweep, Raft consensus, type inference |
+
+### ⚙️ C/C++ (25 tasks)
+
+| Tier | Count | Examples |
+|------|-------|---------|
+| 🟢 Easy (51–55) | 5 | Circular buffer, string tokenizer, matrix multiply, min-heap, hash map |
+| 🟡 Medium (56–60) | 5 | SFINAE dispatch, shared_ptr refcount, lock-free stack, iterator invalidation |
+| 🟠 Hard (61–68) | 8 | Red-black tree, B+ tree, pool allocator, Tarjan SCC, Pratt parser, NFA→DFA |
+| 🔴 Extreme (69–75) | 7 | Mark-compact GC, concurrent hash map, coroutine scheduler, constexpr ray tracer, HAMT |
+
+### 🟢 CUDA (25 tasks)
+
+| Tier | Count | Examples |
+|------|-------|---------|
+| 🟢 Easy (76–80) | 5 | Vector add, matrix transpose, histogram atomic, prefix sum, 1D convolution |
+| 🟡 Medium (81–85) | 5 | Parallel reduction, SpMV CSR, bitonic sort, stream compaction, radix sort |
+| 🟠 Hard (86–93) | 8 | Multi-GPU stencil, cooperative groups, unified memory, WMMA GEMM, persistent kernel |
+| 🔴 Extreme (94–100) | 7 | Dynamic parallelism, tiled GEMM double buffer, warp BFS, FFT, N-body, ray BVH, MD simulation |
 
 ---
 
 ## What It Measures
 
-- **Resolution Rate** — Did the agent fix the issue? Fail-to-pass tests must now pass.
+- **Resolution Rate** — Did the agent fix the issue? Fail-to-pass tests must pass.
 - **Regression Safety** — Did the agent break anything? Pass-to-pass tests must still pass.
 - **Speed** — Wall-clock time per task, per agent.
-- **Consistency** — Does the agent produce the same result across N independent runs? Standard deviation and variance across runs reveal non-determinism.
-- **Per-category breakdown** — Separate scores for bug fix, feature, and refactoring.
-- **Per-difficulty breakdown** — Separate scores for easy, medium, and hard.
+- **Consistency** — Same result across N independent runs? Variance reveals non-determinism.
+- **Per-language breakdown** — Separate tabs for Python, C++, CUDA.
+- **Per-difficulty breakdown** — Easy → Medium → Hard → Extreme scaling.
 
-Every measurement is backed by real pytest execution. There is no LLM-as-judge, no subjective scoring, no vibes — tests pass or they don't.
+Every measurement is backed by real pytest execution. No LLM-as-judge, no subjective scoring — tests pass or they don't.
 
 ---
 
 ## Dashboard
 
-After a benchmark run, `python dashboard.py` generates an interactive HTML report that opens automatically in your browser. Ten chart types give you a complete picture:
+`python dashboard.py` generates an interactive HTML dashboard with:
 
-| Chart | What It Shows |
-|-------|---------------|
-| 🏆 **Overall Resolution** | Head-to-head pass rate across all tasks |
-| 📊 **Per-Task Heatmap** | Pass/fail matrix for every task × agent × run |
-| 📈 **Category Breakdown** | Resolution rate by bug fix / feature / refactoring |
-| ⏱️ **Timing Analysis** | Execution time distribution per agent |
-| 🔄 **Consistency Radar** | Variance across multiple runs |
-| 🛡️ **Regression Tracking** | Tests broken by agent changes |
-| 📉 **Difficulty Curve** | Pass rate vs. task difficulty |
-| 🔬 **Statistical Summary** | Mean, median, std dev, confidence intervals |
-| 📋 **Detailed Results Table** | Sortable, filterable raw results |
-| 🏅 **Agent Scorecard** | Final composite score per agent |
+- **Clickable task bars** — Click any task in charts or heatmap to view its code on GitHub
+- **Difficulty badges** — 🟢🟡🟠🔴 icons show task difficulty at a glance
+- **Tabbed language views** — Separate Python / C++ / CUDA analysis tabs
+- **10+ chart types** — Resolution rates, speed comparisons, radar, heatmap, trend analysis
 
 ---
 
@@ -121,60 +115,30 @@ After a benchmark run, `python dashboard.py` generates an interactive HTML repor
 
 ```
 QuickSWE/
-├── run_benchmark.bat        # Full benchmark (double-click to run)
-├── run_quick_test.bat       # Quick smoke test (3 tasks)
 ├── multi_runner.py          # Statistical multi-run engine
 ├── runner.py                # Core task execution & agent invocation
 ├── dashboard.py             # Interactive HTML dashboard generator
-├── report.py                # Console report with tables
 ├── requirements.txt         # Python dependencies
-├── tasks/                   # 15 self-contained tasks
-│   └── task_XXX/
-│       ├── src/             # Source code with bug or missing feature
+├── tasks/                   # 100 self-contained tasks
+│   └── task_NNN/
+│       ├── src/             # Source code with bug (Python/C++/CUDA)
 │       ├── tests/           # pytest suite (fail_to_pass + regression)
 │       ├── description.md   # Issue description (given to the agent)
-│       └── metadata.json    # Category, difficulty, task ID
-└── results/                 # Auto-generated run results
+│       └── metadata.json    # Category, difficulty, language, task ID
+└── results/                 # Auto-generated run results & dashboard
 ```
-
-Each task is fully self-contained. No external dependencies, no network access, no database. Copy a task directory to another machine and it works.
 
 ---
 
 ## Adding Your Own Agent
 
-QuickSWE currently supports **Amp** and **Claude Code CLI**, but adding a new agent takes minutes:
-
-1. Open `runner.py`
-2. Find the `invoke_agent()` function
-3. Add your agent's CLI command following the existing pattern:
-
 ```python
+# In runner.py → invoke_agent()
 elif agent == "my_agent":
-    cmd = ["my-agent-cli", "--task", task_description, "--workdir", task_dir]
-    result = subprocess.run(cmd, capture_output=True, timeout=300)
+    cmd = ["my-agent-cli", "--task", prompt, "--workdir", str(work_dir)]
 ```
 
-4. Run: `python multi_runner.py --runs 3 --agent my_agent`
-
----
-
-## Adding Tasks
-
-Create a new directory under `tasks/` following the existing structure:
-
-```
-tasks/task_016/
-├── src/
-│   └── module.py          # Code with the bug or missing feature
-├── tests/
-│   ├── test_fail_to_pass.py   # Tests that SHOULD fail before fix, pass after
-│   └── test_regression.py     # Tests that MUST pass before and after
-├── description.md             # What the agent sees as the "issue"
-└── metadata.json              # {"id": "task_016", "category": "bug_fix", "difficulty": "medium", "description": "..."}
-```
-
-The runner auto-discovers all `task_*` directories. No registration needed.
+Then run: `python multi_runner.py --runs 3 --agent my_agent`
 
 ---
 
@@ -188,7 +152,7 @@ MIT
 
 ```bibtex
 @software{quickswe2026,
-  title  = {QuickSWE: A Fast Benchmark for AI Coding Agents},
+  title  = {QuickSWE v2: A Multi-Language Stress-Test Benchmark for AI Coding Agents},
   author = {Daniel Zusmanovich},
   year   = {2026},
   url    = {https://github.com/zuwasi/QuickSWE}

@@ -1,1 +1,1 @@
-{"id": "task_044", "category": "feature", "difficulty": "extreme", "description": "Add promise/future-based async task runner with chaining, error propagation, Promise.all, and Promise.race"}
+{"id": "task_044", "category": "bug_fix", "difficulty": "extreme", "description": "Reactive dataflow engine fires stale values during diamond dependency update", "language": "python"}

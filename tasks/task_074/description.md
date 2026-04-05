@@ -1,24 +1,24 @@
-# Bug Report: Reduction gives wrong results for certain array sizes
+# SIMD Matrix Operations – Incorrect Alignment and Mask Handling
 
 ## Problem
 
-The warp-level reduction kernel returns incorrect sums for arrays whose
-element count is not divisible by 32. For "nice" sizes like 1024 or 2048 it
-works perfectly. As soon as you try, say, 1000 or 1023 elements the total
-is wrong — sometimes just slightly off, sometimes wildly wrong.
+A matrix library provides optimized 4×4 matrix operations (multiply, transpose,
+determinant) using manual loop unrolling and cache-line-aware access patterns
+(simulated without actual SIMD intrinsics for portability).
 
-## How to Reproduce
+The implementation processes elements in blocks of 4 and uses a "mask" to handle
+the tail when dimensions are not multiples of 4.
 
-```
-./warp_reduce --size 1024 --seed 42   # works
-./warp_reduce --size 1000 --seed 42   # wrong sum
-./warp_reduce --size 100  --seed 42   # wrong sum
-```
+Users report:
 
-## Expected Behaviour
+1. Multiplying two 4×4 matrices produces wrong results because the accumulation
+   loop has an off-by-one in the block stride.
+2. The tail-handling mask incorrectly zeroes valid elements when the dimension
+   is an exact multiple of 4.
+3. The determinant computation for 4×4 matrices is wrong due to incorrect
+   cofactor sign pattern.
 
-The GPU sum should match the CPU reference sum for any array length.
+## Files
 
-## Environment
-
-- CUDA Toolkit 12.x, any GPU with compute capability >= 3.5
+- `src/simd_matrix.hpp` — matrix operations with block processing
+- `src/main.cpp` — test driver

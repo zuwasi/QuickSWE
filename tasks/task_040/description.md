@@ -1,19 +1,19 @@
-# Bug Report: Text Processing Crashes on Some Files
+# Task 040: Mark-Sweep Garbage Collector Tracing Bug
 
-## Summary
-The text file processing pipeline crashes on some files but not others. It seems random — the same file structure works fine for some content but fails for others. We get UnicodeDecodeError or garbled output.
+## Description
 
-## Steps to Reproduce
-1. Process a text file containing emoji or CJK characters
-2. If the file is large enough that chunked reading kicks in, it may crash
-3. Smaller files or pure ASCII files always work fine
+A mark-sweep garbage collector manages heap-allocated objects with reference tracking.
+The mark phase starts from root objects and should recursively traverse all references
+to mark reachable objects. The sweep phase then frees unmarked objects.
+
+## Bug
+
+The mark phase only marks the direct root objects but does not recursively follow
+references stored in container fields (like list elements or object fields).
+Objects reachable only through other objects (not direct roots) are incorrectly
+swept as garbage.
 
 ## Expected Behavior
-All valid UTF-8 files should be processed correctly regardless of size.
 
-## Additional Notes
-- We use chunked reading for memory efficiency on large files
-- The chunk size is configurable, defaults to 4096 bytes
-- Error happens in the decoder layer — maybe an encoding detection issue?
-- Some team members suspect the line splitter is corrupting data
-- Works fine when chunk size is set very large (whole file in one chunk)
+The mark phase should perform a full transitive closure: starting from roots,
+recursively mark all objects reachable via reference chains of any depth.

@@ -1,26 +1,17 @@
-# Bug: File reader defaults to ASCII instead of UTF-8
+# Task 003: Rate Limiter Token Bucket Overflow
 
-## Description
+## Problem
 
-The `read_text_file(path, encoding=None)` function reads a text file and returns its contents. When `encoding` is `None`, it should default to `'utf-8'`. Instead, it defaults to `'ascii'`, causing a `UnicodeDecodeError` when reading files that contain non-ASCII characters.
+The `TokenBucket` rate limiter allows consuming more tokens than the bucket's maximum capacity after a refill period. The `refill()` method adds tokens based on elapsed time, but never caps the token count at the maximum capacity, leading to unbounded token accumulation.
 
 ## Expected Behavior
 
-- `read_text_file("file.txt")` (no encoding specified) should read the file as UTF-8.
-- Files containing characters like `café`, `naïve`, or `über` should be read correctly.
+- After initialization, tokens should equal the capacity
+- After refilling, tokens should never exceed capacity
+- `consume(n)` should return `True` only if there are enough tokens
+- Even after a long idle period, the bucket should never have more tokens than its capacity
 
-## Actual Behavior
+## Files
 
-- `read_text_file("file.txt")` raises `UnicodeDecodeError: 'ascii' codec can't decode byte ...`
-
-## How to Reproduce
-
-```python
-from file_reader import read_text_file
-
-# Create a file with UTF-8 content
-with open("test.txt", "w", encoding="utf-8") as f:
-    f.write("café au lait")
-
-read_text_file("test.txt")  # UnicodeDecodeError
-```
+- `src/rate_limiter.py` — TokenBucket implementation
+- `tests/test_rate_limiter.py` — Test suite

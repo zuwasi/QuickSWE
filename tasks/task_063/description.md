@@ -1,23 +1,19 @@
-# Bug: Circular Buffer with Wrap-around Bug
+# Pool Allocator – Incorrect Free-List Coalescing
 
-## Description
+## Problem
 
-A ring buffer (circular buffer) implementation for integers. The write operation correctly wraps `write_pos` using modulo arithmetic. However, the read operation has a bug: it uses a simple `read_pos < write_pos` check to determine if data is available. After the write pointer wraps around (so `write_pos < read_pos`), the `cb_read` function incorrectly thinks the buffer is empty and returns -1, even though there are unread items.
+A pool allocator manages a fixed-size memory pool. It supports `allocate(size)`,
+`deallocate(ptr)`, and coalesces adjacent free blocks. The coalescing logic has bugs.
 
-The correct approach is to track the count of items in the buffer, or use a separate `full` flag, rather than comparing raw positions.
+Users report:
 
-## Expected Behavior
-
-- After writing 6 items into a buffer of capacity 4 (with reads interleaved), all written items should be readable in FIFO order.
-- The `cb_count` function should accurately report the number of unread items at all times.
-
-## Actual Behavior
-
-- After the write pointer wraps, reads fail (return -1) even though data exists.
-- `cb_count` returns a negative value or zero when the buffer contains items after wrap.
+1. After allocate-deallocate cycles, the allocator reports fragmentation even
+   though all memory has been freed — adjacent free blocks are not merged.
+2. Allocating after several deallocations fails with "out of memory" even though
+   enough total free space exists (but is fragmented because coalescing failed).
+3. The `available()` method undercounts free space after coalescing attempts.
 
 ## Files
 
-- `src/circbuf.h` — circular buffer struct and API
-- `src/circbuf.c` — implementation with the wrap-around bug
-- `src/main.c` — test driver
+- `src/pool_allocator.hpp` — pool allocator
+- `src/main.cpp` — test driver

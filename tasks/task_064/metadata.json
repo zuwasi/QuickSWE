@@ -1,7 +1,7 @@
 {
     "id": "task_064",
-    "language": "cpp",
     "category": "bug_fix",
-    "difficulty": "extreme",
-    "description": "ResourceManager uses unique_ptr after std::move, causing null dereference"
+    "difficulty": "hard",
+    "description": "Skip list with incorrect level probability distribution",
+    "language": "cpp"
 }

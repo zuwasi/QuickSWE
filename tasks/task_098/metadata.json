@@ -1,0 +1,7 @@
+{
+    "id": "task_098",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Fix N-body simulation with incorrect Barnes-Hut tree traversal on GPU causing wrong force calculations."
+}

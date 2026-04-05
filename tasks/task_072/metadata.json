@@ -1,7 +1,7 @@
 {
     "id": "task_072",
-    "category": "bug_fix",
+    "category": "feature",
     "difficulty": "extreme",
-    "language": "cuda",
-    "description": "Fix CUDA CSR sparse matrix-vector multiply (SpMV) with wrong last-row boundary and missing empty-row handling."
+    "description": "Custom coroutine scheduler with incorrect symmetric transfer",
+    "language": "cpp"
 }

@@ -1,40 +1,16 @@
-# Task 015: Simplify Nested Conditionals with Early Returns
+# Task 015 – Dijkstra Returns Wrong Path for Zero-Weight Edges
 
-## Current State
+## Problem
+The `dijkstra()` function computes shortest paths in a weighted graph.
+When the graph contains edges with weight zero, the algorithm may
+re-process already-visited nodes and produce incorrect shortest paths
+or wrong total distances.
 
-`src/permissions.py` has a `check_access(user, resource, action)` function that determines whether a user is allowed to perform an action on a resource. The logic is correct but implemented as a deeply nested if/else pyramid (5+ levels):
+## Expected Behaviour
+- Zero-weight edges are valid and must be handled correctly.
+- A visited node must never be re-processed.
+- The returned path must truly be the shortest.
 
-```
-if user is active:
-    if role is admin:
-        ...
-    else:
-        if resource type is public:
-            ...
-        else:
-            if user owns it:
-                ...
-            else:
-                if action is read:
-                    ...
-                else:
-                    ...
-```
-
-This "arrow anti-pattern" is extremely hard to read and modify.
-
-## Code Smell
-
-- **Arrow anti-pattern** / deeply nested conditionals.
-- Difficult to trace which branch produces which result.
-
-## Requested Refactoring
-
-1. **Flatten `check_access`** using guard clauses and early returns. The logic must remain identical, but the nesting depth should be ≤ 2.
-2. **Add `can_access(user, resource, action) -> bool`** — a convenience wrapper that returns `True` if `check_access` returns `"allow"`, `False` otherwise.
-
-## Acceptance Criteria
-
-- [ ] `can_access` is importable from `src.permissions` and returns a boolean.
-- [ ] `check_access` produces the same result for every combination of inputs as the original.
-- [ ] Maximum nesting depth in `check_access` is reduced to ≤ 2 levels.
+## Files
+- `src/dijkstra.py` – the buggy algorithm
+- `tests/test_dijkstra.py` – test suite

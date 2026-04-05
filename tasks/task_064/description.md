@@ -1,24 +1,21 @@
-# Bug: Smart Pointer Use-After-Move in C++
+# Skip List – Incorrect Level Probability Distribution
 
-## Description
+## Problem
 
-A `ResourceManager` class manages resources using `std::unique_ptr`. It has a method `transferResource()` that moves a `unique_ptr` into a `shared_ptr` parameter of a helper function. After the `std::move`, the code continues to use the moved-from `unique_ptr`, which is now null, causing a null pointer dereference.
+A skip list implements an ordered set with probabilistic balancing. Each node
+gets a random level, with level `k+1` chosen with probability `p=0.5` given
+level `k`.
 
-Additionally, the `cloneResource()` method attempts to copy a `unique_ptr` (which is non-copyable) by working around it incorrectly — it manually creates a raw pointer copy but doesn't properly manage ownership, leading to a use-after-free scenario.
+Users report:
 
-## Expected Behavior
-
-- `transferResource()` should safely transfer ownership and not use the pointer afterward, or should use `shared_ptr` from the start.
-- `cloneResource()` should create an independent deep copy of the resource.
-- `getResourceInfo()` should return resource info without crashing.
-
-## Actual Behavior
-
-- `transferResource()` crashes with null pointer dereference after the move.
-- Resource access after transfer crashes.
+1. The random level generator always returns the same level (or never exceeds
+   level 1), making the skip list degenerate to a linked list.
+2. Search sometimes misses existing keys because the forward pointer update
+   during insert does not cover all levels correctly.
+3. The `remove` function does not update the list's max level when the highest-
+   level node is removed, causing null pointer dereferences on subsequent operations.
 
 ## Files
 
-- `src/resource_manager.h` — Resource and ResourceManager declarations
-- `src/resource_manager.cpp` — implementation with use-after-move bug
-- `src/main.cpp` — test driver
+- `src/skiplist.hpp` — skip list implementation
+- `src/main.cpp` — test driver (uses a fixed seed for deterministic tests)

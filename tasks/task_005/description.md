@@ -1,36 +1,16 @@
-# Bug: deep_merge performs shallow update instead of recursive merge
+# Task 005: Trie Autocomplete Ordering
 
-## Description
+## Problem
 
-The `deep_merge(base, override)` function is supposed to recursively merge two dictionaries. When both `base` and `override` have a nested dict at the same key, the function should merge them recursively. Instead, it does a shallow `dict.update()`, so nested dicts in `override` completely replace nested dicts in `base`, losing keys that only exist in `base`.
+The `Trie` class supports `insert`, `search`, and `autocomplete` operations. The `autocomplete(prefix)` method should return all words with the given prefix in **alphabetical order**, but the current implementation uses DFS without sorting children, resulting in arbitrary/insertion-dependent ordering.
 
 ## Expected Behavior
 
-```python
-base     = {"a": {"x": 1, "y": 2}, "b": 10}
-override = {"a": {"y": 3, "z": 4}}
-result   = deep_merge(base, override)
-# result == {"a": {"x": 1, "y": 3, "z": 4}, "b": 10}
-```
+- `autocomplete("app")` on a trie containing ["apple", "application", "apply"] should return `["apple", "application", "apply"]` (alphabetical)
+- The ordering should be consistent regardless of insertion order
+- `search()` and `starts_with()` should continue to work correctly
 
-Key `"x"` from `base["a"]` should be preserved.
+## Files
 
-## Actual Behavior
-
-```python
-# result == {"a": {"y": 3, "z": 4}, "b": 10}
-```
-
-`base["a"]` is completely replaced by `override["a"]`, losing `"x": 1`.
-
-## How to Reproduce
-
-```python
-from config_merger import deep_merge
-
-base = {"a": {"x": 1, "y": 2}}
-override = {"a": {"y": 3}}
-print(deep_merge(base, override))
-# Expected: {"a": {"x": 1, "y": 3}}
-# Actual:   {"a": {"y": 3}}
-```
+- `src/trie.py` — Trie implementation with insert, search, autocomplete
+- `tests/test_trie.py` — Test suite

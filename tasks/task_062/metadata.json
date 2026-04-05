@@ -1,7 +1,7 @@
 {
     "id": "task_062",
-    "language": "c",
-    "category": "feature",
-    "difficulty": "extreme",
-    "description": "Add variable-length string support and checksum validation to binary protocol pack/unpack"
+    "category": "bug_fix",
+    "difficulty": "hard",
+    "description": "B+ tree with incorrect key redistribution during underflow",
+    "language": "cpp"
 }

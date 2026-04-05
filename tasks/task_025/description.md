@@ -1,50 +1,20 @@
-# Task 025: Replace Inheritance Hierarchy with Composition
+# Task 025: Schema Validator Covariant Type Bug
 
-## Current State
+## Problem
 
-The notification system uses deep inheritance:
+A schema type validator rejects valid covariant types inside container types.
+When validating that `List[Dog]` is compatible with an expected type of
+`List[Animal]` (where Dog is a subclass of Animal), the validator performs an
+exact type match on the inner type parameter instead of a covariant (subtype)
+check, causing validation to fail incorrectly.
 
-```
-BaseNotification
-├── EmailNotification
-│   └── PriorityEmailNotification
-├── SMSNotification
-│   └── InternationalSMSNotification
-└── PushNotification
-```
+## Expected Behavior
 
-`src/notifications.py` has all these classes. Each overrides `send()` with slight variations — different formatting, different delivery logic, different validation. There's a lot of duplicated setup code across them.
+The validator should accept any subtype in covariant positions:
+- `Dog` should be valid where `Animal` is expected
+- `List[Dog]` should be valid where `List[Animal]` is expected
+- `Dict[str, Dog]` should be valid where `Dict[str, Animal]` is expected
 
-`src/notification_service.py` has a `NotificationService` that creates the right subclass and sends notifications. It has factory-like if/elif logic to pick the right class.
+## Files
 
-## Code Smells
-
-- Deep inheritance for minor behavioral variations
-- Duplicated setup/validation code
-- Adding a new combination (e.g., priority push notification) requires a new class
-- The service has to know about every subclass
-
-## Requested Refactoring
-
-Replace the inheritance tree with composition:
-
-- A single `Notification` class that takes a **channel** object (email, SMS, push) for the delivery mechanism
-- `Channel` base class (or protocol) with `EmailChannel`, `SMSChannel`, `PushChannel` implementations
-- Behavioral modifiers like priority and internationalization should be composable — decorators, mixins, or config flags rather than subclasses
-- `NotificationService` should use a builder or factory that constructs notifications from channel + modifiers
-
-The end result: sending an email, a priority email, an international SMS — all the same `Notification` class, just different channel and modifier combinations.
-
-## Constraints
-
-- All existing notification outputs must remain the same (same messages, same format)
-- The notification service must still be able to send all existing notification types
-- Channel implementations should be independently testable
-
-## Acceptance Criteria
-
-- [ ] `Channel`, `EmailChannel`, `SMSChannel`, `PushChannel` importable from `src.notifications`
-- [ ] `Notification(channel=EmailChannel(...))` works
-- [ ] Priority and international modifiers composable without new classes
-- [ ] `NotificationService.send()` still produces correct output for all types
-- [ ] No deep inheritance — max 1 level of subclassing
+- `src/type_validator.py` — Type schema validator with container support

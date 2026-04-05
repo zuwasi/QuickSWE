@@ -1,0 +1,7 @@
+{
+    "id": "task_087",
+    "category": "bug_fix",
+    "difficulty": "hard",
+    "language": "cuda",
+    "description": "Fix cooperative groups tile partition with incorrect tile size for partial warps causing wrong reduction."
+}

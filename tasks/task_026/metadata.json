@@ -1,6 +1,1 @@
-{
-    "id": "task_026",
-    "category": "bug_fix",
-    "difficulty": "extreme",
-    "description": "Pipeline produces wrong results when running with batched mode enabled. Works fine without batching. Seems like data gets corrupted between stages."
-}
+{"id": "task_026", "category": "bug_fix", "difficulty": "hard", "description": "Thread-safe LRU cache corrupts order under concurrent access", "language": "python"}

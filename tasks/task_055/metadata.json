@@ -1,7 +1,7 @@
 {
     "id": "task_055",
     "category": "bug_fix",
-    "difficulty": "extreme",
-    "language": "cpp",
-    "description": "Binary search tree remove() corrupts tree structure by not properly relinking in-order successor's right child"
+    "difficulty": "easy",
+    "description": "Hash map with incorrect collision resolution (linear probing bug)",
+    "language": "cpp"
 }

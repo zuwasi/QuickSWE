@@ -1,25 +1,29 @@
-# Bug: Incorrect Hash Table with Chaining
+# Custom Vector – Iterator Invalidation in Erase
 
-## Description
+## Problem
 
-A hash table implementation using linked-list chaining has two bugs:
+A `Vector<T>` class implements a dynamic array with iterators. The `erase()`
+method removes elements and should return a valid iterator to the element
+following the erased one.
 
-1. **Negative index from hash function**: The hash function computes `key % capacity` but doesn't handle negative keys. In C, the `%` operator can return negative values for negative operands, leading to negative array indices and undefined behavior (crashes or corrupted data).
+Users report:
 
-2. **Resize doesn't rehash**: When the table grows (load factor > 0.75), it allocates a larger bucket array but simply copies the old bucket pointers without rehashing entries. Since entries' bucket assignment depends on the capacity, items end up in wrong buckets after resize, making them unfindable by `ht_get`.
-
-## Expected Behavior
-
-- `ht_insert(table, -5, 100)` followed by `ht_get(table, -5)` returns 100.
-- After inserting enough items to trigger a resize, all previously inserted items remain findable.
-
-## Actual Behavior
-
-- Inserting a negative key causes a crash or silent corruption.
-- After resize, some or all entries become unreachable because they sit in buckets that no longer correspond to their hash.
+1. `erase(it)` returns an iterator pointing to the wrong element — elements
+   after the erased position are shifted, but the returned iterator skips one.
+2. `erase(first, last)` range erase corrupts the container when `first != last`.
+   The shift count is calculated incorrectly.
+3. After `erase()`, `size()` is decremented by the wrong amount for range erases.
+4. Using the returned iterator to continue erasing in a loop (erase-remove
+   idiom) skips elements.
 
 ## Files
 
-- `src/hashtable.h` — struct definitions
-- `src/hashtable.c` — hash table implementation with bugs
-- `src/main.c` — test driver that prints results
+- `src/vector.hpp` — Vector<T> with iterators and erase
+- `src/main.cpp` — test driver
+
+## Expected Behaviour
+
+- `erase(it)` removes the element at `it` and returns iterator to the next element.
+- `erase(first, last)` removes `[first, last)` and returns iterator to new position
+  of the element that was at `last`.
+- Size decrements correctly.

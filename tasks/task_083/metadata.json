@@ -1,7 +1,7 @@
 {
     "id": "task_083",
     "category": "bug_fix",
-    "difficulty": "extreme",
+    "difficulty": "medium",
     "language": "cuda",
-    "description": "Fix CUDA sparse matrix-matrix multiply (SpGEMM) with zero handling and column merge bugs in CSR format."
+    "description": "Fix bitonic sort with incorrect compare-and-swap direction for non-power-of-2 arrays."
 }

@@ -1,0 +1,7 @@
+{
+    "id": "task_100",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Fix molecular dynamics with incorrect neighbor list construction and cutoff handling causing wrong forces."
+}

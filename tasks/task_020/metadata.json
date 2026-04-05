@@ -1,1 +1,1 @@
-{"id": "task_020", "category": "bug_fix", "difficulty": "hard", "description": "Fix memory leak in observer pattern where deleted observers prevent garbage collection"}
+{"id": "task_020", "category": "bug_fix", "difficulty": "medium", "description": "Topological sort fails to detect cycles due to missing temporary marks in DFS", "language": "python"}

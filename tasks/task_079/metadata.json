@@ -1,7 +1,7 @@
 {
     "id": "task_079",
     "category": "bug_fix",
-    "difficulty": "extreme",
+    "difficulty": "easy",
     "language": "cuda",
-    "description": "Fix CUDA graph BFS with incorrect frontier management causing wrong distances and exponential slowdown."
+    "description": "Fix prefix sum (scan) kernel with incorrect inclusive/exclusive offset producing shifted results."
 }

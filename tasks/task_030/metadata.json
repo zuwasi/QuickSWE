@@ -1,6 +1,1 @@
-{
-    "id": "task_030",
-    "category": "bug_fix",
-    "difficulty": "extreme",
-    "description": "Shortest path finder returns wrong distances for some graphs. Simple graphs work fine but complex ones with many paths give incorrect results."
-}
+{"id": "task_030", "category": "bug_fix", "difficulty": "hard", "description": "B-tree node split puts median key in wrong child", "language": "python"}

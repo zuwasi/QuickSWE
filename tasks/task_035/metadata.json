@@ -1,6 +1,1 @@
-{
-    "id": "task_035",
-    "category": "feature",
-    "difficulty": "extreme",
-    "description": "Implement a constraint-based task scheduler using backtracking with dependency constraints, resource conflicts, time windows, and makespan optimization."
-}
+{"id": "task_035", "category": "bug_fix", "difficulty": "hard", "description": "Segment tree lazy propagation doesn't push updates to children before range query", "language": "python"}

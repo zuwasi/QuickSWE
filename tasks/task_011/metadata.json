@@ -1,1 +1,1 @@
-{"id": "task_011", "category": "refactoring", "difficulty": "easy", "description": "Extract duplicated validation logic from form classes into reusable functions"}
+{"id": "task_011", "category": "bug_fix", "difficulty": "medium", "description": "Async producer-consumer drops messages under concurrent load due to missing await on queue.put", "language": "python"}

@@ -1,7 +1,7 @@
 {
     "id": "task_078",
     "category": "bug_fix",
-    "difficulty": "extreme",
+    "difficulty": "easy",
     "language": "cuda",
-    "description": "Fix CUDA 2D image convolution with shared memory halo loading bugs and inconsistent kernel radius usage."
+    "description": "Fix histogram kernel with missing atomicAdd causing race conditions on global memory."
 }

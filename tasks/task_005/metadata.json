@@ -1,6 +1,1 @@
-{
-    "id": "task_005",
-    "category": "bug_fix",
-    "difficulty": "hard",
-    "description": "deep_merge performs shallow update, overwriting nested dicts instead of merging them"
-}
+{"id": "task_005", "category": "bug_fix", "difficulty": "easy", "description": "Trie autocomplete returns results in wrong order (not alphabetical)", "language": "python"}

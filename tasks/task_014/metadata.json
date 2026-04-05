@@ -1,1 +1,1 @@
-{"id": "task_014", "category": "refactoring", "difficulty": "medium", "description": "Convert tuple-return error handling to proper exception-based flow"}
+{"id": "task_014", "category": "feature", "difficulty": "medium", "description": "Dependency injection container doesn't handle circular dependencies", "language": "python"}

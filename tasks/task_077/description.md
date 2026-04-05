@@ -1,24 +1,26 @@
-# Bug Report: Radix sort corrupts data
+# Bug Report: Matrix Transpose Produces Incorrect Results
 
-## Problem
+## Summary
 
-The CUDA radix sort loses some elements and duplicates others. After sorting,
-the array has the same length but some values appear twice while others are
-missing entirely. The overall ordering is roughly correct (small values near
-the start) but the exact contents are wrong.
+Our tiled CUDA matrix transpose kernel produces incorrect output for
+non-square matrices and even for some square matrices. The transposed
+matrix has elements in wrong positions.
 
-## How to Reproduce
+## Symptoms
 
-```
-./radix_sort --size 1024 --seed 42   # elements missing / duplicated
-./radix_sort --size 100  --seed 7    # same problem, easier to inspect
-```
+- Square matrices (e.g., 32x32) produce partially correct results but
+  some elements are swapped within tiles.
+- Non-square matrices (e.g., 64x48) produce completely garbled output.
+- The shared memory tile read indices appear swapped, causing elements
+  to end up in wrong output positions.
+- Output coordinate calculation for the transposed write doesn't
+  correctly account for the tile position swap.
 
-## Expected Behaviour
+## Expected Behavior
 
-The GPU-sorted output should contain exactly the same elements as the input,
-in ascending order, matching the CPU reference sort.
+- `out[j][i] = in[i][j]` for all valid indices.
+- Should work for any matrix dimensions, not just multiples of tile size.
 
-## Environment
+## Build Notes
 
-- CUDA Toolkit 12.x, any GPU with compute capability >= 3.5
+Compile with: `nvcc -rdc=true -lcudadevrt -lm`

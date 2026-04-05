@@ -1,0 +1,7 @@
+{
+    "id": "task_092",
+    "category": "bug_fix",
+    "difficulty": "hard",
+    "language": "cuda",
+    "description": "Fix persistent kernel with incorrect grid-stride loop termination causing missed or double-processed work items."
+}

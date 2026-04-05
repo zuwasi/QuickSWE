@@ -1,32 +1,26 @@
-# Bug Report: Producer-Consumer Queue Loses Items Under Interleaving
+# Priority Queue (Min-Heap) – Incorrect Sift-Down
 
-## Summary
-Our producer-consumer queue drops items when multiple consumers try to pop
-concurrently. The queue is designed to be used with a lock/signal mechanism,
-but even when we simulate the interleaving of operations, items get lost or
-consumers get invalid data.
+## Problem
 
-## Steps to Reproduce
-1. Set up a queue with capacity
-2. Have multiple producers push items via callbacks
-3. Have multiple consumers pop items via callbacks
-4. Interleave the operations (simulating concurrent access)
-5. Count the total items consumed — it doesn't match items produced
+A `MinHeap<T>` template class implements a binary min-heap with `push`, `pop`,
+`top`, `size`, and `empty` operations.
 
-## Expected Behavior
-- Every item pushed should be popped exactly once
-- Pop on empty queue after signal should re-check and wait, not return garbage
-- No items should be lost even under arbitrary interleaving
+Users report:
 
-## Observed Behavior  
-- Under specific interleaving patterns, consumers pop from an empty queue
-  because they don't re-check the empty condition after being signaled
-- The `queue_pop` function uses an `if` to check emptiness instead of `while`,
-  so after a spurious wakeup (or signal consumed by another consumer), it
-  proceeds to pop from an empty queue and returns garbage or underflows
+1. After pushing elements in descending order and then popping, elements do not
+   come out in ascending order.
+2. Extracting the minimum after several insertions sometimes returns a non-minimum
+   element.
+3. Heap-sorting by repeated `pop()` produces an unsorted sequence for inputs larger
+   than 3 elements.
 
-## Technical Details
-The queue uses a callback-based architecture where operations can be
-interleaved by a scheduler. The pop operation checks if the queue is empty
-once, sets a "waiting" flag, and when "signaled" proceeds without rechecking.
-This is the classic spurious-wakeup bug pattern.
+## Files
+
+- `src/min_heap.hpp` — MinHeap implementation
+- `src/main.cpp` — driver program
+
+## Expected Behaviour
+
+- `top()` always returns the smallest element currently in the heap.
+- Successive `pop()` calls yield elements in non-decreasing order.
+- The heap property is maintained after every insert and extract operation.

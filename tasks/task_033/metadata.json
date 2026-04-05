@@ -1,6 +1,1 @@
-{
-    "id": "task_033",
-    "category": "refactoring",
-    "difficulty": "extreme",
-    "description": "Convert synchronous I/O pipeline to async with backpressure using asyncio. Add buffer pool with semaphore, concurrent pipeline stages, and throughput metrics."
-}
+{"id": "task_033", "category": "bug_fix", "difficulty": "hard", "description": "Protocol buffer varint encoder truncates values larger than 2^28", "language": "python"}

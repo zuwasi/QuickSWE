@@ -1,0 +1,7 @@
+{
+    "id": "task_086",
+    "category": "bug_fix",
+    "difficulty": "hard",
+    "language": "cuda",
+    "description": "Fix multi-GPU peer-to-peer vector processing with incorrect stream synchronization across devices."
+}

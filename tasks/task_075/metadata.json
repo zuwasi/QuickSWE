@@ -2,6 +2,6 @@
     "id": "task_075",
     "category": "bug_fix",
     "difficulty": "extreme",
-    "language": "cuda",
-    "description": "Fix multi-stream data partitioning that produces duplicates and reads uninitialized memory due to synchronization and boundary bugs."
+    "description": "Persistent data structure (HAMTrie) with incorrect structural sharing",
+    "language": "cpp"
 }

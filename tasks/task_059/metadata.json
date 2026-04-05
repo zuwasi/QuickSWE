@@ -1,7 +1,7 @@
 {
     "id": "task_059",
-    "language": "c",
     "category": "bug_fix",
-    "difficulty": "hard",
-    "description": "Hash table with chaining has negative index from hash function and resize doesn't rehash"
+    "difficulty": "medium",
+    "description": "Iterator invalidation bug in custom vector erase",
+    "language": "cpp"
 }

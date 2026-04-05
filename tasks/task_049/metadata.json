@@ -1,1 +1,1 @@
-{"id": "task_049", "category": "feature", "difficulty": "extreme", "description": "Add CLI argument parser with subcommands, type coercion, short flags, and auto-generated help text"}
+{"id": "task_049", "category": "bug_fix", "difficulty": "extreme", "description": "CSP channel select always chooses the first ready channel instead of random", "language": "python"}

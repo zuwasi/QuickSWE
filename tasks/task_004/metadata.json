@@ -1,6 +1,1 @@
-{
-    "id": "task_004",
-    "category": "bug_fix",
-    "difficulty": "medium",
-    "description": "Email validation regex rejects dots in local part and hyphens in domain"
-}
+{"id": "task_004", "category": "feature", "difficulty": "easy", "description": "JSON path evaluator doesn't support array wildcards [*]", "language": "python"}

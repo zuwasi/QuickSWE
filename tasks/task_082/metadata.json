@@ -1,7 +1,7 @@
 {
     "id": "task_082",
-    "category": "feature",
-    "difficulty": "extreme",
+    "category": "bug_fix",
+    "difficulty": "medium",
     "language": "cuda",
-    "description": "Implement efficient CUDA k-nearest neighbors using max-heap partial sort with shared memory candidate lists."
+    "description": "Fix CSR sparse matrix-vector multiplication with incorrect row pointer indexing and uninitialized accumulator."
 }

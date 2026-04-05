@@ -1,7 +1,7 @@
 {
     "id": "task_077",
     "category": "bug_fix",
-    "difficulty": "extreme",
+    "difficulty": "easy",
     "language": "cuda",
-    "description": "Fix CUDA radix sort that corrupts data due to incorrect scatter offsets and inverted buffer swap on the last pass."
+    "description": "Fix matrix transpose kernel with incorrect shared memory indexing causing bank conflicts and wrong results."
 }

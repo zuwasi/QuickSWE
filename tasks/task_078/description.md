@@ -1,25 +1,24 @@
-# Bug Report: Image convolution produces wrong results at tile boundaries
+# Bug Report: GPU Histogram Counts Are Wrong
 
-## Problem
+## Summary
 
-Our CUDA 2D convolution kernel gives wrong results. The output looks
-correct in the center of large images but goes badly wrong near tile
-boundaries and at the edges of the image. A 3×3 box blur produces visible
-seam artifacts every TILE_SIZE pixels. A 5×5 Gaussian is even worse.
+Our CUDA histogram kernel produces incorrect bin counts. The totals are
+always lower than the CPU reference, and the error grows with larger
+input arrays.
 
-## How to Reproduce
+## Symptoms
 
-```
-./conv2d --width 64  --height 64  --radius 1 --seed 42   # 3x3, mostly OK
-./conv2d --width 100 --height 100 --radius 1 --seed 42   # seams visible
-./conv2d --width 64  --height 64  --radius 2 --seed 42   # 5x5, very wrong
-```
+- Small arrays (~100 elements) sometimes produce correct results.
+- Larger arrays (10000+) always have incorrect counts.
+- Total count across all bins is less than N (some increments are lost).
+- The histogram uses direct global memory increments without atomicAdd,
+  causing race conditions when multiple threads update the same bin.
 
-## Expected Behaviour
+## Expected Behavior
 
-GPU-convolved output should match the CPU reference within floating-point
-tolerance for any image size and kernel radius.
+- Each bin count should exactly match the CPU reference histogram.
+- Total across all bins should equal N.
 
-## Environment
+## Build Notes
 
-- CUDA Toolkit 12.x, any GPU with compute capability >= 3.5
+Compile with: `nvcc -rdc=true -lcudadevrt -lm`

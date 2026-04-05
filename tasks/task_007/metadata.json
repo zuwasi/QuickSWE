@@ -1,6 +1,1 @@
-{
-    "id": "task_007",
-    "category": "feature",
-    "difficulty": "medium",
-    "description": "Add retry logic with exponential backoff to SimpleHTTPClient"
-}
+{"id": "task_007", "category": "bug_fix", "difficulty": "easy", "description": "Binary search on rotated sorted array fails to find elements at the left boundary of sorted halves", "language": "python"}

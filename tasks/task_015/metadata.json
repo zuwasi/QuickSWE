@@ -1,1 +1,1 @@
-{"id": "task_015", "category": "refactoring", "difficulty": "medium", "description": "Simplify deeply nested conditionals with early returns and add a can_access wrapper"}
+{"id": "task_015", "category": "bug_fix", "difficulty": "medium", "description": "Graph shortest path (Dijkstra) returns wrong path for graphs with zero-weight edges", "language": "python"}

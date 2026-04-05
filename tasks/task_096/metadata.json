@@ -1,0 +1,7 @@
+{
+    "id": "task_096",
+    "category": "bug_fix",
+    "difficulty": "extreme",
+    "language": "cuda",
+    "description": "Fix BFS graph traversal with incorrect warp-centric frontier expansion causing missed vertices."
+}

@@ -1,7 +1,7 @@
 {
     "id": "task_084",
-    "category": "feature",
-    "difficulty": "extreme",
+    "category": "bug_fix",
+    "difficulty": "medium",
     "language": "cuda",
-    "description": "Implement CUDA spatial hash grid for particle collision detection with cell overflow handling and boundary wrapping."
+    "description": "Fix stream compaction with incorrect scatter index from prefix sum causing duplicated/missing elements."
 }

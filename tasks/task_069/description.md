@@ -1,46 +1,23 @@
-# Bug Fix: CUDA Matrix Transpose — Shared Memory Bank Conflicts & Wrong Indexing
+# Mini Garbage Collector – Mark-Compact with Incorrect Forwarding Pointers
 
-## Summary
+## Problem
 
-The `transpose.cu` file implements a tiled matrix transpose using CUDA shared
-memory. There are two bugs:
+A mark-compact garbage collector manages a heap of objects. Each object has an
+ID, a set of references to other objects, and a forwarding pointer used during
+compaction. The collector supports `allocate`, `add_reference`, `collect`,
+and `compact`.
 
-1. **Shared memory bank conflicts**: The shared memory tile is declared as
-   `__shared__ float tile[TILE_SIZE][TILE_SIZE]`. Because TILE_SIZE (32)
-   matches the number of memory banks, every warp accessing a column hits the
-   same bank, serialising the accesses. The fix is to add +1 padding:
-   `__shared__ float tile[TILE_SIZE][TILE_SIZE + 1]`.
+Users report:
 
-2. **Thread index swap on write-back**: When writing the transposed tile back
-   to global memory, the x and y thread indices are swapped, placing data in
-   the wrong output location. This produces an incorrect result for
-   **non-square** matrices (for square matrices the symmetric bug may
-   accidentally give a plausible-looking result in certain cases, but the
-   transposition is still wrong).
+1. After compaction, references between objects point to stale (pre-compaction)
+   locations — the forwarding pointer update phase does not fix references
+   inside live objects.
+2. Objects reachable only through a chain (A→B→C) are incorrectly collected
+   because the mark phase does not propagate transitively.
+3. After multiple collect/compact cycles, `dereference(id)` returns data from
+   the wrong object.
 
-## Acceptance Criteria
+## Files
 
-- The transpose must produce the correct result for **non-square** matrices,
-  verified against a CPU reference transpose.
-- Supported test sizes: 64×128, 128×64, 100×200, 256×256, 1×1024.
-- The GPU result must match the CPU result **exactly** (element-wise, float
-  equality — no tolerance needed because we only copy/reorder, no arithmetic).
-- The kernel must still compile and run without errors after the fix.
-
-## Current Bugs (in `transpose_kernel`)
-
-```c
-// BUG 1: bank conflicts — no padding
-__shared__ float tile[TILE_SIZE][TILE_SIZE];
-
-// BUG 2: write-back indices swapped
-int out_x = blockIdx.y * TILE_SIZE + threadIdx.y;  // should be threadIdx.x
-int out_y = blockIdx.x * TILE_SIZE + threadIdx.x;  // should be threadIdx.y
-out[out_y * N + out_x] = tile[threadIdx.x][threadIdx.y];
-```
-
-## Environment
-
-- CUDA Toolkit 12.x
-- Windows 11 / Linux
-- Any NVIDIA GPU with compute capability >= 3.5
+- `src/gc.hpp` — mark-compact garbage collector
+- `src/main.cpp` — test driver
