@@ -32,6 +32,23 @@ QuickSWE v2 features **100 stress-test tasks** across three languages and four d
 
 ---
 
+## ⚠️ CRITICAL SAFETY WARNING
+
+> **QuickSWE runs AI agents with full filesystem permissions (`--dangerously-skip-permissions` / `--dangerously-allow-all`).** These agents can — and have — deleted files and directories **outside** the benchmark workspace, including unrelated projects on the same machine.
+>
+> **Known incident:** During benchmark runs, Claude Code (running in bypass-permissions mode) deleted entire project directories (`C:\parasoft`, `C:\amp-demos`, `C:\amp-vs-claude-benchmark`) containing dozens of unrelated customer projects. The data had to be recovered from Volume Shadow Copies.
+>
+> ### Before Running QuickSWE:
+>
+> 1. **Back up all important data** on the machine — the benchmark agents have unrestricted access to your entire filesystem
+> 2. **Ideally, run inside an isolated environment** — Windows Sandbox, a disposable VM, or a container
+> 3. **Do NOT run on a machine with production data** — `cwd=work_dir` is NOT a sandbox; agents can navigate to any path
+> 4. **NTFS deny-delete ACLs** on critical directories provide OS-level protection (the only hard guarantee)
+>
+> The runner includes guardrail prompts (`CLAUDE.md`, `AGENTS.md`) and post-task safety checks, but these are **advisory only** — they rely on the agent obeying instructions, which is not guaranteed.
+
+---
+
 ## Quick Start
 
 ```powershell

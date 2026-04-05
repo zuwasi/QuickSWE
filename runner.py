@@ -16,7 +16,13 @@ RESULTS_DIR = Path(__file__).parent / "results"
 
 PROMPT_TEMPLATE = (
     "Fix the issue described below. "
-    "Only modify files in the current directory.\n\n{issue}"
+    "Only modify files in the current directory.\n\n"
+    "CRITICAL SAFETY RULES:\n"
+    "- NEVER delete, remove, or modify ANY files outside this working directory\n"
+    "- NEVER use rm -rf, Remove-Item -Recurse, rmdir, or shutil.rmtree on any path outside '.'\n"
+    "- NEVER access parent directories (..) or absolute paths like C:\\\n"
+    "- Only edit files in src/ and create new files in the current directory\n\n"
+    "{issue}"
 )
 
 
@@ -96,9 +102,30 @@ def load_description(task_dir: Path) -> str:
 
 # ── agent invocation ─────────────────────────────────────────────────────────
 
+def _write_guardrail_files(work_dir: Path):
+    """Write CLAUDE.md and AGENTS.md guardrails into the work directory."""
+    guardrail = (
+        "# BENCHMARK TASK — SAFETY RULES\n\n"
+        "You are running inside an isolated benchmark workspace.\n\n"
+        "## CRITICAL — DO NOT VIOLATE\n"
+        "- ONLY modify files inside THIS directory\n"
+        "- NEVER access, delete, or modify files outside this directory\n"
+        "- NEVER use absolute paths (C:\\, /home/, etc.)\n"
+        "- NEVER navigate to parent directories (..)\n"
+        "- NEVER run rm -rf, Remove-Item -Recurse, rmdir, or shutil.rmtree "
+        "on any path outside '.'\n"
+        "- NEVER delete directories you did not create\n"
+    )
+    (work_dir / "CLAUDE.md").write_text(guardrail, encoding="utf-8")
+    (work_dir / "AGENTS.md").write_text(guardrail, encoding="utf-8")
+
+
 def invoke_agent(agent: str, prompt: str, work_dir: Path,
                  timeout: int) -> tuple[float, bool, str]:
     """Invoke an agent CLI and return (elapsed_seconds, success, output)."""
+    # Write guardrail files so agents see safety rules
+    _write_guardrail_files(work_dir)
+
     # Write prompt to a temp file to avoid shell escaping issues
     prompt_file = work_dir / "_prompt.txt"
     with open(prompt_file, "w", encoding="utf-8") as f:
@@ -127,7 +154,6 @@ def invoke_agent(agent: str, prompt: str, work_dir: Path,
     else:
         raise ValueError(f"Unknown agent: {agent}")
 
-    # Set environment to allow full permissions for Claude
     env = os.environ.copy()
     env["CLAUDE_CODE_SKIP_PERMISSIONS"] = "1"
 
@@ -173,6 +199,18 @@ def run_task(task_dir: Path, agent: str, timeout: int) -> dict:
     tmp_root = tempfile.mkdtemp(prefix=f"bench_{task_id}_{agent}_")
     work_dir = Path(tmp_root)
 
+    # Snapshot critical directories before agent runs
+    _protected_dirs = [
+        Path(r"C:\parasoft"),
+        Path(r"C:\Amp_demos"),
+        Path(r"C:\Amp_demos_RECOVERED"),
+        Path.home(),
+    ]
+    _pre_snapshot = {
+        str(d): set(p.name for p in d.iterdir()) if d.exists() else set()
+        for d in _protected_dirs
+    }
+
     try:
         # Copy src/ directory preserving structure (tests import from src.module)
         work_src_dir = work_dir / "src"
@@ -197,6 +235,19 @@ def run_task(task_dir: Path, agent: str, timeout: int) -> dict:
         elapsed, agent_ok, agent_output = invoke_agent(
             agent, prompt, work_dir, timeout,
         )
+
+        # Safety check: verify no protected directories were damaged
+        for d_str, pre_items in _pre_snapshot.items():
+            d = Path(d_str)
+            if d.exists():
+                post_items = set(p.name for p in d.iterdir())
+                deleted = pre_items - post_items
+                if deleted:
+                    print(f"\n  [!!!] SAFETY ALERT: {agent} deleted items from "
+                          f"{d}: {deleted}", file=sys.stderr)
+            elif pre_items:
+                print(f"\n  [!!!] SAFETY ALERT: {agent} deleted entire "
+                      f"directory {d}!", file=sys.stderr)
 
         # Post-fix: check fail_to_pass
         post_f2p = run_fail_to_pass(work_dir, work_test_dir)
