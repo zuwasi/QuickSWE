@@ -11,10 +11,72 @@ import signal
 import sys
 import time
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 from runner import RESULTS_DIR, discover_tasks, load_task_metadata, run_task
+
+
+# ── progress tracker ─────────────────────────────────────────────────────────
+
+class ProgressTracker:
+    """Live progress widget for benchmark runs."""
+
+    def __init__(self, total_runs: int, total_tasks: int, agents: list[str]):
+        self.total_runs = total_runs
+        self.total_tasks = total_tasks
+        self.agents = agents
+        self.total_invocations = total_runs * total_tasks * len(agents)
+        self.completed = 0
+        self.resolved = 0
+        self.failed = 0
+        self.errors = 0
+        self.start_time = time.perf_counter()
+        self._agent_resolved: dict[str, int] = defaultdict(int)
+        self._agent_total: dict[str, int] = defaultdict(int)
+
+    def update(self, result: dict, agent: str):
+        self.completed += 1
+        self._agent_total[agent] += 1
+        if result["resolved"]:
+            self.resolved += 1
+            self._agent_resolved[agent] += 1
+        elif result.get("error"):
+            self.errors += 1
+        else:
+            self.failed += 1
+
+    def _format_eta(self) -> str:
+        elapsed = time.perf_counter() - self.start_time
+        if self.completed == 0:
+            return "calculating..."
+        rate = elapsed / self.completed
+        remaining = (self.total_invocations - self.completed) * rate
+        eta = timedelta(seconds=int(remaining))
+        return str(eta)
+
+    def _bar(self, width: int = 30) -> str:
+        pct = self.completed / self.total_invocations if self.total_invocations else 0
+        filled = int(width * pct)
+        return f"[{'█' * filled}{'░' * (width - filled)}]"
+
+    def display(self):
+        pct = (self.completed / self.total_invocations * 100) if self.total_invocations else 0
+        elapsed = timedelta(seconds=int(time.perf_counter() - self.start_time))
+        eta = self._format_eta()
+        bar = self._bar()
+
+        agent_stats = " | ".join(
+            f"{a}: {self._agent_resolved[a]}/{self._agent_total[a]}"
+            for a in self.agents if self._agent_total[a] > 0
+        )
+
+        print(f"\n  {bar} {pct:5.1f}%  "
+              f"({self.completed}/{self.total_invocations})  "
+              f"✓{self.resolved} ✗{self.failed} ⚠{self.errors}  "
+              f"Elapsed: {elapsed}  ETA: {eta}")
+        if agent_stats:
+            print(f"  Agent resolve: {agent_stats}")
 
 # ── graceful shutdown ────────────────────────────────────────────────────────
 
@@ -269,6 +331,7 @@ def main():
     # raw[agent] -> list of per-run record lists
     raw: dict[str, list[list[dict]]] = {a: [] for a in agents}
     completed_runs = 0
+    progress = ProgressTracker(total_runs, len(tasks), agents)
 
     for run_idx in range(1, total_runs + 1):
         if _interrupted:
@@ -304,6 +367,8 @@ def main():
                 t = f" ({result['time_seconds']:.1f}s)"
                 print(f"{status}{reg}{t}")
                 records.append(result)
+                progress.update(result, agent)
+                progress.display()
 
             # Save this run
             if records:

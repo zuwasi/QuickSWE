@@ -110,11 +110,17 @@ def _write_guardrail_files(work_dir: Path):
         "## CRITICAL — DO NOT VIOLATE\n"
         "- ONLY modify files inside THIS directory\n"
         "- NEVER access, delete, or modify files outside this directory\n"
-        "- NEVER use absolute paths (C:\\, /home/, etc.)\n"
+        "- NEVER use absolute paths (C:\\, /home/, /root/, /mnt/, etc.)\n"
         "- NEVER navigate to parent directories (..)\n"
-        "- NEVER run rm -rf, Remove-Item -Recurse, rmdir, or shutil.rmtree "
-        "on any path outside '.'\n"
+        "- NEVER run rm, rm -rf, rm -r, rmdir, del, rd, Remove-Item, "
+        "shutil.rmtree, os.remove, os.rmdir, os.unlink, pathlib.unlink, "
+        "or any delete command on ANY path outside '.'\n"
         "- NEVER delete directories you did not create\n"
+        "- NEVER run pip install, npm install, apt install, or any package manager\n"
+        "- NEVER modify ~/.bashrc, ~/.profile, /etc/*, or any system config\n"
+        "- NEVER create, modify, or delete files under /home, /root, "
+        "C:\\Users, or any user directory outside this workspace\n"
+        "- If you need to compile C/C++/CUDA code, only output to this directory\n"
     )
     (work_dir / "CLAUDE.md").write_text(guardrail, encoding="utf-8")
     (work_dir / "AGENTS.md").write_text(guardrail, encoding="utf-8")
