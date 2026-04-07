@@ -13,14 +13,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Prepare deploy directory
+        run: |
+          mkdir -p deploy
+          cp results/dashboard.html deploy/index.html
+
       - name: Deploy to quickswe-dashboard
         uses: peaceiris/actions-gh-pages@v4
         with:
           personal_token: ${{ secrets.DASHBOARD_DEPLOY_TOKEN }}
           external_repository: zuwasi/quickswe-dashboard
           publish_branch: main
-          publish_dir: ./results
-          destination_dir: .
+          publish_dir: ./deploy
           keep_files: false
           force_orphan: true
           commit_message: "Update dashboard"
