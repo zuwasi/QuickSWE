@@ -9,7 +9,7 @@
 <style>
   :root {
     --bg: #1a1a2e; --card: #16213e; --card-border: #0f3460;
-    --text: #e0e0e0; --muted: #8899aa; --accent1: #2ECC71; --accent2: #FF6B35;
+    --text: #e0e0e0; --muted: #8899aa; --accent1: #00B4D8; --accent2: #2ECC71;
     --pass: #2ecc71; --warn: #f39c12; --fail: #e74c3c; --partial: #3498db; --gray: #555;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -60,7 +60,7 @@
 <body>
 
 <h1>QuickSWE Dashboard</h1>
-<p class="subtitle">Generated 2026-04-07 11:16:30 &nbsp;|&nbsp; 100 tasks &nbsp;|&nbsp; 17 run(s) per agent</p>
+<p class="subtitle">Generated 2026-04-07 11:21:40 &nbsp;|&nbsp; 100 tasks &nbsp;|&nbsp; 17 run(s) per agent</p>
 
 <div class="achievement">
   <h2>&#127942; Notable Finding: Amp Catches a Bug in the Benchmark Itself</h2>
@@ -100,12 +100,13 @@
 <h2 style="margin-bottom:14px;">🐍 Python — 50 Tasks</h2>
 <div class="summary-cards">
   <div class="scard"><div class="val">50</div><div class="lbl">Tasks</div></div>
+  <div class="scard"><div class="val" style="color:#00B4D8">100.0%</div><div class="lbl">Amp Resolve Rate</div></div>
   <div class="scard"><div class="val" style="color:#2ECC71">100.0%</div><div class="lbl">Amp-deep3 Resolve Rate</div></div>
   <div class="scard"><div class="val" style="color:#FF6B35">83.3%</div><div class="lbl">Claude Resolve Rate</div></div>
-  <div class="scard" style="border:2px solid #f1c40f;"><div class="val" style="color:#f1c40f">1.5x</div><div class="lbl">Amp-deep3 Speed Advantage</div></div>
+  <div class="scard" style="border:2px solid #f1c40f;"><div class="val" style="color:#f1c40f">1.4x</div><div class="lbl">Amp Speed Advantage</div></div>
+  <div class="scard"><div class="val" style="color:#00B4D8">48.8s</div><div class="lbl">Amp Avg Time</div></div>
   <div class="scard"><div class="val" style="color:#2ECC71">69.8s</div><div class="lbl">Amp-deep3 Avg Time</div></div>
-  <div class="scard"><div class="val" style="color:#FF6B35">101.6s</div><div class="lbl">Claude Avg Time</div></div>
-  <div class="scard"><div class="val" style="color:#2ecc71">🏆 Amp-deep3</div><div class="lbl">Winner</div></div>
+  <div class="scard"><div class="val" style="color:#2ecc71">🏆 Amp</div><div class="lbl">Winner</div></div>
 </div>
 <div class="grid">
 <div class="card">
@@ -139,11 +140,11 @@
   <p class="explain">Percentage of tasks where the agent broke existing tests. Lower is better.</p>
 </div>
 <div class="card">
-  <h2>🥧 Amp-deep3 — Outcome Breakdown</h2>
+  <h2>🥧 Amp — Outcome Breakdown</h2>
   <canvas id="pie1_python"></canvas>
 </div>
 <div class="card">
-  <h2>🥧 Claude — Outcome Breakdown</h2>
+  <h2>🥧 Amp-deep3 — Outcome Breakdown</h2>
   <canvas id="pie2_python"></canvas>
 </div>
 <div class="card full">
@@ -168,59 +169,60 @@
   <table>
     <thead><tr>
       <th>Task</th><th>Category</th>
+      <th style="color:#00B4D8">Amp Resolve</th><th style="color:#00B4D8">Time</th>
       <th style="color:#2ECC71">Amp-deep3 Resolve</th><th style="color:#2ECC71">Time</th>
-      <th style="color:#FF6B35">Claude Resolve</th><th style="color:#FF6B35">Time</th>
-          </tr></thead>
-    <tbody><tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_001" target="_blank" class="task-link" title="Task 001: Interval Tree Merge Overlapping">🟢 task_001</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>57.5s</td><td class="cell-pass">83%</td><td>39.4s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_002" target="_blank" class="task-link" title="Task 002: LRU Cache Eviction Bug">🟢 task_002</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>53.0s</td><td class="cell-pass">83%</td><td>44.4s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_003" target="_blank" class="task-link" title="Task 003: Rate Limiter Token Bucket Overflow">🟢 task_003</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>62.0s</td><td class="cell-pass">83%</td><td>36.1s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_004" target="_blank" class="task-link" title="Task 004: JSON Path Array Wildcard Support">🟢 task_004</a></td><td>Feature</td><td class="cell-pass">100%</td><td>60.4s</td><td class="cell-pass">83%</td><td>35.7s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_005" target="_blank" class="task-link" title="Task 005: Trie Autocomplete Ordering">🟢 task_005</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>51.9s</td><td class="cell-pass">83%</td><td>44.7s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_006" target="_blank" class="task-link" title="Task 006: Matrix Spiral Traversal">🟢 task_006</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>50.3s</td><td class="cell-pass">83%</td><td>42.6s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_007" target="_blank" class="task-link" title="Task 007: Rotated Sorted Array Search">🟢 task_007</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>45.0s</td><td class="cell-pass">83%</td><td>44.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_008" target="_blank" class="task-link" title="Task 008: Run-Length Encoding Decoder Bug">🟢 task_008</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>45.5s</td><td class="cell-pass">83%</td><td>38.9s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_009" target="_blank" class="task-link" title="Task 009: Markdown Table Parser — Escaped Pipes">🟢 task_009</a></td><td>Feature</td><td class="cell-pass">100%</td><td>77.2s</td><td class="cell-pass">83%</td><td>39.7s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_010" target="_blank" class="task-link" title="Task 010: Cron Expression Parser — Day-of-Week Bug">🟢 task_010</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>51.1s</td><td class="cell-pass">83%</td><td>46.9s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_011" target="_blank" class="task-link" title="Task 011 – Async Producer-Consumer Drops Messages">🟡 task_011</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>118.4s</td><td class="cell-pass">83%</td><td>102.4s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_012" target="_blank" class="task-link" title="Task 012 – Memoization Decorator Returns Stale Results">🟡 task_012</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>86.5s</td><td class="cell-pass">83%</td><td>62.6s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_013" target="_blank" class="task-link" title="Task 013 – Observer Pattern Skips Listeners on Removal During Emit">🟡 task_013</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>49.9s</td><td class="cell-pass">83%</td><td>63.5s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_014" target="_blank" class="task-link" title="Task 014 – DI Container Circular Dependency Detection">🟡 task_014</a></td><td>Feature</td><td class="cell-pass">100%</td><td>74.5s</td><td class="cell-pass">83%</td><td>61.1s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_015" target="_blank" class="task-link" title="Task 015 – Dijkstra Returns Wrong Path for Zero-Weight Edges">🟡 task_015</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>75.6s</td><td class="cell-pass">83%</td><td>43.8s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_016" target="_blank" class="task-link" title="Task 016 – FSM Accepts Invalid Transitions">🟡 task_016</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>53.4s</td><td class="cell-pass">83%</td><td>100.7s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_017" target="_blank" class="task-link" title="Task 017 – Expression Evaluator Ignores Operator Precedence">🟡 task_017</a></td><td>Refactoring</td><td class="cell-pass">100%</td><td>56.7s</td><td class="cell-pass">83%</td><td>53.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_018" target="_blank" class="task-link" title="Task 018 – Connection Pool Returns Closed Connections">🟡 task_018</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>59.8s</td><td class="cell-pass">83%</td><td>48.5s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_019" target="_blank" class="task-link" title="Task 019 – Retry Decorator Doesn't Reset Attempt Counter">🟡 task_019</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>56.3s</td><td class="cell-pass">83%</td><td>39.5s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_020" target="_blank" class="task-link" title="Task 020 – Topological Sort Fails to Detect Cycles">🟡 task_020</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>48.3s</td><td class="cell-pass">83%</td><td>60.5s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_021" target="_blank" class="task-link" title="Task 021: Red-Black Tree Deletion Bug">🟠 task_021</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>50.8s</td><td class="cell-pass">83%</td><td>47.8s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_022" target="_blank" class="task-link" title="Task 022: A* Pathfinder Tie-Breaking Bug">🟠 task_022</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>375.7s</td><td class="cell-pass">83%</td><td>1194.7s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_023" target="_blank" class="task-link" title="Task 023: SQL Query Builder Multi-Table JOIN Bug">🟠 task_023</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>49.1s</td><td class="cell-pass">83%</td><td>101.7s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_024" target="_blank" class="task-link" title="Task 024: Plugin Loader Dependency Resolution Bug">🟠 task_024</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>50.9s</td><td class="cell-pass">83%</td><td>55.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_025" target="_blank" class="task-link" title="Task 025: Schema Validator Covariant Type Bug">🟠 task_025</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>72.4s</td><td class="cell-pass">83%</td><td>100.3s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_026" target="_blank" class="task-link" title="Task 026: Concurrent LRU Cache Race Condition">🟠 task_026</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>45.8s</td><td class="cell-pass">83%</td><td>53.8s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_027" target="_blank" class="task-link" title="Task 027: AST Variable Renamer Scope Bug">🟠 task_027</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>129.9s</td><td class="cell-pass">83%</td><td>72.5s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_028" target="_blank" class="task-link" title="Task 028: Middleware Pipeline Error Handler Order Bug">🟠 task_028</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>44.8s</td><td class="cell-pass">83%</td><td>45.7s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_029" target="_blank" class="task-link" title="Task 029: Regex Engine Catastrophic Backtracking Bug">🟠 task_029</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>71.2s</td><td class="cell-pass">83%</td><td>61.6s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_030" target="_blank" class="task-link" title="Task 030: B-Tree Node Split Bug">🟠 task_030</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>50.1s</td><td class="cell-pass">83%</td><td>44.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_031" target="_blank" class="task-link" title="Task 031: Consistent Hash Ring Lookup Bug">🟠 task_031</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>49.2s</td><td class="cell-pass">83%</td><td>114.8s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_032" target="_blank" class="task-link" title="Task 032: Template Engine Nested Loop Variable Bug">🟠 task_032</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>69.3s</td><td class="cell-pass">83%</td><td>122.1s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_033" target="_blank" class="task-link" title="Task 033: Varint Encoder Truncation Bug">🟠 task_033</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>57.6s</td><td class="cell-pass">83%</td><td>61.5s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_034" target="_blank" class="task-link" title="Task 034: Mergeable Heap Bug">🟠 task_034</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>45.3s</td><td class="cell-pass">83%</td><td>70.4s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_035" target="_blank" class="task-link" title="Task 035: Segment Tree Lazy Propagation Bug">🟠 task_035</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>56.7s</td><td class="cell-pass">83%</td><td>800.5s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_036" target="_blank" class="task-link" title="Task 036: Compiler Tokenizer Multi-Character Operator Handling">🔴 task_036</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>50.9s</td><td class="cell-pass">83%</td><td>91.4s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_037" target="_blank" class="task-link" title="Task 037: Bytecode VM Stack Frame Corruption">🔴 task_037</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>48.6s</td><td class="cell-pass">83%</td><td>44.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_038" target="_blank" class="task-link" title="Task 038: Transaction Engine Phantom Reads">🔴 task_038</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>105.3s</td><td class="cell-pass">83%</td><td>53.8s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_039" target="_blank" class="task-link" title="Task 039: Neural Network Backpropagation Gradient Bug">🔴 task_039</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>44.4s</td><td class="cell-pass">83%</td><td>44.9s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_040" target="_blank" class="task-link" title="Task 040: Mark-Sweep Garbage Collector Tracing Bug">🔴 task_040</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>52.2s</td><td class="cell-pass">83%</td><td>78.7s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_041" target="_blank" class="task-link" title="Task 041: Buddy Allocator Incorrect Coalescing">🔴 task_041</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>50.2s</td><td class="cell-pass">83%</td><td>60.4s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_042" target="_blank" class="task-link" title="Task 042: Raft Consensus Premature Commit">🔴 task_042</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>61.7s</td><td class="cell-pass">83%</td><td>55.7s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_043" target="_blank" class="task-link" title="Task 043: CRDT G-Counter Merge Bug">🔴 task_043</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>56.7s</td><td class="cell-pass">83%</td><td>54.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_044" target="_blank" class="task-link" title="Task 044: Reactive Dataflow Engine Diamond Dependency Glitch">🔴 task_044</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>156.0s</td><td class="cell-pass">83%</td><td>218.9s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_045" target="_blank" class="task-link" title="Task 045: LSM-Tree Tombstone Handling During Compaction">🔴 task_045</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>68.0s</td><td class="cell-pass">83%</td><td>66.2s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_046" target="_blank" class="task-link" title="Task 046: Type Inference Occurs Check Missing">🔴 task_046</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>61.5s</td><td class="cell-pass">83%</td><td>65.5s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_047" target="_blank" class="task-link" title="Task 047: Deadlock Detector False Positive on Self-Loops">🔴 task_047</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>59.3s</td><td class="cell-pass">83%</td><td>56.8s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_048" target="_blank" class="task-link" title="Task 048: Incremental Parser Error Recovery State Loss">🔴 task_048</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>59.8s</td><td class="cell-pass">83%</td><td>54.1s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_049" target="_blank" class="task-link" title="Task 049: CSP Channel Select Fairness Bug">🔴 task_049</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>90.6s</td><td class="cell-pass">83%</td><td>77.7s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_050" target="_blank" class="task-link" title="Task 050: WAL Recovery Transaction Ordering Bug">🔴 task_050</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>74.9s</td><td class="cell-pass">83%</td><td>61.7s</td></tr>
+            <th style="color:#FF6B35">Claude Resolve</th><th style="color:#FF6B35">Time</th>
+    </tr></thead>
+    <tbody><tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_001" target="_blank" class="task-link" title="Task 001: Interval Tree Merge Overlapping">🟢 task_001</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>32.3s</td><td class="cell-pass">100%</td><td>57.5s</td><td class="cell-pass">83%</td><td>39.4s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_002" target="_blank" class="task-link" title="Task 002: LRU Cache Eviction Bug">🟡 task_002</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>29.9s</td><td class="cell-pass">100%</td><td>53.0s</td><td class="cell-pass">83%</td><td>44.4s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_003" target="_blank" class="task-link" title="Task 003: Rate Limiter Token Bucket Overflow">🟢 task_003</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>22.9s</td><td class="cell-pass">100%</td><td>62.0s</td><td class="cell-pass">83%</td><td>36.1s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_004" target="_blank" class="task-link" title="Task 004: JSON Path Array Wildcard Support">🟡 task_004</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>28.0s</td><td class="cell-pass">100%</td><td>60.4s</td><td class="cell-pass">83%</td><td>35.7s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_005" target="_blank" class="task-link" title="Task 005: Trie Autocomplete Ordering">🟠 task_005</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>31.6s</td><td class="cell-pass">100%</td><td>51.9s</td><td class="cell-pass">83%</td><td>44.7s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_006" target="_blank" class="task-link" title="Task 006: Matrix Spiral Traversal">🟢 task_006</a></td><td>Feature</td><td class="cell-pass">100%</td><td>27.2s</td><td class="cell-pass">100%</td><td>50.3s</td><td class="cell-pass">83%</td><td>42.6s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_007" target="_blank" class="task-link" title="Task 007: Rotated Sorted Array Search">🟡 task_007</a></td><td>Feature</td><td class="cell-pass">100%</td><td>27.9s</td><td class="cell-pass">100%</td><td>45.0s</td><td class="cell-pass">83%</td><td>44.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_008" target="_blank" class="task-link" title="Task 008: Run-Length Encoding Decoder Bug">🟡 task_008</a></td><td>Feature</td><td class="cell-pass">100%</td><td>34.2s</td><td class="cell-pass">100%</td><td>45.5s</td><td class="cell-pass">83%</td><td>38.9s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_009" target="_blank" class="task-link" title="Task 009: Markdown Table Parser — Escaped Pipes">🟢 task_009</a></td><td>Feature</td><td class="cell-pass">100%</td><td>26.5s</td><td class="cell-pass">100%</td><td>77.2s</td><td class="cell-pass">83%</td><td>39.7s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_010" target="_blank" class="task-link" title="Task 010: Cron Expression Parser — Day-of-Week Bug">🟠 task_010</a></td><td>Feature</td><td class="cell-pass">100%</td><td>40.1s</td><td class="cell-pass">100%</td><td>51.1s</td><td class="cell-pass">83%</td><td>46.9s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_011" target="_blank" class="task-link" title="Task 011 – Async Producer-Consumer Drops Messages">🟢 task_011</a></td><td>Refactoring</td><td class="cell-pass">100%</td><td>43.8s</td><td class="cell-pass">100%</td><td>118.4s</td><td class="cell-pass">83%</td><td>102.4s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_012" target="_blank" class="task-link" title="Task 012 – Memoization Decorator Returns Stale Results">🟢 task_012</a></td><td>Refactoring</td><td class="cell-pass">100%</td><td>35.3s</td><td class="cell-pass">100%</td><td>86.5s</td><td class="cell-pass">83%</td><td>62.6s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_013" target="_blank" class="task-link" title="Task 013 – Observer Pattern Skips Listeners on Removal During Emit">🟠 task_013</a></td><td>Refactoring</td><td class="cell-pass">100%</td><td>57.9s</td><td class="cell-pass">100%</td><td>49.9s</td><td class="cell-pass">83%</td><td>63.5s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_014" target="_blank" class="task-link" title="Task 014 – DI Container Circular Dependency Detection">🟡 task_014</a></td><td>Refactoring</td><td class="cell-pass">100%</td><td>62.8s</td><td class="cell-pass">100%</td><td>74.5s</td><td class="cell-pass">83%</td><td>61.1s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_015" target="_blank" class="task-link" title="Task 015 – Dijkstra Returns Wrong Path for Zero-Weight Edges">🟡 task_015</a></td><td>Refactoring</td><td class="cell-pass">100%</td><td>38.9s</td><td class="cell-pass">100%</td><td>75.6s</td><td class="cell-pass">83%</td><td>43.8s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_016" target="_blank" class="task-link" title="Task 016 – FSM Accepts Invalid Transitions">🟠 task_016</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>40.5s</td><td class="cell-pass">100%</td><td>53.4s</td><td class="cell-pass">83%</td><td>100.7s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_017" target="_blank" class="task-link" title="Task 017 – Expression Evaluator Ignores Operator Precedence">🟠 task_017</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>44.1s</td><td class="cell-pass">100%</td><td>56.7s</td><td class="cell-pass">83%</td><td>53.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_018" target="_blank" class="task-link" title="Task 018 – Connection Pool Returns Closed Connections">🟠 task_018</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>43.0s</td><td class="cell-pass">100%</td><td>59.8s</td><td class="cell-pass">83%</td><td>48.5s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_019" target="_blank" class="task-link" title="Task 019 – Retry Decorator Doesn't Reset Attempt Counter">🟠 task_019</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>38.6s</td><td class="cell-pass">100%</td><td>56.3s</td><td class="cell-pass">83%</td><td>39.5s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_020" target="_blank" class="task-link" title="Task 020 – Topological Sort Fails to Detect Cycles">🟠 task_020</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>48.3s</td><td class="cell-pass">100%</td><td>48.3s</td><td class="cell-pass">83%</td><td>60.5s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_021" target="_blank" class="task-link" title="Task 021: Red-Black Tree Deletion Bug">🟠 task_021</a></td><td>Feature</td><td class="cell-pass">100%</td><td>33.2s</td><td class="cell-pass">100%</td><td>50.8s</td><td class="cell-pass">83%</td><td>47.8s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_022" target="_blank" class="task-link" title="Task 022: A* Pathfinder Tie-Breaking Bug">🟠 task_022</a></td><td>Feature</td><td class="cell-pass">100%</td><td>40.0s</td><td class="cell-pass">100%</td><td>375.7s</td><td class="cell-pass">83%</td><td>1194.7s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_023" target="_blank" class="task-link" title="Task 023: SQL Query Builder Multi-Table JOIN Bug">🟠 task_023</a></td><td>Refactoring</td><td class="cell-pass">100%</td><td>102.0s</td><td class="cell-pass">100%</td><td>49.1s</td><td class="cell-pass">83%</td><td>101.7s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_024" target="_blank" class="task-link" title="Task 024: Plugin Loader Dependency Resolution Bug">🟠 task_024</a></td><td>Feature</td><td class="cell-pass">100%</td><td>43.4s</td><td class="cell-pass">100%</td><td>50.9s</td><td class="cell-pass">83%</td><td>55.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_025" target="_blank" class="task-link" title="Task 025: Schema Validator Covariant Type Bug">🟠 task_025</a></td><td>Refactoring</td><td class="cell-pass">100%</td><td>70.1s</td><td class="cell-pass">100%</td><td>72.4s</td><td class="cell-pass">83%</td><td>100.3s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_026" target="_blank" class="task-link" title="Task 026: Concurrent LRU Cache Race Condition">🔴 task_026</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>38.2s</td><td class="cell-pass">100%</td><td>45.8s</td><td class="cell-pass">83%</td><td>53.8s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_027" target="_blank" class="task-link" title="Task 027: AST Variable Renamer Scope Bug">🔴 task_027</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>51.7s</td><td class="cell-pass">100%</td><td>129.9s</td><td class="cell-pass">83%</td><td>72.5s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_028" target="_blank" class="task-link" title="Task 028: Middleware Pipeline Error Handler Order Bug">🔴 task_028</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>39.9s</td><td class="cell-pass">100%</td><td>44.8s</td><td class="cell-pass">83%</td><td>45.7s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_029" target="_blank" class="task-link" title="Task 029: Regex Engine Catastrophic Backtracking Bug">🔴 task_029</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>34.0s</td><td class="cell-pass">100%</td><td>71.2s</td><td class="cell-pass">83%</td><td>61.6s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_030" target="_blank" class="task-link" title="Task 030: B-Tree Node Split Bug">🔴 task_030</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>31.2s</td><td class="cell-pass">100%</td><td>50.1s</td><td class="cell-pass">83%</td><td>44.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_031" target="_blank" class="task-link" title="Task 031: Consistent Hash Ring Lookup Bug">🔴 task_031</a></td><td>Feature</td><td class="cell-pass">100%</td><td>73.9s</td><td class="cell-pass">100%</td><td>49.2s</td><td class="cell-pass">83%</td><td>114.8s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_032" target="_blank" class="task-link" title="Task 032: Template Engine Nested Loop Variable Bug">🔴 task_032</a></td><td>Feature</td><td class="cell-pass">100%</td><td>101.3s</td><td class="cell-pass">100%</td><td>69.3s</td><td class="cell-pass">83%</td><td>122.1s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_033" target="_blank" class="task-link" title="Task 033: Varint Encoder Truncation Bug">🔴 task_033</a></td><td>Refactoring</td><td class="cell-pass">100%</td><td>56.9s</td><td class="cell-pass">100%</td><td>57.6s</td><td class="cell-pass">83%</td><td>61.5s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_034" target="_blank" class="task-link" title="Task 034: Mergeable Heap Bug">🔴 task_034</a></td><td>Refactoring</td><td class="cell-pass">100%</td><td>66.7s</td><td class="cell-pass">100%</td><td>45.3s</td><td class="cell-pass">83%</td><td>70.4s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_035" target="_blank" class="task-link" title="Task 035: Segment Tree Lazy Propagation Bug">🔴 task_035</a></td><td>Feature</td><td class="cell-pass">100%</td><td>62.3s</td><td class="cell-pass">100%</td><td>56.7s</td><td class="cell-pass">83%</td><td>800.5s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_036" target="_blank" class="task-link" title="Task 036: Compiler Tokenizer Multi-Character Operator Handling">🟠 task_036</a></td><td>Numerical-Precision</td><td class="cell-pass">100%</td><td>93.9s</td><td class="cell-pass">100%</td><td>50.9s</td><td class="cell-pass">83%</td><td>91.4s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_037" target="_blank" class="task-link" title="Task 037: Bytecode VM Stack Frame Corruption">🟠 task_037</a></td><td>Data-Integrity</td><td class="cell-pass">100%</td><td>29.0s</td><td class="cell-pass">100%</td><td>48.6s</td><td class="cell-pass">83%</td><td>44.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_038" target="_blank" class="task-link" title="Task 038: Transaction Engine Phantom Reads">🔴 task_038</a></td><td>Algorithms</td><td class="cell-pass">100%</td><td>41.7s</td><td class="cell-pass">100%</td><td>105.3s</td><td class="cell-pass">83%</td><td>53.8s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_039" target="_blank" class="task-link" title="Task 039: Neural Network Backpropagation Gradient Bug">🔴 task_039</a></td><td>Resource-Management</td><td class="cell-pass">100%</td><td>35.2s</td><td class="cell-pass">100%</td><td>44.4s</td><td class="cell-pass">83%</td><td>44.9s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_040" target="_blank" class="task-link" title="Task 040: Mark-Sweep Garbage Collector Tracing Bug">🟠 task_040</a></td><td>Encoding</td><td class="cell-pass">100%</td><td>51.3s</td><td class="cell-pass">100%</td><td>52.2s</td><td class="cell-pass">83%</td><td>78.7s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_041" target="_blank" class="task-link" title="Task 041: Buddy Allocator Incorrect Coalescing">🔴 task_041</a></td><td>Concurrency</td><td class="cell-pass">100%</td><td>56.5s</td><td class="cell-pass">100%</td><td>50.2s</td><td class="cell-pass">83%</td><td>60.4s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_042" target="_blank" class="task-link" title="Task 042: Raft Consensus Premature Commit">🟠 task_042</a></td><td>Datetime</td><td class="cell-pass">100%</td><td>41.8s</td><td class="cell-pass">100%</td><td>61.7s</td><td class="cell-pass">83%</td><td>55.7s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_043" target="_blank" class="task-link" title="Task 043: CRDT G-Counter Merge Bug">🟠 task_043</a></td><td>Feature</td><td class="cell-pass">100%</td><td>60.6s</td><td class="cell-pass">100%</td><td>56.7s</td><td class="cell-pass">83%</td><td>54.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_044" target="_blank" class="task-link" title="Task 044: Reactive Dataflow Engine Diamond Dependency Glitch">🔴 task_044</a></td><td>Feature</td><td class="cell-pass">100%</td><td>119.8s</td><td class="cell-pass">100%</td><td>156.0s</td><td class="cell-pass">83%</td><td>218.9s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_045" target="_blank" class="task-link" title="Task 045: LSM-Tree Tombstone Handling During Compaction">🔴 task_045</a></td><td>Refactoring</td><td class="cell-pass">100%</td><td>50.0s</td><td class="cell-pass">100%</td><td>68.0s</td><td class="cell-pass">83%</td><td>66.2s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_046" target="_blank" class="task-link" title="Task 046: Type Inference Occurs Check Missing">🔴 task_046</a></td><td>Feature</td><td class="cell-pass">100%</td><td>53.4s</td><td class="cell-pass">100%</td><td>61.5s</td><td class="cell-pass">83%</td><td>65.5s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_047" target="_blank" class="task-link" title="Task 047: Deadlock Detector False Positive on Self-Loops">🟠 task_047</a></td><td>Feature</td><td class="cell-pass">100%</td><td>47.0s</td><td class="cell-pass">100%</td><td>59.3s</td><td class="cell-pass">83%</td><td>56.8s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_048" target="_blank" class="task-link" title="Task 048: Incremental Parser Error Recovery State Loss">🟠 task_048</a></td><td>Refactoring</td><td class="cell-pass">100%</td><td>45.1s</td><td class="cell-pass">100%</td><td>59.8s</td><td class="cell-pass">83%</td><td>54.1s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_049" target="_blank" class="task-link" title="Task 049: CSP Channel Select Fairness Bug">🔴 task_049</a></td><td>Feature</td><td class="cell-pass">100%</td><td>57.9s</td><td class="cell-pass">100%</td><td>90.6s</td><td class="cell-pass">83%</td><td>77.7s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_050" target="_blank" class="task-link" title="Task 050: WAL Recovery Transaction Ordering Bug">🔴 task_050</a></td><td>Refactoring</td><td class="cell-pass">100%</td><td>59.2s</td><td class="cell-pass">100%</td><td>74.9s</td><td class="cell-pass">83%</td><td>61.7s</td></tr>
 </tbody>
   </table>
   </div>
@@ -232,11 +234,12 @@
 <h2 style="margin-bottom:14px;">⚙️ C/C++ — 25 Tasks</h2>
 <div class="summary-cards">
   <div class="scard"><div class="val">25</div><div class="lbl">Tasks</div></div>
+  <div class="scard"><div class="val" style="color:#00B4D8">92.1%</div><div class="lbl">Amp Resolve Rate</div></div>
   <div class="scard"><div class="val" style="color:#2ECC71">94.7%</div><div class="lbl">Amp-deep3 Resolve Rate</div></div>
   <div class="scard"><div class="val" style="color:#FF6B35">62.2%</div><div class="lbl">Claude Resolve Rate</div></div>
-  <div class="scard" style="border:2px solid #f1c40f;"><div class="val" style="color:#f1c40f">0.4x</div><div class="lbl">Amp-deep3 Speed Advantage</div></div>
+  <div class="scard" style="border:2px solid #f1c40f;"><div class="val" style="color:#f1c40f">3.0x</div><div class="lbl">Amp Speed Advantage</div></div>
+  <div class="scard"><div class="val" style="color:#00B4D8">35.5s</div><div class="lbl">Amp Avg Time</div></div>
   <div class="scard"><div class="val" style="color:#2ECC71">107.4s</div><div class="lbl">Amp-deep3 Avg Time</div></div>
-  <div class="scard"><div class="val" style="color:#FF6B35">46.6s</div><div class="lbl">Claude Avg Time</div></div>
   <div class="scard"><div class="val" style="color:#2ecc71">🏆 Amp-deep3</div><div class="lbl">Winner</div></div>
 </div>
 <div class="grid">
@@ -261,34 +264,35 @@
   <table>
     <thead><tr>
       <th>Task</th><th>Category</th>
+      <th style="color:#00B4D8">Amp Resolve</th><th style="color:#00B4D8">Time</th>
       <th style="color:#2ECC71">Amp-deep3 Resolve</th><th style="color:#2ECC71">Time</th>
-      <th style="color:#FF6B35">Claude Resolve</th><th style="color:#FF6B35">Time</th>
-          </tr></thead>
-    <tbody><tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_051" target="_blank" class="task-link" title="Circular Buffer – Incorrect Wrap-Around Logic">🟢 task_051</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>61.7s</td><td class="cell-pass">83%</td><td>45.8s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_052" target="_blank" class="task-link" title="String Tokenizer – Incorrect Escape Sequence Handling">🟢 task_052</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>61.3s</td><td class="cell-pass">83%</td><td>53.5s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_053" target="_blank" class="task-link" title="Matrix Multiplication – Incorrect Dimension Indexing">🟢 task_053</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>52.1s</td><td class="cell-pass">83%</td><td>47.3s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_054" target="_blank" class="task-link" title="Priority Queue (Min-Heap) – Incorrect Sift-Down">🟢 task_054</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>57.1s</td><td class="cell-pass">83%</td><td>51.4s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_055" target="_blank" class="task-link" title="Hash Map – Incorrect Linear Probing Collision Resolution">🟢 task_055</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>68.9s</td><td class="cell-pass">83%</td><td>55.3s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_056" target="_blank" class="task-link" title="SFINAE Type Dispatch – Fails for Const References">🟡 task_056</a></td><td>Bug Fix</td><td class="cell-warn">33%</td><td>241.3s</td><td class="cell-partial">62%</td><td>59.1s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_057" target="_blank" class="task-link" title="Shared Pointer Clone – Incorrect Reference Counting">🟡 task_057</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>63.5s</td><td class="cell-pass">88%</td><td>25.9s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_058" target="_blank" class="task-link" title="Lock-Free Stack – ABA Problem">🟡 task_058</a></td><td>Bug Fix</td><td class="cell-warn">33%</td><td>194.7s</td><td class="cell-fail">0%</td><td>121.3s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_059" target="_blank" class="task-link" title="Custom Vector – Iterator Invalidation in Erase">🟡 task_059</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>50.2s</td><td class="cell-pass">83%</td><td>55.3s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_060" target="_blank" class="task-link" title="Variadic Template – Incorrect Pack Expansion">🟡 task_060</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>79.8s</td><td class="cell-partial">50%</td><td>72.8s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_061" target="_blank" class="task-link" title="Red-Black Tree – Incorrect Uncle Color Check During Insertion">🟠 task_061</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>59.9s</td><td class="cell-pass">83%</td><td>46.4s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_062" target="_blank" class="task-link" title="B+ Tree – Incorrect Key Redistribution During Underflow">🟠 task_062</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>129.5s</td><td class="cell-pass">83%</td><td>74.5s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_063" target="_blank" class="task-link" title="Pool Allocator – Incorrect Free-List Coalescing">🟠 task_063</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>80.9s</td><td class="cell-partial">67%</td><td>48.5s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_064" target="_blank" class="task-link" title="Skip List – Incorrect Level Probability Distribution">🟠 task_064</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>81.8s</td><td class="cell-partial">50%</td><td>51.5s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_065" target="_blank" class="task-link" title="Patricia Trie – Incorrect Split Logic">🟠 task_065</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>93.5s</td><td class="cell-partial">67%</td><td>84.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_066" target="_blank" class="task-link" title="Tarjan's SCC – Incorrect Lowlink Update">🟠 task_066</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>90.4s</td><td class="cell-partial">50%</td><td>62.9s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_067" target="_blank" class="task-link" title="Pratt Parser – Incorrect Precedence Binding">🟠 task_067</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>64.8s</td><td class="cell-partial">50%</td><td>39.1s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_068" target="_blank" class="task-link" title="NFA-to-DFA – Incorrect Epsilon Closure">🟠 task_068</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>102.0s</td><td class="cell-partial">50%</td><td>31.9s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_069" target="_blank" class="task-link" title="Mini Garbage Collector – Mark-Compact with Incorrect Forwarding Pointers">🔴 task_069</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>102.7s</td><td class="cell-partial">62%</td><td>18.6s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_070" target="_blank" class="task-link" title="Lock-Free Concurrent Hash Map – Incorrect Memory Ordering">🔴 task_070</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>173.4s</td><td class="cell-partial">62%</td><td>27.2s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_071" target="_blank" class="task-link" title="B-Tree – Lazy Deletion with Incorrect Merge Rebalancing">🔴 task_071</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>111.9s</td><td class="cell-partial">62%</td><td>27.2s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_072" target="_blank" class="task-link" title="Coroutine Scheduler – Incorrect Symmetric Transfer">🔴 task_072</a></td><td>Feature</td><td class="cell-pass">100%</td><td>254.9s</td><td class="cell-partial">62%</td><td>23.2s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_073" target="_blank" class="task-link" title="Constexpr Ray Tracer – Incorrect Reflection Vector">🔴 task_073</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>100.1s</td><td class="cell-partial">62%</td><td>22.8s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_074" target="_blank" class="task-link" title="SIMD Matrix Operations – Incorrect Alignment and Mask Handling">🔴 task_074</a></td><td>Refactoring</td><td class="cell-pass">100%</td><td>113.0s</td><td class="cell-fail">0%</td><td>1.6s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_075" target="_blank" class="task-link" title="HAMTrie – Incorrect Structural Sharing">🔴 task_075</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>194.9s</td><td class="cell-warn">40%</td><td>23.0s</td></tr>
+            <th style="color:#FF6B35">Claude Resolve</th><th style="color:#FF6B35">Time</th>
+    </tr></thead>
+    <tbody><tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_051" target="_blank" class="task-link" title="Circular Buffer – Incorrect Wrap-Around Logic">🟠 task_051</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>31.9s</td><td class="cell-pass">100%</td><td>61.7s</td><td class="cell-pass">83%</td><td>45.8s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_052" target="_blank" class="task-link" title="String Tokenizer – Incorrect Escape Sequence Handling">🔴 task_052</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>25.8s</td><td class="cell-pass">100%</td><td>61.3s</td><td class="cell-pass">83%</td><td>53.5s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_053" target="_blank" class="task-link" title="Matrix Multiplication – Incorrect Dimension Indexing">🟠 task_053</a></td><td>Feature</td><td class="cell-pass">100%</td><td>39.6s</td><td class="cell-pass">100%</td><td>52.1s</td><td class="cell-pass">83%</td><td>47.3s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_054" target="_blank" class="task-link" title="Priority Queue (Min-Heap) – Incorrect Sift-Down">🔴 task_054</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>33.5s</td><td class="cell-pass">100%</td><td>57.1s</td><td class="cell-pass">83%</td><td>51.4s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_055" target="_blank" class="task-link" title="Hash Map – Incorrect Linear Probing Collision Resolution">🔴 task_055</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>40.1s</td><td class="cell-pass">100%</td><td>68.9s</td><td class="cell-pass">83%</td><td>55.3s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_056" target="_blank" class="task-link" title="SFINAE Type Dispatch – Fails for Const References">🔴 task_056</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>19.4s</td><td class="cell-warn">33%</td><td>241.3s</td><td class="cell-partial">62%</td><td>59.1s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_057" target="_blank" class="task-link" title="Shared Pointer Clone – Incorrect Reference Counting">🔴 task_057</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>22.8s</td><td class="cell-pass">100%</td><td>63.5s</td><td class="cell-pass">88%</td><td>25.9s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_058" target="_blank" class="task-link" title="Lock-Free Stack – ABA Problem">🔴 task_058</a></td><td>Feature</td><td class="cell-fail">0%</td><td>30.0s</td><td class="cell-warn">33%</td><td>194.7s</td><td class="cell-fail">0%</td><td>121.3s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_059" target="_blank" class="task-link" title="Custom Vector – Iterator Invalidation in Erase">🟠 task_059</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>41.3s</td><td class="cell-pass">100%</td><td>50.2s</td><td class="cell-pass">83%</td><td>55.3s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_060" target="_blank" class="task-link" title="Variadic Template – Incorrect Pack Expansion">🔴 task_060</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>46.2s</td><td class="cell-pass">100%</td><td>79.8s</td><td class="cell-partial">50%</td><td>72.8s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_061" target="_blank" class="task-link" title="Red-Black Tree – Incorrect Uncle Color Check During Insertion">🟠 task_061</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>26.7s</td><td class="cell-pass">100%</td><td>59.9s</td><td class="cell-pass">83%</td><td>46.4s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_062" target="_blank" class="task-link" title="B+ Tree – Incorrect Key Redistribution During Underflow">🔴 task_062</a></td><td>Feature</td><td class="cell-pass">100%</td><td>57.8s</td><td class="cell-pass">100%</td><td>129.5s</td><td class="cell-pass">83%</td><td>74.5s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_063" target="_blank" class="task-link" title="Pool Allocator – Incorrect Free-List Coalescing">🟠 task_063</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>41.4s</td><td class="cell-pass">100%</td><td>80.9s</td><td class="cell-partial">67%</td><td>48.5s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_064" target="_blank" class="task-link" title="Skip List – Incorrect Level Probability Distribution">🔴 task_064</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>38.5s</td><td class="cell-pass">100%</td><td>81.8s</td><td class="cell-partial">50%</td><td>51.5s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_065" target="_blank" class="task-link" title="Patricia Trie – Incorrect Split Logic">🟠 task_065</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>46.3s</td><td class="cell-pass">100%</td><td>93.5s</td><td class="cell-partial">67%</td><td>84.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_066" target="_blank" class="task-link" title="Tarjan's SCC – Incorrect Lowlink Update">🟠 task_066</a></td><td>Feature</td><td class="cell-pass">100%</td><td>70.3s</td><td class="cell-pass">100%</td><td>90.4s</td><td class="cell-partial">50%</td><td>62.9s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_067" target="_blank" class="task-link" title="Pratt Parser – Incorrect Precedence Binding">🔴 task_067</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>56.0s</td><td class="cell-pass">100%</td><td>64.8s</td><td class="cell-partial">50%</td><td>39.1s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_068" target="_blank" class="task-link" title="NFA-to-DFA – Incorrect Epsilon Closure">🟠 task_068</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>53.8s</td><td class="cell-pass">100%</td><td>102.0s</td><td class="cell-partial">50%</td><td>31.9s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_069" target="_blank" class="task-link" title="Mini Garbage Collector – Mark-Compact with Incorrect Forwarding Pointers">🔴 task_069</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>24.7s</td><td class="cell-pass">100%</td><td>102.7s</td><td class="cell-partial">62%</td><td>18.6s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_070" target="_blank" class="task-link" title="Lock-Free Concurrent Hash Map – Incorrect Memory Ordering">🔴 task_070</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>36.7s</td><td class="cell-pass">100%</td><td>173.4s</td><td class="cell-partial">62%</td><td>27.2s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_071" target="_blank" class="task-link" title="B-Tree – Lazy Deletion with Incorrect Merge Rebalancing">🔴 task_071</a></td><td>Feature</td><td class="cell-pass">100%</td><td>34.7s</td><td class="cell-pass">100%</td><td>111.9s</td><td class="cell-partial">62%</td><td>27.2s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_072" target="_blank" class="task-link" title="Coroutine Scheduler – Incorrect Symmetric Transfer">🔴 task_072</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>29.6s</td><td class="cell-pass">100%</td><td>254.9s</td><td class="cell-partial">62%</td><td>23.2s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_073" target="_blank" class="task-link" title="Constexpr Ray Tracer – Incorrect Reflection Vector">🔴 task_073</a></td><td>Feature</td><td class="cell-pass">100%</td><td>31.6s</td><td class="cell-pass">100%</td><td>100.1s</td><td class="cell-partial">62%</td><td>22.8s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_074" target="_blank" class="task-link" title="SIMD Matrix Operations – Incorrect Alignment and Mask Handling">🔴 task_074</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-pass">100%</td><td>113.0s</td><td class="cell-fail">0%</td><td>1.6s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_075" target="_blank" class="task-link" title="HAMTrie – Incorrect Structural Sharing">🔴 task_075</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>34.0s</td><td class="cell-pass">100%</td><td>194.9s</td><td class="cell-warn">40%</td><td>23.0s</td></tr>
 </tbody>
   </table>
   </div>
@@ -300,12 +304,13 @@
 <h2 style="margin-bottom:14px;">🟢 CUDA — 25 Tasks</h2>
 <div class="summary-cards">
   <div class="scard"><div class="val">25</div><div class="lbl">Tasks</div></div>
+  <div class="scard"><div class="val" style="color:#00B4D8">30.0%</div><div class="lbl">Amp Resolve Rate</div></div>
   <div class="scard"><div class="val" style="color:#2ECC71">0.0%</div><div class="lbl">Amp-deep3 Resolve Rate</div></div>
   <div class="scard"><div class="val" style="color:#FF6B35">6.3%</div><div class="lbl">Claude Resolve Rate</div></div>
-  <div class="scard" style="border:2px solid #f1c40f;"><div class="val" style="color:#f1c40f">93.0x</div><div class="lbl">Amp-deep3 Speed Advantage</div></div>
+  <div class="scard" style="border:2px solid #f1c40f;"><div class="val" style="color:#f1c40f">0.0x</div><div class="lbl">Amp Speed Advantage</div></div>
+  <div class="scard"><div class="val" style="color:#00B4D8">33.2s</div><div class="lbl">Amp Avg Time</div></div>
   <div class="scard"><div class="val" style="color:#2ECC71">0.0s</div><div class="lbl">Amp-deep3 Avg Time</div></div>
-  <div class="scard"><div class="val" style="color:#FF6B35">9.3s</div><div class="lbl">Claude Avg Time</div></div>
-  <div class="scard"><div class="val" style="color:#2ecc71">🏆 Claude</div><div class="lbl">Winner</div></div>
+  <div class="scard"><div class="val" style="color:#2ecc71">🏆 Amp</div><div class="lbl">Winner</div></div>
 </div>
 <div class="grid">
 <div class="card">
@@ -329,34 +334,35 @@
   <table>
     <thead><tr>
       <th>Task</th><th>Category</th>
+      <th style="color:#00B4D8">Amp Resolve</th><th style="color:#00B4D8">Time</th>
       <th style="color:#2ECC71">Amp-deep3 Resolve</th><th style="color:#2ECC71">Time</th>
-      <th style="color:#FF6B35">Claude Resolve</th><th style="color:#FF6B35">Time</th>
-          </tr></thead>
-    <tbody><tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_076" target="_blank" class="task-link" title="Bug Report: Vector Addition Produces Wrong Results for Non-Multiple-of-BlockSize">🟢 task_076</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_077" target="_blank" class="task-link" title="Bug Report: Matrix Transpose Produces Incorrect Results">🟢 task_077</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>26.2s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_078" target="_blank" class="task-link" title="Bug Report: GPU Histogram Counts Are Wrong">🟢 task_078</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>18.6s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_079" target="_blank" class="task-link" title="Bug Report: Prefix Sum (Exclusive Scan) Off by One">🟢 task_079</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_080" target="_blank" class="task-link" title="Bug Report: 1D Convolution Incorrect at Boundaries">🟢 task_080</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_081" target="_blank" class="task-link" title="Bug Report: Parallel Reduction With Warp Shuffle Gives Wrong Sum">🟡 task_081</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-warn">40%</td><td>17.6s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_082" target="_blank" class="task-link" title="Bug Report: CSR SpMV Gives Wrong Results for Last Row and Empty Rows">🟡 task_082</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>24.9s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_083" target="_blank" class="task-link" title="Bug Report: Bitonic Sort Wrong for Non-Power-of-2 Arrays">🟡 task_083</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-warn">40%</td><td>35.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_084" target="_blank" class="task-link" title="Bug Report: Stream Compaction Duplicates/Drops Elements">🟡 task_084</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-warn">40%</td><td>31.7s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_085" target="_blank" class="task-link" title="Bug Report: Radix Sort Wrong Order for Signed Integers">🟡 task_085</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>23.1s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_086" target="_blank" class="task-link" title="Bug Report: Multi-GPU Processing Produces Partial Results">🟠 task_086</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_087" target="_blank" class="task-link" title="Bug Report: Cooperative Groups Reduction Wrong for Non-Warp-Multiple Block Sizes">🟠 task_087</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_088" target="_blank" class="task-link" title="Bug Report: Unified Memory Iterative Solver Produces Wrong Results">🟠 task_088</a></td><td>Refactoring</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_089" target="_blank" class="task-link" title="Bug Report: Custom GPU Memory Pool Allocator Corrupts Data">🟠 task_089</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_090" target="_blank" class="task-link" title="Bug Report: Predicated Warp Computation Gives Wrong Results">🟠 task_090</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_091" target="_blank" class="task-link" title="Bug Report: WMMA Tensor Core GEMM Produces Wrong Results">🟠 task_091</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_092" target="_blank" class="task-link" title="Bug Report: Persistent Kernel Misses Work Items">🟠 task_092</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_093" target="_blank" class="task-link" title="Bug Report: Multi-Stream Pipeline Produces Partial Results">🟠 task_093</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_094" target="_blank" class="task-link" title="Bug Report: Dynamic Parallelism Recursive Merge Sort Deadlocks">🔴 task_094</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_095" target="_blank" class="task-link" title="Bug Report: Tiled GEMM With Double Buffering Gives Wrong Results">🔴 task_095</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_096" target="_blank" class="task-link" title="Bug Report: GPU BFS Produces Wrong Distances for Some Vertices">🔴 task_096</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_097" target="_blank" class="task-link" title="Bug Report: GPU FFT Produces Wrong Frequency Domain Results">🔴 task_097</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_098" target="_blank" class="task-link" title="Bug Report: N-Body GPU Simulation Diverges From Reference">🔴 task_098</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_099" target="_blank" class="task-link" title="Bug Report: Ray-AABB Intersection Test Returns Wrong Hit Results">🔴 task_099</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
-<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_100" target="_blank" class="task-link" title="Bug Report: Molecular Dynamics Neighbor List Produces Wrong Forces">🔴 task_100</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+            <th style="color:#FF6B35">Claude Resolve</th><th style="color:#FF6B35">Time</th>
+    </tr></thead>
+    <tbody><tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_076" target="_blank" class="task-link" title="Bug Report: Vector Addition Produces Wrong Results for Non-Multiple-of-BlockSize">🔴 task_076</a></td><td>Feature</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_077" target="_blank" class="task-link" title="Bug Report: Matrix Transpose Produces Incorrect Results">🔴 task_077</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>39.3s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>26.2s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_078" target="_blank" class="task-link" title="Bug Report: GPU Histogram Counts Are Wrong">🔴 task_078</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>40.2s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>18.6s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_079" target="_blank" class="task-link" title="Bug Report: Prefix Sum (Exclusive Scan) Off by One">🔴 task_079</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_080" target="_blank" class="task-link" title="Bug Report: 1D Convolution Incorrect at Boundaries">🔴 task_080</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_081" target="_blank" class="task-link" title="Bug Report: Parallel Reduction With Warp Shuffle Gives Wrong Sum">🔴 task_081</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>24.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-warn">40%</td><td>17.6s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_082" target="_blank" class="task-link" title="Bug Report: CSR SpMV Gives Wrong Results for Last Row and Empty Rows">🔴 task_082</a></td><td>Feature</td><td class="cell-fail">0%</td><td>47.8s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>24.9s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_083" target="_blank" class="task-link" title="Bug Report: Bitonic Sort Wrong for Non-Power-of-2 Arrays">🔴 task_083</a></td><td>Bug Fix</td><td class="cell-pass">100%</td><td>61.1s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-warn">40%</td><td>35.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_084" target="_blank" class="task-link" title="Bug Report: Stream Compaction Duplicates/Drops Elements">🔴 task_084</a></td><td>Feature</td><td class="cell-pass">100%</td><td>66.3s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-warn">40%</td><td>31.7s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_085" target="_blank" class="task-link" title="Bug Report: Radix Sort Wrong Order for Signed Integers">🔴 task_085</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>53.7s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>23.1s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_086" target="_blank" class="task-link" title="Bug Report: Multi-GPU Processing Produces Partial Results">🟠 task_086</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_087" target="_blank" class="task-link" title="Bug Report: Cooperative Groups Reduction Wrong for Non-Warp-Multiple Block Sizes">🟠 task_087</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_088" target="_blank" class="task-link" title="Bug Report: Unified Memory Iterative Solver Produces Wrong Results">🟠 task_088</a></td><td>Refactoring</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_089" target="_blank" class="task-link" title="Bug Report: Custom GPU Memory Pool Allocator Corrupts Data">🟠 task_089</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_090" target="_blank" class="task-link" title="Bug Report: Predicated Warp Computation Gives Wrong Results">🟠 task_090</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_091" target="_blank" class="task-link" title="Bug Report: WMMA Tensor Core GEMM Produces Wrong Results">🟠 task_091</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_092" target="_blank" class="task-link" title="Bug Report: Persistent Kernel Misses Work Items">🟠 task_092</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_093" target="_blank" class="task-link" title="Bug Report: Multi-Stream Pipeline Produces Partial Results">🟠 task_093</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_094" target="_blank" class="task-link" title="Bug Report: Dynamic Parallelism Recursive Merge Sort Deadlocks">🔴 task_094</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_095" target="_blank" class="task-link" title="Bug Report: Tiled GEMM With Double Buffering Gives Wrong Results">🔴 task_095</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_096" target="_blank" class="task-link" title="Bug Report: GPU BFS Produces Wrong Distances for Some Vertices">🔴 task_096</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_097" target="_blank" class="task-link" title="Bug Report: GPU FFT Produces Wrong Frequency Domain Results">🔴 task_097</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_098" target="_blank" class="task-link" title="Bug Report: N-Body GPU Simulation Diverges From Reference">🔴 task_098</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_099" target="_blank" class="task-link" title="Bug Report: Ray-AABB Intersection Test Returns Wrong Hit Results">🔴 task_099</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
+<tr><td><a href="https://github.com/zuwasi/QuickSWE/tree/main/tasks/task_100" target="_blank" class="task-link" title="Bug Report: Molecular Dynamics Neighbor List Produces Wrong Forces">🔴 task_100</a></td><td>Bug Fix</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td><td class="cell-fail">0%</td><td>0.0s</td></tr>
 </tbody>
   </table>
   </div>
@@ -367,13 +373,13 @@
 
 </div>
 
-<footer>Generated by <strong>QuickSWE</strong> &nbsp;|&nbsp; 2026-04-07 11:16:30</footer>
+<footer>Generated by <strong>QuickSWE</strong> &nbsp;|&nbsp; 2026-04-07 11:21:40</footer>
 
 <script>
 Chart.register(ChartDataLabels);
 const REPO = 'https://github.com/zuwasi/QuickSWE';
-const A1 = '#2ECC71', A2 = '#FF6B35', A3 = '#2ECC71';
-const A1a = '#2ECC7188', A2a = '#FF6B3588', A3a = '#2ECC7188';
+const A1 = '#00B4D8', A2 = '#2ECC71', A3 = '#FF6B35';
+const A1a = '#00B4D888', A2a = '#2ECC7188', A3a = '#FF6B3588';
 const FONT = { color: '#e0e0e0' };
 const GRID = { color: '#ffffff15' };
 function darkOpts(o) {
@@ -390,7 +396,7 @@ function darkOpts(o) {
 }
 
 (function(){
-  const d = {"labels": ["Amp-deep3", "Claude"], "a1": 100.0, "a2": 83.3};
+  const d = {"labels": ["Amp", "Amp-deep3", "Claude"], "a1": 100.0, "a2": 100.0, "a3": 83.3};
   const vals = [d.a1,d.a2]; const cols = [A1,A2]; if(d.a3!==undefined){ vals.push(d.a3); cols.push(A3); }
   new Chart('overallChart_python', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[{ data:vals, backgroundColor:cols, borderRadius:6 }] },
@@ -399,7 +405,7 @@ function darkOpts(o) {
   }));
 })();
 (function(){
-  const d = {"labels": ["task_035", "task_022", "task_031", "task_023", "task_016", "task_036", "task_032", "task_034", "task_040", "task_044", "task_025", "task_013", "task_020", "task_041", "task_026", "task_024", "task_033", "task_046", "task_028", "task_039", "task_007", "task_045", "task_047", "task_043", "task_017", "task_021", "task_010", "task_037", "task_042", "task_048", "task_030", "task_029", "task_005", "task_011", "task_049", "task_006", "task_008", "task_002", "task_014", "task_050", "task_018", "task_012", "task_019", "task_001", "task_004", "task_003", "task_015", "task_027", "task_009", "task_038"], "ratios": [14.12, 3.18, 2.34, 2.07, 1.89, 1.8, 1.76, 1.55, 1.51, 1.4, 1.39, 1.27, 1.25, 1.2, 1.18, 1.08, 1.07, 1.06, 1.02, 1.01, 0.98, 0.97, 0.96, 0.95, 0.94, 0.94, 0.92, 0.91, 0.9, 0.9, 0.88, 0.87, 0.86, 0.86, 0.86, 0.85, 0.85, 0.84, 0.82, 0.82, 0.81, 0.72, 0.7, 0.69, 0.59, 0.58, 0.58, 0.56, 0.51, 0.51], "a1_times": [56.696666666666665, 375.74, 49.156666666666666, 49.129999999999995, 53.35666666666666, 50.870000000000005, 69.29, 45.26666666666667, 52.19333333333333, 156.01333333333332, 72.35666666666667, 49.9, 48.27333333333333, 50.163333333333334, 45.76666666666667, 50.906666666666666, 57.61333333333334, 61.48, 44.776666666666664, 44.43333333333334, 44.97, 67.99333333333334, 59.34, 56.663333333333334, 56.696666666666665, 50.76666666666667, 51.13666666666666, 48.583333333333336, 61.74, 59.836666666666666, 50.15, 71.2, 51.85666666666666, 118.43666666666667, 90.61, 50.27666666666667, 45.50666666666666, 53.01333333333333, 74.50333333333333, 74.93, 59.806666666666665, 86.5, 56.330000000000005, 57.46, 60.449999999999996, 62.03, 75.60333333333334, 129.85333333333332, 77.22666666666667, 105.27666666666666], "a2_times": [800.4700000000001, 1194.6833333333332, 114.815, 101.68166666666667, 100.67, 91.36000000000001, 122.11, 70.385, 78.67833333333333, 218.93999999999997, 100.29166666666667, 63.531666666666666, 60.468333333333334, 60.443333333333335, 53.81666666666666, 55.038333333333334, 61.465, 65.47500000000001, 45.72, 44.865, 43.968333333333334, 66.25, 56.785, 53.968333333333334, 53.02333333333333, 47.81166666666667, 46.93166666666667, 44.031666666666666, 55.66, 54.07833333333334, 43.998333333333335, 61.64166666666667, 44.711666666666666, 102.36166666666666, 77.69833333333334, 42.57333333333333, 38.901666666666664, 44.416666666666664, 61.071666666666665, 61.72333333333333, 48.461666666666666, 62.61333333333334, 39.47, 39.40833333333333, 35.65833333333333, 36.111666666666665, 43.76, 72.52166666666666, 39.72, 53.781666666666666], "badges": ["\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe1", "\ud83d\udd34", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udfe0", "\ud83d\udfe1", "\ud83d\udfe1", "\ud83d\udd34", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udd34", "\ud83d\udfe0", "\ud83d\udd34", "\ud83d\udfe2", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udfe1", "\ud83d\udfe0", "\ud83d\udfe2", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe2", "\ud83d\udfe1", "\ud83d\udd34", "\ud83d\udfe2", "\ud83d\udfe2", "\ud83d\udfe2", "\ud83d\udfe1", "\ud83d\udd34", "\ud83d\udfe1", "\ud83d\udfe1", "\ud83d\udfe1", "\ud83d\udfe2", "\ud83d\udfe2", "\ud83d\udfe2", "\ud83d\udfe1", "\ud83d\udfe0", "\ud83d\udfe2", "\ud83d\udd34"]};
+  const d = {"labels": ["task_022", "task_009", "task_003", "task_011", "task_038", "task_027", "task_012", "task_004", "task_029", "task_015", "task_006", "task_001", "task_002", "task_037", "task_005", "task_007", "task_030", "task_049", "task_021", "task_042", "task_019", "task_018", "task_045", "task_008", "task_048", "task_016", "task_044", "task_017", "task_010", "task_050", "task_039", "task_047", "task_026", "task_014", "task_024", "task_046", "task_028", "task_025", "task_040", "task_033", "task_020", "task_043", "task_035", "task_041", "task_013", "task_032", "task_034", "task_031", "task_036", "task_023"], "ratios": [9.39, 2.91, 2.71, 2.7, 2.52, 2.51, 2.45, 2.16, 2.1, 1.95, 1.85, 1.78, 1.77, 1.68, 1.64, 1.61, 1.61, 1.57, 1.53, 1.48, 1.46, 1.39, 1.36, 1.33, 1.33, 1.32, 1.3, 1.29, 1.27, 1.27, 1.26, 1.26, 1.2, 1.19, 1.17, 1.15, 1.12, 1.03, 1.02, 1.01, 1.0, 0.94, 0.91, 0.89, 0.86, 0.68, 0.68, 0.67, 0.54, 0.48], "a1_times": [40.03, 26.543333333333333, 22.919999999999998, 43.81, 41.73333333333333, 51.70333333333334, 35.28, 27.97, 33.97666666666667, 38.85, 27.159999999999997, 32.31333333333333, 29.873333333333335, 28.963333333333335, 31.61, 27.933333333333334, 31.150000000000002, 57.89666666666667, 33.21666666666667, 41.75666666666667, 38.593333333333334, 42.973333333333336, 50.046666666666674, 34.22, 45.07333333333333, 40.49666666666666, 119.84333333333335, 44.086666666666666, 40.11, 59.17666666666667, 35.233333333333334, 47.01666666666667, 38.24, 62.75333333333333, 43.35999999999999, 53.41, 39.93, 70.12666666666667, 51.31, 56.879999999999995, 48.26, 60.6, 62.31, 56.46333333333334, 57.873333333333335, 101.25666666666666, 66.72, 73.91000000000001, 93.85666666666667, 101.99666666666667], "a2_times": [375.74, 77.22666666666667, 62.03, 118.43666666666667, 105.27666666666666, 129.85333333333332, 86.5, 60.449999999999996, 71.2, 75.60333333333334, 50.27666666666667, 57.46, 53.01333333333333, 48.583333333333336, 51.85666666666666, 44.97, 50.15, 90.61, 50.76666666666667, 61.74, 56.330000000000005, 59.806666666666665, 67.99333333333334, 45.50666666666666, 59.836666666666666, 53.35666666666666, 156.01333333333332, 56.696666666666665, 51.13666666666666, 74.93, 44.43333333333334, 59.34, 45.76666666666667, 74.50333333333333, 50.906666666666666, 61.48, 44.776666666666664, 72.35666666666667, 52.19333333333333, 57.61333333333334, 48.27333333333333, 56.663333333333334, 56.696666666666665, 50.163333333333334, 49.9, 69.29, 45.26666666666667, 49.156666666666666, 50.870000000000005, 49.129999999999995], "badges": ["\ud83d\udfe0", "\ud83d\udfe2", "\ud83d\udfe2", "\ud83d\udfe1", "\ud83d\udd34", "\ud83d\udfe0", "\ud83d\udfe1", "\ud83d\udfe2", "\ud83d\udfe0", "\ud83d\udfe1", "\ud83d\udfe2", "\ud83d\udfe2", "\ud83d\udfe2", "\ud83d\udd34", "\ud83d\udfe2", "\ud83d\udfe2", "\ud83d\udfe0", "\ud83d\udd34", "\ud83d\udfe0", "\ud83d\udd34", "\ud83d\udfe1", "\ud83d\udfe1", "\ud83d\udd34", "\ud83d\udfe2", "\ud83d\udd34", "\ud83d\udfe1", "\ud83d\udd34", "\ud83d\udfe1", "\ud83d\udfe2", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udfe0", "\ud83d\udfe1", "\ud83d\udfe0", "\ud83d\udd34", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udd34", "\ud83d\udfe0", "\ud83d\udfe1", "\ud83d\udd34", "\ud83d\udfe0", "\ud83d\udd34", "\ud83d\udfe1", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udd34", "\ud83d\udfe0"]};
   const n = Math.min(15, d.labels.length);
   const labels = d.labels.slice(0,n); const ratios = d.ratios.slice(0,n);
   const badges = (d.badges||[]).slice(0,n);
@@ -407,8 +413,8 @@ function darkOpts(o) {
   const ch = new Chart('speedRatioChart_python', darkOpts({
     type:'bar', data:{ labels:labels.map((l,i)=>(badges[i]||'')+' '+l+' ('+ratios[i]+'x)'),
       datasets:[
-        { label:'Amp-deep3', data:a1t, backgroundColor:A1, borderRadius:5, barPercentage:0.8 },
-        { label:'Claude', data:a2t, backgroundColor:A2, borderRadius:5, barPercentage:0.8 }
+        { label:'Amp', data:a1t, backgroundColor:A1, borderRadius:5, barPercentage:0.8 },
+        { label:'Amp-deep3', data:a2t, backgroundColor:A2, borderRadius:5, barPercentage:0.8 }
       ] },
     options:{ indexAxis:'y', onClick:(e,el)=>{ if(el.length){ const idx=el[0].index; window.open(REPO+'/tree/main/tasks/'+labels[idx],'_blank'); } },
       plugins:{ legend:{ position:'top', labels:{color:'#e0e0e0', font:{size:13,weight:'bold'}, padding:20} },
@@ -417,40 +423,40 @@ function darkOpts(o) {
   }));
 })();
 (function(){
-  const d = {"labels": ["Easy", "Medium", "Hard", "Extreme"], "a1": [55.4, 67.9, 81.2, 69.3], "a2": [53.8, 44.6, 119.6, 116.5]};
+  const d = {"labels": ["Easy", "Medium", "Hard", "Extreme"], "a1": [31.3, 36.9, 50.1, 57.2], "a2": [55.4, 67.9, 81.2, 69.3]};
   new Chart('speedByDiffChart_python', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[
-      { label:'Amp-deep3', data:d.a1, backgroundColor:A1, borderRadius:4 },
-      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:4 }
+      { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:4 },
+      { label:'Amp-deep3', data:d.a2, backgroundColor:A2, borderRadius:4 }
     ] },
     options:{ plugins:{ datalabels:{ color:'#fff',font:{size:12,weight:'bold'},formatter:v=>v+'s' } },
       scales:{ y:{ title:{display:true,text:'Avg Seconds',color:'#aaa'} } } }
   }));
 })();
 (function(){
-  const d = {"labels": ["Algorithms", "Bug Fix", "Concurrency", "Data-Integrity", "Datetime", "Encoding", "Feature", "Numerical-Precision", "Refactoring", "Resource-Management"], "a1": [0, 100.0, 0, 0, 0, 0, 100.0, 0, 100.0, 0], "a2": [83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3]};
+  const d = {"labels": ["Algorithms", "Bug Fix", "Concurrency", "Data-Integrity", "Datetime", "Encoding", "Feature", "Numerical-Precision", "Refactoring", "Resource-Management"], "a1": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0], "a2": [0, 100.0, 0, 0, 0, 0, 100.0, 0, 100.0, 0], "a3": [83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3]};
   new Chart('categoryChart_python', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[
-      { label:'Amp-deep3', data:d.a1, backgroundColor:A1, borderRadius:4 },
-      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:4 }
+      { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:4 },
+      { label:'Amp-deep3', data:d.a2, backgroundColor:A2, borderRadius:4 }, { label:'Claude', data:d.a3, backgroundColor:A3, borderRadius:4 }
     ] },
     options:{ plugins:{ datalabels:{ color:'#fff',font:{size:11},formatter:v=>v+'%' } },
       scales:{ y:{ max:100, title:{display:true,text:'%',color:'#aaa'} } } }
   }));
 })();
 (function(){
-  const d = {"labels": ["Easy", "Medium", "Hard", "Extreme"], "a1": [100.0, 100.0, 100.0, 100.0], "a2": [83.3, 83.3, 83.3, 83.3]};
+  const d = {"labels": ["Easy", "Medium", "Hard", "Extreme"], "a1": [100.0, 100.0, 100.0, 100.0], "a2": [100.0, 100.0, 100.0, 100.0], "a3": [83.3, 83.3, 83.3, 83.3]};
   new Chart('difficultyChart_python', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[
-      { label:'Amp-deep3', data:d.a1, backgroundColor:A1, borderRadius:4 },
-      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:4 }
+      { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:4 },
+      { label:'Amp-deep3', data:d.a2, backgroundColor:A2, borderRadius:4 }, { label:'Claude', data:d.a3, backgroundColor:A3, borderRadius:4 }
     ] },
     options:{ plugins:{ datalabels:{ color:'#fff',font:{size:11},formatter:v=>v+'%' } },
       scales:{ y:{ max:100 } } }
   }));
 })();
 (function(){
-  const d = {"labels": ["Amp-deep3", "Claude"], "a1": 0.0, "a2": 0.0};
+  const d = {"labels": ["Amp", "Amp-deep3"], "a1": 0.0, "a2": 0.0};
   new Chart('regressionChart_python', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[{ data:[d.a1,d.a2], backgroundColor:[A1,A2], borderRadius:6 }] },
     options:{ plugins:{ legend:{display:false}, datalabels:{ color:'#fff',font:{weight:'bold',size:14},formatter:v=>v+'%' } },
@@ -458,7 +464,7 @@ function darkOpts(o) {
   }));
 })();
 (function(){
-  const d = {"a1": {"resolved": 150, "regression": 0, "failed": 0}, "a2": {"resolved": 250, "regression": 0, "failed": 50}};
+  const d = {"a1": {"resolved": 150, "regression": 0, "failed": 0}, "a2": {"resolved": 150, "regression": 0, "failed": 0}};
   const colors = ['#2ecc71','#f39c12','#e74c3c'];
   const labels = ['Resolved','Regression','Failed'];
   new Chart('pie1_python', { type:'doughnut', data:{ labels, datasets:[{ data:[d.a1.resolved,d.a1.regression,d.a1.failed], backgroundColor:colors }] },
@@ -467,47 +473,47 @@ function darkOpts(o) {
     options:{ plugins:{ legend:{labels:{color:'#ccc'}}, datalabels:{ color:'#fff', font:{weight:'bold'}, formatter:(v,ctx)=>v?ctx.chart.data.labels[ctx.dataIndex]+': '+v:'' } } } });
 })();
 (function(){
-  const d = {"labels": ["Resolve Rate", "Speed", "Consistency", "No Regressions", "Bug Fix", "Feature", "Refactoring"], "a1": [100.0, 31.2, 98.7, 100.0, 100.0, 100.0, 100.0], "a2": [83.3, 0.0, 64.6, 100.0, 83.3, 83.3, 83.3]};
+  const d = {"labels": ["Resolve Rate", "Speed", "Consistency", "No Regressions", "Bug Fix", "Feature", "Refactoring"], "a1": [100.0, 30.1, 65.3, 100.0, 100.0, 100.0, 100.0], "a2": [100.0, 0.0, 98.7, 100.0, 100.0, 100.0, 100.0]};
   new Chart('radarChart_python', darkOpts({
     type:'radar', data:{ labels:d.labels, datasets:[
-      { label:'Amp-deep3', data:d.a1, borderColor:A1, backgroundColor:A1a, pointBackgroundColor:A1 },
-      { label:'Claude', data:d.a2, borderColor:A2, backgroundColor:A2a, pointBackgroundColor:A2 }
+      { label:'Amp', data:d.a1, borderColor:A1, backgroundColor:A1a, pointBackgroundColor:A1 },
+      { label:'Amp-deep3', data:d.a2, borderColor:A2, backgroundColor:A2a, pointBackgroundColor:A2 }
     ] },
     options:{ scales:{ r:{ min:0, max:100, ticks:{color:'#888',backdropColor:'transparent'}, grid:{color:'#ffffff15'}, pointLabels:{color:'#ccc',font:{size:12}} } },
       plugins:{ datalabels:{display:false} } }
   }));
 })();
 (function(){
-  const d = {"labels": ["task_001", "task_002", "task_003", "task_004", "task_005", "task_006", "task_007", "task_008", "task_009", "task_010", "task_011", "task_012", "task_013", "task_014", "task_015", "task_016", "task_017", "task_018", "task_019", "task_020", "task_021", "task_022", "task_023", "task_024", "task_025", "task_026", "task_027", "task_028", "task_029", "task_030", "task_031", "task_032", "task_033", "task_034", "task_035", "task_036", "task_037", "task_038", "task_039", "task_040", "task_041", "task_042", "task_043", "task_044", "task_045", "task_046", "task_047", "task_048", "task_049", "task_050"], "a1": [57.5, 53.0, 62.0, 60.4, 51.9, 50.3, 45.0, 45.5, 77.2, 51.1, 118.4, 86.5, 49.9, 74.5, 75.6, 53.4, 56.7, 59.8, 56.3, 48.3, 50.8, 375.7, 49.1, 50.9, 72.4, 45.8, 129.9, 44.8, 71.2, 50.1, 49.2, 69.3, 57.6, 45.3, 56.7, 50.9, 48.6, 105.3, 44.4, 52.2, 50.2, 61.7, 56.7, 156.0, 68.0, 61.5, 59.3, 59.8, 90.6, 74.9], "a2": [39.4, 44.4, 36.1, 35.7, 44.7, 42.6, 44.0, 38.9, 39.7, 46.9, 102.4, 62.6, 63.5, 61.1, 43.8, 100.7, 53.0, 48.5, 39.5, 60.5, 47.8, 1194.7, 101.7, 55.0, 100.3, 53.8, 72.5, 45.7, 61.6, 44.0, 114.8, 122.1, 61.5, 70.4, 800.5, 91.4, 44.0, 53.8, 44.9, 78.7, 60.4, 55.7, 54.0, 218.9, 66.2, 65.5, 56.8, 54.1, 77.7, 61.7]};
+  const d = {"labels": ["task_001", "task_002", "task_003", "task_004", "task_005", "task_006", "task_007", "task_008", "task_009", "task_010", "task_011", "task_012", "task_013", "task_014", "task_015", "task_016", "task_017", "task_018", "task_019", "task_020", "task_021", "task_022", "task_023", "task_024", "task_025", "task_026", "task_027", "task_028", "task_029", "task_030", "task_031", "task_032", "task_033", "task_034", "task_035", "task_036", "task_037", "task_038", "task_039", "task_040", "task_041", "task_042", "task_043", "task_044", "task_045", "task_046", "task_047", "task_048", "task_049", "task_050"], "a1": [32.3, 29.9, 22.9, 28.0, 31.6, 27.2, 27.9, 34.2, 26.5, 40.1, 43.8, 35.3, 57.9, 62.8, 38.9, 40.5, 44.1, 43.0, 38.6, 48.3, 33.2, 40.0, 102.0, 43.4, 70.1, 38.2, 51.7, 39.9, 34.0, 31.2, 73.9, 101.3, 56.9, 66.7, 62.3, 93.9, 29.0, 41.7, 35.2, 51.3, 56.5, 41.8, 60.6, 119.8, 50.0, 53.4, 47.0, 45.1, 57.9, 59.2], "a2": [57.5, 53.0, 62.0, 60.4, 51.9, 50.3, 45.0, 45.5, 77.2, 51.1, 118.4, 86.5, 49.9, 74.5, 75.6, 53.4, 56.7, 59.8, 56.3, 48.3, 50.8, 375.7, 49.1, 50.9, 72.4, 45.8, 129.9, 44.8, 71.2, 50.1, 49.2, 69.3, 57.6, 45.3, 56.7, 50.9, 48.6, 105.3, 44.4, 52.2, 50.2, 61.7, 56.7, 156.0, 68.0, 61.5, 59.3, 59.8, 90.6, 74.9]};
   new Chart('timeChart_python', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[
-      { label:'Amp-deep3', data:d.a1, backgroundColor:A1, borderRadius:3 },
-      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:3 }
+      { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:3 },
+      { label:'Amp-deep3', data:d.a2, backgroundColor:A2, borderRadius:3 }
     ] },
     options:{ plugins:{ datalabels:{ display:false } },
       scales:{ y:{ title:{display:true,text:'Seconds',color:'#aaa'} } } }
   }));
 })();
 (function(){
-  const d = {"a1": [75, 73, 73], "a2": [5, 5, 5, 10, 10, 10, 7, 11, 7, 11, 7, 50, 61, 50, 0, 50, 59]};
+  const d = {"a1": [5, 5, 5, 10, 10, 10, 7, 11, 7, 11, 7, 50, 50, 50], "a2": [75, 73, 73]};
   const maxLen = Math.max(d.a1.length, d.a2.length);
   const labels = Array.from({length:maxLen}, (_,i)=>'Run '+(i+1));
   new Chart('trendChart_python', darkOpts({
     type:'line', data:{ labels, datasets:[
-      { label:'Amp-deep3', data:d.a1, borderColor:A1, backgroundColor:A1a, tension:.3, fill:false, pointRadius:5 },
-      { label:'Claude', data:d.a2, borderColor:A2, backgroundColor:A2a, tension:.3, fill:false, pointRadius:5 }
+      { label:'Amp', data:d.a1, borderColor:A1, backgroundColor:A1a, tension:.3, fill:false, pointRadius:5 },
+      { label:'Amp-deep3', data:d.a2, borderColor:A2, backgroundColor:A2a, tension:.3, fill:false, pointRadius:5 }
     ] },
     options:{ plugins:{ datalabels:{ color:'#fff', anchor:'end', align:'top', font:{size:11} } },
       scales:{ y:{ title:{display:true,text:'Tasks Resolved',color:'#aaa'}, beginAtZero:true } } }
   }));
 })();
 (function(){
-  const d = {"labels": ["\ud83d\udfe2 task_001", "\ud83d\udfe2 task_002", "\ud83d\udfe2 task_003", "\ud83d\udfe2 task_004", "\ud83d\udfe2 task_005", "\ud83d\udfe2 task_006", "\ud83d\udfe2 task_007", "\ud83d\udfe2 task_008", "\ud83d\udfe2 task_009", "\ud83d\udfe2 task_010", "\ud83d\udfe1 task_011", "\ud83d\udfe1 task_012", "\ud83d\udfe1 task_013", "\ud83d\udfe1 task_014", "\ud83d\udfe1 task_015", "\ud83d\udfe1 task_016", "\ud83d\udfe1 task_017", "\ud83d\udfe1 task_018", "\ud83d\udfe1 task_019", "\ud83d\udfe1 task_020", "\ud83d\udfe0 task_021", "\ud83d\udfe0 task_022", "\ud83d\udfe0 task_023", "\ud83d\udfe0 task_024", "\ud83d\udfe0 task_025", "\ud83d\udfe0 task_026", "\ud83d\udfe0 task_027", "\ud83d\udfe0 task_028", "\ud83d\udfe0 task_029", "\ud83d\udfe0 task_030", "\ud83d\udfe0 task_031", "\ud83d\udfe0 task_032", "\ud83d\udfe0 task_033", "\ud83d\udfe0 task_034", "\ud83d\udfe0 task_035", "\ud83d\udd34 task_036", "\ud83d\udd34 task_037", "\ud83d\udd34 task_038", "\ud83d\udd34 task_039", "\ud83d\udd34 task_040", "\ud83d\udd34 task_041", "\ud83d\udd34 task_042", "\ud83d\udd34 task_043", "\ud83d\udd34 task_044", "\ud83d\udd34 task_045", "\ud83d\udd34 task_046", "\ud83d\udd34 task_047", "\ud83d\udd34 task_048", "\ud83d\udd34 task_049", "\ud83d\udd34 task_050"], "task_ids": ["task_001", "task_002", "task_003", "task_004", "task_005", "task_006", "task_007", "task_008", "task_009", "task_010", "task_011", "task_012", "task_013", "task_014", "task_015", "task_016", "task_017", "task_018", "task_019", "task_020", "task_021", "task_022", "task_023", "task_024", "task_025", "task_026", "task_027", "task_028", "task_029", "task_030", "task_031", "task_032", "task_033", "task_034", "task_035", "task_036", "task_037", "task_038", "task_039", "task_040", "task_041", "task_042", "task_043", "task_044", "task_045", "task_046", "task_047", "task_048", "task_049", "task_050"], "descs": ["Task 001: Interval Tree Merge Overlapping", "Task 002: LRU Cache Eviction Bug", "Task 003: Rate Limiter Token Bucket Overflow", "Task 004: JSON Path Array Wildcard Support", "Task 005: Trie Autocomplete Ordering", "Task 006: Matrix Spiral Traversal", "Task 007: Rotated Sorted Array Search", "Task 008: Run-Length Encoding Decoder Bug", "Task 009: Markdown Table Parser \u2014 Escaped Pipes", "Task 010: Cron Expression Parser \u2014 Day-of-Week Bug", "Task 011 \u2013 Async Producer-Consumer Drops Messages", "Task 012 \u2013 Memoization Decorator Returns Stale Results", "Task 013 \u2013 Observer Pattern Skips Listeners on Removal Durin", "Task 014 \u2013 DI Container Circular Dependency Detection", "Task 015 \u2013 Dijkstra Returns Wrong Path for Zero-Weight Edges", "Task 016 \u2013 FSM Accepts Invalid Transitions", "Task 017 \u2013 Expression Evaluator Ignores Operator Precedence", "Task 018 \u2013 Connection Pool Returns Closed Connections", "Task 019 \u2013 Retry Decorator Doesn't Reset Attempt Counter", "Task 020 \u2013 Topological Sort Fails to Detect Cycles", "Task 021: Red-Black Tree Deletion Bug", "Task 022: A* Pathfinder Tie-Breaking Bug", "Task 023: SQL Query Builder Multi-Table JOIN Bug", "Task 024: Plugin Loader Dependency Resolution Bug", "Task 025: Schema Validator Covariant Type Bug", "Task 026: Concurrent LRU Cache Race Condition", "Task 027: AST Variable Renamer Scope Bug", "Task 028: Middleware Pipeline Error Handler Order Bug", "Task 029: Regex Engine Catastrophic Backtracking Bug", "Task 030: B-Tree Node Split Bug", "Task 031: Consistent Hash Ring Lookup Bug", "Task 032: Template Engine Nested Loop Variable Bug", "Task 033: Varint Encoder Truncation Bug", "Task 034: Mergeable Heap Bug", "Task 035: Segment Tree Lazy Propagation Bug", "Task 036: Compiler Tokenizer Multi-Character Operator Handli", "Task 037: Bytecode VM Stack Frame Corruption", "Task 038: Transaction Engine Phantom Reads", "Task 039: Neural Network Backpropagation Gradient Bug", "Task 040: Mark-Sweep Garbage Collector Tracing Bug", "Task 041: Buddy Allocator Incorrect Coalescing", "Task 042: Raft Consensus Premature Commit", "Task 043: CRDT G-Counter Merge Bug", "Task 044: Reactive Dataflow Engine Diamond Dependency Glitch", "Task 045: LSM-Tree Tombstone Handling During Compaction", "Task 046: Type Inference Occurs Check Missing", "Task 047: Deadlock Detector False Positive on Self-Loops", "Task 048: Incremental Parser Error Recovery State Loss", "Task 049: CSP Channel Select Fairness Bug", "Task 050: WAL Recovery Transaction Ordering Bug"], "a1": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0], "a2": [83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3]};
+  const d = {"labels": ["\ud83d\udfe2 task_001", "\ud83d\udfe2 task_002", "\ud83d\udfe2 task_003", "\ud83d\udfe2 task_004", "\ud83d\udfe2 task_005", "\ud83d\udfe2 task_006", "\ud83d\udfe2 task_007", "\ud83d\udfe2 task_008", "\ud83d\udfe2 task_009", "\ud83d\udfe2 task_010", "\ud83d\udfe1 task_011", "\ud83d\udfe1 task_012", "\ud83d\udfe1 task_013", "\ud83d\udfe1 task_014", "\ud83d\udfe1 task_015", "\ud83d\udfe1 task_016", "\ud83d\udfe1 task_017", "\ud83d\udfe1 task_018", "\ud83d\udfe1 task_019", "\ud83d\udfe1 task_020", "\ud83d\udfe0 task_021", "\ud83d\udfe0 task_022", "\ud83d\udfe0 task_023", "\ud83d\udfe0 task_024", "\ud83d\udfe0 task_025", "\ud83d\udfe0 task_026", "\ud83d\udfe0 task_027", "\ud83d\udfe0 task_028", "\ud83d\udfe0 task_029", "\ud83d\udfe0 task_030", "\ud83d\udfe0 task_031", "\ud83d\udfe0 task_032", "\ud83d\udfe0 task_033", "\ud83d\udfe0 task_034", "\ud83d\udfe0 task_035", "\ud83d\udd34 task_036", "\ud83d\udd34 task_037", "\ud83d\udd34 task_038", "\ud83d\udd34 task_039", "\ud83d\udd34 task_040", "\ud83d\udd34 task_041", "\ud83d\udd34 task_042", "\ud83d\udd34 task_043", "\ud83d\udd34 task_044", "\ud83d\udd34 task_045", "\ud83d\udd34 task_046", "\ud83d\udd34 task_047", "\ud83d\udd34 task_048", "\ud83d\udd34 task_049", "\ud83d\udd34 task_050"], "task_ids": ["task_001", "task_002", "task_003", "task_004", "task_005", "task_006", "task_007", "task_008", "task_009", "task_010", "task_011", "task_012", "task_013", "task_014", "task_015", "task_016", "task_017", "task_018", "task_019", "task_020", "task_021", "task_022", "task_023", "task_024", "task_025", "task_026", "task_027", "task_028", "task_029", "task_030", "task_031", "task_032", "task_033", "task_034", "task_035", "task_036", "task_037", "task_038", "task_039", "task_040", "task_041", "task_042", "task_043", "task_044", "task_045", "task_046", "task_047", "task_048", "task_049", "task_050"], "descs": ["Task 001: Interval Tree Merge Overlapping", "Task 002: LRU Cache Eviction Bug", "Task 003: Rate Limiter Token Bucket Overflow", "Task 004: JSON Path Array Wildcard Support", "Task 005: Trie Autocomplete Ordering", "Task 006: Matrix Spiral Traversal", "Task 007: Rotated Sorted Array Search", "Task 008: Run-Length Encoding Decoder Bug", "Task 009: Markdown Table Parser \u2014 Escaped Pipes", "Task 010: Cron Expression Parser \u2014 Day-of-Week Bug", "Task 011 \u2013 Async Producer-Consumer Drops Messages", "Task 012 \u2013 Memoization Decorator Returns Stale Results", "Task 013 \u2013 Observer Pattern Skips Listeners on Removal Durin", "Task 014 \u2013 DI Container Circular Dependency Detection", "Task 015 \u2013 Dijkstra Returns Wrong Path for Zero-Weight Edges", "Task 016 \u2013 FSM Accepts Invalid Transitions", "Task 017 \u2013 Expression Evaluator Ignores Operator Precedence", "Task 018 \u2013 Connection Pool Returns Closed Connections", "Task 019 \u2013 Retry Decorator Doesn't Reset Attempt Counter", "Task 020 \u2013 Topological Sort Fails to Detect Cycles", "Task 021: Red-Black Tree Deletion Bug", "Task 022: A* Pathfinder Tie-Breaking Bug", "Task 023: SQL Query Builder Multi-Table JOIN Bug", "Task 024: Plugin Loader Dependency Resolution Bug", "Task 025: Schema Validator Covariant Type Bug", "Task 026: Concurrent LRU Cache Race Condition", "Task 027: AST Variable Renamer Scope Bug", "Task 028: Middleware Pipeline Error Handler Order Bug", "Task 029: Regex Engine Catastrophic Backtracking Bug", "Task 030: B-Tree Node Split Bug", "Task 031: Consistent Hash Ring Lookup Bug", "Task 032: Template Engine Nested Loop Variable Bug", "Task 033: Varint Encoder Truncation Bug", "Task 034: Mergeable Heap Bug", "Task 035: Segment Tree Lazy Propagation Bug", "Task 036: Compiler Tokenizer Multi-Character Operator Handli", "Task 037: Bytecode VM Stack Frame Corruption", "Task 038: Transaction Engine Phantom Reads", "Task 039: Neural Network Backpropagation Gradient Bug", "Task 040: Mark-Sweep Garbage Collector Tracing Bug", "Task 041: Buddy Allocator Incorrect Coalescing", "Task 042: Raft Consensus Premature Commit", "Task 043: CRDT G-Counter Merge Bug", "Task 044: Reactive Dataflow Engine Diamond Dependency Glitch", "Task 045: LSM-Tree Tombstone Handling During Compaction", "Task 046: Type Inference Occurs Check Missing", "Task 047: Deadlock Detector False Positive on Self-Loops", "Task 048: Incremental Parser Error Recovery State Loss", "Task 049: CSP Channel Select Fairness Bug", "Task 050: WAL Recovery Transaction Ordering Bug"], "a1": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0], "a2": [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0], "a3": [83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3]};
   const tids = d.task_ids || d.labels;
   new Chart('perTaskChart_python', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[
-      { label:'Amp-deep3', data:d.a1, backgroundColor:A1, borderRadius:3 },
-      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:3 }
+      { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:3 },
+      { label:'Amp-deep3', data:d.a2, backgroundColor:A2, borderRadius:3 }, { label:'Claude', data:d.a3, backgroundColor:A3, borderRadius:3 }
     ] },
     options:{ indexAxis:'y', onClick:(e,el)=>{ if(el.length){ const idx=el[0].index; window.open(REPO+'/tree/main/tasks/'+tids[idx],'_blank'); } },
       plugins:{ datalabels:{ display:false }, tooltip:{ callbacks:{ afterLabel:(ctx)=>{ const i=ctx.dataIndex; return d.descs?d.descs[i]:''; } } } },
@@ -515,7 +521,7 @@ function darkOpts(o) {
   }));
 })();
 (function(){
-  const d = {"labels": ["Amp-deep3", "Claude"], "a1": 94.7, "a2": 62.2};
+  const d = {"labels": ["Amp", "Amp-deep3", "Claude"], "a1": 92.1, "a2": 94.7, "a3": 62.2};
   const vals = [d.a1,d.a2]; const cols = [A1,A2]; if(d.a3!==undefined){ vals.push(d.a3); cols.push(A3); }
   new Chart('overallChart_ccpp', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[{ data:vals, backgroundColor:cols, borderRadius:6 }] },
@@ -524,7 +530,7 @@ function darkOpts(o) {
   }));
 })();
 (function(){
-  const d = {"labels": ["task_059", "task_053", "task_060", "task_054", "task_065", "task_052", "task_055", "task_061", "task_051", "task_066", "task_064", "task_058", "task_063", "task_067", "task_062", "task_057", "task_068", "task_056", "task_071", "task_073", "task_069", "task_070", "task_075", "task_072", "task_074"], "ratios": [1.1, 0.91, 0.91, 0.9, 0.9, 0.87, 0.8, 0.77, 0.74, 0.7, 0.63, 0.62, 0.6, 0.6, 0.57, 0.41, 0.31, 0.24, 0.24, 0.23, 0.18, 0.16, 0.12, 0.09, 0.01], "a1_times": [50.24666666666667, 52.080000000000005, 79.76666666666667, 57.14000000000001, 93.53666666666668, 61.28333333333333, 68.87666666666667, 59.906666666666666, 61.68666666666667, 90.43666666666667, 81.80666666666666, 194.68999999999997, 80.88, 64.82666666666667, 129.52333333333334, 63.47333333333333, 102.04666666666667, 241.33666666666667, 111.86666666666666, 100.11, 102.71666666666665, 173.37, 194.89333333333335, 254.94666666666663, 113.00666666666666], "a2_times": [55.32333333333333, 47.31333333333333, 72.84833333333333, 51.39333333333334, 84.01666666666667, 53.465, 55.306666666666665, 46.39166666666667, 45.843333333333334, 62.94833333333333, 51.48500000000001, 121.28375, 48.451666666666675, 39.12833333333334, 74.46166666666666, 25.91, 31.875, 59.0825, 27.23, 22.78, 18.6175, 27.23875, 22.96, 23.189999999999998, 1.6420000000000001], "badges": ["\ud83d\udfe1", "\ud83d\udfe2", "\ud83d\udfe1", "\ud83d\udfe2", "\ud83d\udfe0", "\ud83d\udfe2", "\ud83d\udfe2", "\ud83d\udfe0", "\ud83d\udfe2", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe1", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe1", "\ud83d\udfe0", "\ud83d\udfe1", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34"]};
+  const d = {"labels": ["task_074", "task_056", "task_072", "task_058", "task_075", "task_070", "task_069", "task_071", "task_073", "task_057", "task_052", "task_061", "task_062", "task_064", "task_065", "task_063", "task_051", "task_068", "task_055", "task_060", "task_054", "task_053", "task_066", "task_059", "task_067"], "ratios": [1130.07, 12.46, 8.63, 6.49, 5.73, 4.72, 4.16, 3.23, 3.17, 2.78, 2.38, 2.25, 2.24, 2.13, 2.02, 1.95, 1.93, 1.9, 1.72, 1.72, 1.71, 1.31, 1.29, 1.22, 1.16], "a1_times": [0.0, 19.366, 29.55, 30.016, 33.985, 36.726, 24.706, 34.684000000000005, 31.591999999999995, 22.838, 25.80333333333333, 26.683333333333334, 57.839999999999996, 38.49, 46.330000000000005, 41.38666666666666, 31.936666666666667, 53.84666666666667, 40.050000000000004, 46.24333333333334, 33.49666666666667, 39.61, 70.31666666666666, 41.28, 55.96333333333333], "a2_times": [113.00666666666666, 241.33666666666667, 254.94666666666663, 194.68999999999997, 194.89333333333335, 173.37, 102.71666666666665, 111.86666666666666, 100.11, 63.47333333333333, 61.28333333333333, 59.906666666666666, 129.52333333333334, 81.80666666666666, 93.53666666666668, 80.88, 61.68666666666667, 102.04666666666667, 68.87666666666667, 79.76666666666667, 57.14000000000001, 52.080000000000005, 90.43666666666667, 50.24666666666667, 64.82666666666667], "badges": ["\ud83d\udd34", "\ud83d\udfe1", "\ud83d\udd34", "\ud83d\udfe1", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udfe1", "\ud83d\udfe2", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe2", "\ud83d\udfe0", "\ud83d\udfe2", "\ud83d\udfe1", "\ud83d\udfe2", "\ud83d\udfe2", "\ud83d\udfe0", "\ud83d\udfe1", "\ud83d\udfe0"]};
   const n = Math.min(15, d.labels.length);
   const labels = d.labels.slice(0,n); const ratios = d.ratios.slice(0,n);
   const badges = (d.badges||[]).slice(0,n);
@@ -532,8 +538,8 @@ function darkOpts(o) {
   const ch = new Chart('speedRatioChart_ccpp', darkOpts({
     type:'bar', data:{ labels:labels.map((l,i)=>(badges[i]||'')+' '+l+' ('+ratios[i]+'x)'),
       datasets:[
-        { label:'Amp-deep3', data:a1t, backgroundColor:A1, borderRadius:5, barPercentage:0.8 },
-        { label:'Claude', data:a2t, backgroundColor:A2, borderRadius:5, barPercentage:0.8 }
+        { label:'Amp', data:a1t, backgroundColor:A1, borderRadius:5, barPercentage:0.8 },
+        { label:'Amp-deep3', data:a2t, backgroundColor:A2, borderRadius:5, barPercentage:0.8 }
       ] },
     options:{ indexAxis:'y', onClick:(e,el)=>{ if(el.length){ const idx=el[0].index; window.open(REPO+'/tree/main/tasks/'+labels[idx],'_blank'); } },
       plugins:{ legend:{ position:'top', labels:{color:'#e0e0e0', font:{size:13,weight:'bold'}, padding:20} },
@@ -542,18 +548,18 @@ function darkOpts(o) {
   }));
 })();
 (function(){
-  const d = {"labels": ["Easy", "Medium", "Hard", "Extreme"], "a1": [60.2, 125.9, 87.9, 150.1], "a2": [0.0, 0.0, 52.8, 44.0]};
+  const d = {"labels": ["Easy", "Medium", "Hard", "Extreme"], "a1": [0.0, 0.0, 43.9, 33.0], "a2": [60.2, 125.9, 87.9, 150.1]};
   new Chart('speedByDiffChart_ccpp', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[
-      { label:'Amp-deep3', data:d.a1, backgroundColor:A1, borderRadius:4 },
-      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:4 }
+      { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:4 },
+      { label:'Amp-deep3', data:d.a2, backgroundColor:A2, borderRadius:4 }
     ] },
     options:{ plugins:{ datalabels:{ color:'#fff',font:{size:12,weight:'bold'},formatter:v=>v+'s' } },
       scales:{ y:{ title:{display:true,text:'Avg Seconds',color:'#aaa'} } } }
   }));
 })();
 (function(){
-  const d = {"labels": ["Amp-deep3", "Claude"], "a1": 0.0, "a2": 6.3};
+  const d = {"labels": ["Amp", "Amp-deep3", "Claude"], "a1": 30.0, "a2": 0.0, "a3": 6.3};
   const vals = [d.a1,d.a2]; const cols = [A1,A2]; if(d.a3!==undefined){ vals.push(d.a3); cols.push(A3); }
   new Chart('overallChart_cuda', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[{ data:vals, backgroundColor:cols, borderRadius:6 }] },
@@ -562,7 +568,7 @@ function darkOpts(o) {
   }));
 })();
 (function(){
-  const d = {"labels": ["task_083", "task_084", "task_077", "task_082", "task_085", "task_078", "task_081", "task_076", "task_079", "task_080", "task_086", "task_087", "task_088", "task_089", "task_090", "task_091", "task_092", "task_093", "task_094", "task_095", "task_096", "task_097", "task_098", "task_099", "task_100"], "ratios": [350.16, 317.08, 262.5, 249.1, 230.78, 186.16, 176.12, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "a1_times": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "a2_times": [35.016, 31.708000000000006, 26.25, 24.91, 23.078, 18.616, 17.612000000000002, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "badges": ["\ud83d\udfe1", "\ud83d\udfe1", "\ud83d\udfe2", "\ud83d\udfe1", "\ud83d\udfe1", "\ud83d\udfe2", "\ud83d\udfe1", "\ud83d\udfe2", "\ud83d\udfe2", "\ud83d\udfe2", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34"]};
+  const d = {"labels": ["task_076", "task_077", "task_078", "task_079", "task_080", "task_081", "task_082", "task_083", "task_084", "task_085", "task_086", "task_087", "task_088", "task_089", "task_090", "task_091", "task_092", "task_093", "task_094", "task_095", "task_096", "task_097", "task_098", "task_099", "task_100"], "ratios": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "a1_times": [0.0, 39.26, 40.19, 0.0, 0.0, 24.0, 47.805, 61.065, 66.345, 53.69, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], "a2_times": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "badges": ["\ud83d\udfe2", "\ud83d\udfe2", "\ud83d\udfe2", "\ud83d\udfe2", "\ud83d\udfe2", "\ud83d\udfe1", "\ud83d\udfe1", "\ud83d\udfe1", "\ud83d\udfe1", "\ud83d\udfe1", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udfe0", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34", "\ud83d\udd34"]};
   const n = Math.min(15, d.labels.length);
   const labels = d.labels.slice(0,n); const ratios = d.ratios.slice(0,n);
   const badges = (d.badges||[]).slice(0,n);
@@ -570,8 +576,8 @@ function darkOpts(o) {
   const ch = new Chart('speedRatioChart_cuda', darkOpts({
     type:'bar', data:{ labels:labels.map((l,i)=>(badges[i]||'')+' '+l+' ('+ratios[i]+'x)'),
       datasets:[
-        { label:'Amp-deep3', data:a1t, backgroundColor:A1, borderRadius:5, barPercentage:0.8 },
-        { label:'Claude', data:a2t, backgroundColor:A2, borderRadius:5, barPercentage:0.8 }
+        { label:'Amp', data:a1t, backgroundColor:A1, borderRadius:5, barPercentage:0.8 },
+        { label:'Amp-deep3', data:a2t, backgroundColor:A2, borderRadius:5, barPercentage:0.8 }
       ] },
     options:{ indexAxis:'y', onClick:(e,el)=>{ if(el.length){ const idx=el[0].index; window.open(REPO+'/tree/main/tasks/'+labels[idx],'_blank'); } },
       plugins:{ legend:{ position:'top', labels:{color:'#e0e0e0', font:{size:13,weight:'bold'}, padding:20} },
@@ -580,11 +586,11 @@ function darkOpts(o) {
   }));
 })();
 (function(){
-  const d = {"labels": ["Easy", "Medium", "Hard", "Extreme"], "a1": [0.0, 0.0, 0.0, 0.0], "a2": [0.0, 0.0, 0.0, 10.4]};
+  const d = {"labels": ["Easy", "Medium", "Hard", "Extreme"], "a1": [0.0, 0.0, 0.0, 33.2], "a2": [0.0, 0.0, 0.0, 0.0]};
   new Chart('speedByDiffChart_cuda', darkOpts({
     type:'bar', data:{ labels:d.labels, datasets:[
-      { label:'Amp-deep3', data:d.a1, backgroundColor:A1, borderRadius:4 },
-      { label:'Claude', data:d.a2, backgroundColor:A2, borderRadius:4 }
+      { label:'Amp', data:d.a1, backgroundColor:A1, borderRadius:4 },
+      { label:'Amp-deep3', data:d.a2, backgroundColor:A2, borderRadius:4 }
     ] },
     options:{ plugins:{ datalabels:{ color:'#fff',font:{size:12,weight:'bold'},formatter:v=>v+'s' } },
       scales:{ y:{ title:{display:true,text:'Avg Seconds',color:'#aaa'} } } }
