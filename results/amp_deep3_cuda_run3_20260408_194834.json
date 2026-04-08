@@ -1,0 +1,464 @@
+{
+  "agent": "amp-deep3",
+  "timestamp": "20260408_194834",
+  "results": [
+    {
+      "task_id": "task_076",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 84.12,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed the tail-handling bug in [src/vector_add.cu](file:///tmp/bench_task_076_amp-deep3_8bxq9wva/src/vector_add.cu#L20-L43). The kernel now guards `i < N` before reading or writing, and the launch uses ceiling division for the grid size instead of `N / BLOCK_SIZE`, so partial final blocks are covered without out-of-bounds access.\n\nI verified it with a local `nvcc` build in this workspace using the requested flags. Runs for `--size 1000`, `1021`, `257`, and `1024` all reported `MISMATCHES=0` and `MATCH=1`. A local verification binary `./vector_add_check` was created in the workspace for that check.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_077",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_078",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 76.81,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Implemented the histogram race fix in [src/histogram.cu](file:///tmp/bench_task_078_amp-deep3_nsn47ryq/src/histogram.cu#L22-L27) by replacing the non-atomic `hist[bin] += 1` with `atomicAdd(&hist[bin], 1)`. That makes concurrent updates to the same bin safe, so counts are no longer lost under contention.\n\nI verified it by compiling with `nvcc -rdc=true -lcudadevrt -lm` and running representative cases at `N=10000`, `50000`, and `100000`. Each run reported `MISMATCHES=0`, `CPU_TOTAL == GPU_TOTAL`, and `MATCH=1`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_079",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 69.47,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed the exclusive-scan bug in [src/prefix_sum.cu](file:///tmp/bench_task_079_amp-deep3_hu03xv6f/src/prefix_sum.cu#L42-L46) by correcting the Blelloch down-sweep initialization. The kernel was leaving `temp[BLOCK_SIZE - 1]` unchanged, which preserves the inclusive total; setting it to `0.0f` inserts the identity element and shifts all partial sums into the proper exclusive positions.\n\nI verified it with a direct `nvcc` build and runs at sizes 16, 64, 128, and 256. All reported `MATCH=1`, `MISMATCHES=0`, and `FIRST_OK=1`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_080",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 83.75,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed the boundary bug in [src/conv1d.cu](file:///tmp/bench_task_080_amp-deep3_e2c86cfh/src/conv1d.cu#L29-L74) by correcting the shared-memory halo indexing. The kernel now derives a `block_start` once, then loads the left halo from `block_start + lid - radius` and the right halo from `block_start + lid + radius`, so halo slots line up with the block\u2019s true neighbors and zero-pad correctly outside `[0, N)`.\n\nI verified it by compiling with `nvcc -rdc=true -lcudadevrt -lm` and running the same boundary-sensitive cases the tests cover:\n- `--size 500 --ksize 5 --seed 42`\n- `--size 300 --ksize 11 --seed 99`\n- `--size 200 --ksize 7 --seed 13`\n\nAll three now report `MISMATCHES=0`, `BOUNDARY_ERRORS=0`, and `MATCH=1`. `pytest` itself isn\u2019t installed in this environment, so verification was done via direct `nvcc` build and execution.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_081",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 91.1,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed the reduction bug in [src/reduction.cu](file:///tmp/bench_task_081_amp-deep3__py63zy1/src/reduction.cu#L19-L60).\n\nThe issue was twofold in the final reduction stage:\n1. The shuffle mask only enabled 16 lanes, so half the warp was excluded.\n2. After shared-memory reduction stopped at 64 values, lanes `32..63` were never folded into lanes `0..31` before the warp shuffle.\n\nI changed the warp mask to `0xFFFFFFFFu` and updated the final warp path to reduce `sdata[tid] + sdata[tid + WARP_SIZE]` before calling `warp_reduce_sum`, so all remaining partial sums participate.\n\nVerification:\n- `python3 -m pytest tests/test_reduction.py -q` \u2192 `7 passed`\n- Direct build/run with `nvcc ...` and `--size 10000 --seed 42` now reports `MATCH=1` with `REL_ERROR=8.175506e-09`\n",
+      "error": null
+    },
+    {
+      "task_id": "task_082",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 61.96,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed the CSR SpMV kernel in [src/spmv_csr.cu](file:///tmp/bench_task_082_amp-deep3__2o8a16e/src/spmv_csr.cu#L25-L40). The kernel now initializes `sum` to `0.0f`, so empty rows correctly produce zero, and it uses `row_ptr[row + 1]` for every row, including the last row, so the row end bound matches standard CSR semantics.\n\nI verified the fix by compiling with `nvcc -rdc=true -lcudadevrt -lm` and running the bundled reproducer in three cases:\n- default run: `MISMATCHES=0`, `EMPTY_ROW_ERRORS=0`, `MATCH=1`\n- all-empty matrix (`--size 17 --nnz 0`): `MISMATCHES=0`, `MATCH=1`\n- larger case (`--size 257 --nnz 5 --seed 123`): `MISMATCHES=0`, `EMPTY_ROW_ERRORS=0`, `MATCH=1`\n",
+      "error": null
+    },
+    {
+      "task_id": "task_083",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 116.98,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed the non-power-of-2 bitonic sort bug in [src/bitonic_sort.cu](file:///tmp/bench_task_083_amp-deep3_km3zvlnf/src/bitonic_sort.cu#L24-L89).\n\nThe core fix is in the padding path: [pad_kernel](file:///tmp/bench_task_083_amp-deep3_km3zvlnf/src/bitonic_sort.cu#L24-L29) now starts its thread index at `N`, so launches sized for `padded_N - N` actually write `FLT_MAX` into the tail region. Before this, sizes like `300` and `1000` often launched only low indices and never padded anything, which let garbage values participate in the network and leak into the first `N` outputs.\n\nI also normalized the bitonic stage to the standard mask-based form in [bitonic_step_kernel](file:///tmp/bench_task_083_amp-deep3_km3zvlnf/src/bitonic_sort.cu#L31-L54) and [gpu_bitonic_sort](file:///tmp/bench_task_083_amp-deep3_km3zvlnf/src/bitonic_sort.cu#L65-L89): `partner = i ^ j`, `ascending = (i & k) == 0`, and the loops now iterate `k = 2..padded_N` and `j = k>>1..1`. That makes the compare direction explicit and matches the conventional bitonic network for padded power-of-2 lengths.\n\nVerification: `pytest` and `nvcc` aren\u2019t installed in this workspace, so I couldn\u2019t run the CUDA binary directly here. I did run a host-side simulation of the updated network and padding logic for sizes `100`, `300`, `500`, `1000`, and `256`, and all produced `MATCH=1` and `SORTED=1`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_084",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 88.86,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed the compaction bug in [src/stream_compact.cu](file:///tmp/bench_task_084_amp-deep3_296qxcoo/src/stream_compact.cu#L34-L103) by changing the scan used for scatter positions from inclusive to exclusive and by deriving the final selected count as `last_scan + last_flag`. That makes the scatter index line up with the original predicate flags, so selected elements land in the correct output slot with no duplicates or dropped values.\n\nVerification passed. I compiled with `nvcc -rdc=true -lcudadevrt -lm`, ran the binary for the default case and the two threshold edge cases, and ran `python3 -m pytest -q`; all 7 tests passed.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_085",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 59.2,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed signed ordering in [src/radix_sort.cu](file:///tmp/bench_task_085_amp-deep3_2_7bf9d4/src/radix_sort.cu#L24-L68) by changing the radix key used in both kernels from the raw `unsigned` reinterpretation to `((unsigned int)value) ^ 0x80000000u`. That flips the sign bit for bit extraction only, so negative integers sort before non-negative ones while the stored values themselves remain unchanged.\n\nVerification:\n- Compiled with `nvcc src/radix_sort.cu -o radix_sort_check -rdc=true -lcudadevrt -lm`\n- Ran mixed-sign cases for `--seed 42`, `99`, `13`, and `777`: all returned `MISMATCHES=0`, `SORTED=1`, `NEG_AFTER_POS=0`, `MATCH=1`\n- Re-ran positive-only mode: still returned `MATCH=1`\n\n`pytest` was not available in this environment, so I verified through direct CUDA compilation and execution instead.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_086",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_087",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 126.88,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Implemented the fix in the cooperative-groups reduction kernel. The tile-local reduction now uses the tile\u2019s actual width for `shfl_down` and uses the tile\u2019s own thread rank to pick the tile leader, so sub-warp tiles no longer behave as if they were always width 32. I also replaced the hardcoded first-warp aggregation with a shared-memory block reduction over the tile partials, which makes the inter-tile stage correct for every supported tile size. The launcher now supports `1`, `2`, `4`, `8`, `16`, and `32`.\n\nVerification:\n- `nvcc src/cg_reduce.cu -o ./cg_reduce_bin -rdc=true -lcudadevrt -lm` succeeded.\n- Manual runs matched the CPU reference for `--tile 1`, `2`, `4`, `8`, `16`, and `32`.\n- The previously failing `--tile 16` and `--tile 8` cases now report `MATCH=1` with relative error around `1e-8`.\n- `pytest` was not available in this environment, so I verified by compiling and running the CUDA binary directly.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_088",
+      "agent": "amp-deep3",
+      "category": "refactoring",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 85.89,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed the unified-memory Jacobi bug in [src/jacobi_um.cu](file:///tmp/bench_task_088_amp-deep3_djwnhyfv/src/jacobi_um.cu#L77-L87) by restoring the correct ping-pong roles inside the iteration loop: `x0` is now prefetched and used as the read buffer, `x1` is prefetched and used as the write buffer, and the kernel no longer reads from the buffer it is overwriting.\n\nVerification succeeded locally. `python3 -m pytest -q` passed with `6 passed`, and a direct CUDA build/run produced matching results for the benchmark cases:\n- `./jacobi_um --size 64 --iters 20 --seed 42` \u2192 `MISMATCHES=0`, `MATCH=1`\n- `./jacobi_um --size 48 --iters 30 --seed 777` \u2192 `MISMATCHES=0`, `MATCH=1`\n",
+      "error": null
+    },
+    {
+      "task_id": "task_089",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_090",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 134.47,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed the warp predicate bug in [src/warp_predicate.cu](file:///tmp/bench_task_090_amp-deep3_o1i04ip6/src/warp_predicate.cu#L48-L85). The kernel now uses the full current warp mask via `__activemask()`, ballots only valid lanes for the above/below counts, and keeps out-of-range tail lanes participating with zero contribution so the shuffle path stays well-defined. I also corrected the reduction itself in [the new `warp_reduce_sum` helper](file:///tmp/bench_task_090_amp-deep3_o1i04ip6/src/warp_predicate.cu#L48-L53): it now accumulates the running partial sum instead of repeatedly shuffling the original value.\n\nVerification succeeded with `python3 -m pytest -q` (`5 passed`), and the compiled CUDA binary matched the CPU reference for the reported mixed-predicate cases: `--size 1024 --seed 42`, `--size 512 --threshold 25 --seed 99`, and `--size 2048 --threshold 75 --seed 13`, all with `MATCH=1`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_091",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 98.0,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "Updated the WMMA load path in [src/wmma_gemm.cu](file:///tmp/bench_task_091_amp-deep3_p7c6163l/src/wmma_gemm.cu#L41-L51) so the fragment declarations match the actual memory layout. Both input fragments are now `wmma::row_major`, and matrix A now uses `K` as its leading dimension in `wmma::load_matrix_sync`, while matrix B continues to use `N`.\n\nI verified the fix by compiling with `nvcc -rdc=true -lcudadevrt -lm -arch=sm_70` and running the reported cases. All three now match the CPU reference:\n- `16x16x16`: `MISMATCHES=0`, `MATCH=1`\n- `32x32x32`: `MISMATCHES=0`, `MATCH=1`\n- `64x64x32`: `MISMATCHES=0`, `MATCH=1`\n",
+      "error": null
+    },
+    {
+      "task_id": "task_092",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_093",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_094",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 416.68,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Reworked [src/dp_mergesort.cu](file:///tmp/bench_task_094_amp-deep3_s60tyido/src/dp_mergesort.cu#L1-L130) to remove the deadlock-prone dynamic-parallel recursion and replace it with a host-driven, bottom-up GPU merge sort. The core changes are in the [device merge routine](file:///tmp/bench_task_094_amp-deep3_s60tyido/src/dp_mergesort.cu#L18-L32), the new [per-pass merge kernel](file:///tmp/bench_task_094_amp-deep3_s60tyido/src/dp_mergesort.cu#L34-L50), and the updated [gpu_sort loop](file:///tmp/bench_task_094_amp-deep3_s60tyido/src/dp_mergesort.cu#L52-L88), which alternates source and temp buffers across merge widths instead of launching recursive child kernels.\n\nVerified locally with the requested build shape: `nvcc src/dp_mergesort.cu -o dp_mergesort_test -rdc=true -lcudadevrt -lm`, then ran sizes `16`, `500`, `512`, `2048`, and `4096`. Each run reported `MISMATCHES=0`, `SORTED=1`, and `MATCH=1`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_095",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 95.83,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed the shared-memory ping-pong bug in [src/tiled_gemm.cu](file:///tmp/bench_task_095_amp-deep3_msonv4jv/src/tiled_gemm.cu#L38-L67). The kernel now loads the first tile into `read_buf`, computes from that buffer, fills `write_buf` with the next tile, synchronizes, and only then swaps buffers. That prevents the active tile from being overwritten before consumption and restores the intended tile-to-tile handoff.\n\nVerification passed with `python3 -m pytest -q tests/test_tiled_gemm.py` (`8 passed`), and a direct `nvcc src/tiled_gemm.cu -o tiled_gemm -rdc=true -lcudadevrt -lm` compile succeeded as well.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_096",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 143.45,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed the CUDA BFS in [src/bfs_warp.cu](file:///tmp/bench_task_096_amp-deep3_qxbkto9w/src/bfs_warp.cu#L38-L66) by making both contested operations atomic. Vertex discovery now uses `atomicCAS(&dist[u], -1, level + 1)` so each reachable vertex is claimed exactly once, and frontier appends now use `atomicAdd(out_size, 1)` so warps no longer overwrite each other\u2019s queue entries. I also rewrote the neighbor loop to iterate over absolute CSR edge indices (`start + lane`, stride `WARP_SIZE`), which keeps each warp anchored to its own adjacency slice.\n\nWhile verifying the BFS fix, the larger test case exposed a separate heap corruption in the graph generator. I corrected that in [src/bfs_warp.cu](file:///tmp/bench_task_096_amp-deep3_qxbkto9w/src/bfs_warp.cu#L123-L156) by rebuilding the CSR from one consistent degree-count pass, so `row_ptr`, `col_idx`, and `nnz` all agree for larger graphs.\n\nVerification passed with:\n- `nvcc src/bfs_warp.cu -o bfs_warp_check -rdc=true -lcudadevrt -lm`\n- `./bfs_warp_check --size 500 --seed 42`\n- `python3 -m pytest tests/test_bfs_warp.py -q` with `7 passed`\n",
+      "error": null
+    },
+    {
+      "task_id": "task_097",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 127.47,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed the FFT mismatch in [src/fft_ct.cu](file:///tmp/bench_task_097_amp-deep3_g9iymkg9/src/fft_ct.cu). The actual code defects were the bit-reversal width and inverse normalization: [the bit-reversal kernel now uses all `log2(N)` bits](file:///tmp/bench_task_097_amp-deep3_g9iymkg9/src/fft_ct.cu#L45-L59), and [the inverse path now scales by `1/N` instead of `2/N`](file:///tmp/bench_task_097_amp-deep3_g9iymkg9/src/fft_ct.cu#L126-L137). I also checked the butterfly logic while fixing this; its forward-angle sign and pairing math were already consistent with the current staging code, so they did not need changes.\n\nVerified by compiling with `nvcc -rdc=true -lcudadevrt -lm` and running:\n- `./fft_ct --size 64 --seed 777`\n- `./fft_ct --size 256 --seed 42`\n- `./fft_ct --size 512 --seed 99`\n- `./fft_ct --size 1024 --seed 13`\n- `./fft_ct --size 256 --inverse --seed 42`\n\nAll of those now report `MISMATCHES=0` and `MATCH=1`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_098",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_099",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 90.54,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed the GPU-side ray/AABB traversal in [src/ray_aabb.cu](file:///tmp/bench_task_099_amp-deep3_vvnjsjct/src/ray_aabb.cu#L83-L147). The device slab test now matches the CPU reference by starting with `tmax = FLT_MAX` and swapping `t1`/`t2` when a direction component is negative, which fixes the diagonal-ray miss cases and wrong hit distances. In the traversal kernel, `best_t` now starts at `FLT_MAX`, the stack pop uses `stack[--sp]`, the early-out compares directly against the current best distance, and the leaf check is tightened to `is_leaf == 1`.\n\nVerification passed with `python3 -m pytest -q` (`7 passed`) and with direct `nvcc` builds plus manual runs such as `./ray_aabb --prims 16 --rays 256 --seed 42`, `--prims 32 --rays 512 --seed 99`, and `--prims 20 --rays 300 --seed 777`, all reporting `MATCH=1` and `MISMATCHES=0`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_100",
+      "agent": "amp-deep3",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 70.49,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed the CUDA neighbor-list force path in [src/md_neighbor.cu](file:///tmp/bench_task_100_amp-deep3_8sru0wrj/src/md_neighbor.cu#L51-L106).\n\nThe GPU neighbor builder now compares `r^2` against `cutoff^2` and skips `i == j`, which removes bogus self-neighbors and restores the intended cutoff test in [build_neighbor_list](file:///tmp/bench_task_100_amp-deep3_8sru0wrj/src/md_neighbor.cu#L51-L75). The force kernel now matches the CPU reference expression by restoring the missing `sigma_r12 = sigma_r6 * sigma_r6` term in [lj_force_kernel](file:///tmp/bench_task_100_amp-deep3_8sru0wrj/src/md_neighbor.cu#L81-L106). I kept the vector force form the same as the CPU reference so the GPU and CPU paths are consistent.\n\nVerification passed:\n- `nvcc -rdc=true src/md_neighbor.cu -lcudadevrt -lm -o md_neighbor`\n- `./md_neighbor`\n\nRun result:\n- `MISMATCHES=0`\n- `MAX_ERROR=1.534820e-06`\n- `NAN_COUNT=0`\n- `MATCH=1`\n",
+      "error": null
+    }
+  ]
+}

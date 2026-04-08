@@ -1,0 +1,1832 @@
+{
+  "agent": "claude",
+  "run": 3,
+  "timestamp": "20260405_051450",
+  "results": [
+    {
+      "task_id": "task_001",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 43.92,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix changed `<` to `<=` in two places:\n\n1. **`Interval.overlaps()`** (line 36): `self.start <= other.end and other.start <= self.end` \u2014 so touching intervals like `[1,3]` and `[3,5]` are correctly detected as overlapping.\n\n2. **`IntervalTree.merge_overlapping()`** (line 96): `current.start <= last.end` \u2014 so the greedy merge step also catches touching intervals.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_002",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 67.26,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix: changed `popitem(last=True)` to `popitem(last=False)` so eviction removes the **first** item in the OrderedDict (the least recently used) instead of the **last** (most recently used), and removed the erroneous `move_to_end(key)` call on a non-existent key.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_003",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 47.37,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix was a one-line change in `src/rate_limiter.py:63` \u2014 capping `self._tokens` at `self._capacity` using `min()` after adding the new tokens in `refill()`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_004",
+      "agent": "claude",
+      "category": "feature",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 40.16,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix was a two-line addition in `src/jsonpath.py:144-145` \u2014 the wildcard branch was missing the loop that iterates over array elements and recursively resolves remaining tokens against each one.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_005",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 43.55,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix was a one-line change on line 143 of `src/trie.py`: iterating over `sorted(node.children)` instead of `node.children` ensures the DFS traverses children in alphabetical order, producing sorted autocomplete results regardless of insertion order.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_006",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 51.94,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix was changing `left += 2` to `left += 1` on line 51 of `src/spiral.py`. The off-by-one error caused the left boundary to skip ahead too far, missing inner elements in rectangular matrices.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_007",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 45.69,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix: changed `<` to `<=` on line 37 (`nums[left] < target` \u2192 `nums[left] <= target`) so the left-boundary element of the sorted half is correctly included in the range check.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_008",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 41.25,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix was on line 95 of `src/rle.py`: the loop `range(len(pairs) - 1)` was skipping the last pair. Changed it to `range(len(pairs))` so all pairs are expanded.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_009",
+      "agent": "claude",
+      "category": "feature",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 48.38,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix uses `re.split(r'(?<!\\\\)\\|', stripped)` to split only on unescaped pipes (negative lookbehind for `\\`), then replaces `\\|` with literal `|` in the cell values.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_010",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 51.84,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix: changed `dt.isoweekday() - 1` to `dt.isoweekday() % 7` on line 139 of `src/cron_parser.py`. \n\n- `isoweekday()` returns 1=Monday through 7=Sunday\n- `% 7` converts that to 0=Sunday, 1=Monday, ..., 6=Saturday (standard cron convention)\n- The old `- 1` gave 0=Monday, which was wrong\n",
+      "error": null
+    },
+    {
+      "task_id": "task_011",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 173.53,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. Here's a summary of the two fixes:\n\n1. **`put()` method** (line 56): Replaced the `put_nowait()` + catch `QueueFull` \u2192 `return False` pattern with `await self._queue.put(item)`, which properly blocks asynchronously when the queue is full instead of silently dropping items.\n\n2. **`drain()` method** (line 91): Added `await asyncio.sleep(0)` after each `get_nowait()` to yield to the event loop, giving blocked putters a chance to enqueue their items between drains.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_012",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 55.71,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix replaces `id(arg)` with a `_freeze()` helper that recursively converts mutable objects (lists, dicts, sets) into hashable equivalents (tuples, sorted tuple-of-pairs, frozensets) before using them as cache keys. This ensures:\n\n- Equal lists/dicts produce the same key (cache hit)\n- Mutated objects produce a different key (fresh computation)\n- Immutable arguments continue to work as before\n",
+      "error": null
+    },
+    {
+      "task_id": "task_013",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 44.43,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix was a one-character change: `list(listeners)` on line 58 creates a snapshot of the listener list before iterating, so mutations during callbacks (from `off()` or `once()`) don't corrupt the iteration.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_014",
+      "agent": "claude",
+      "category": "feature",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 48.21,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix adds a `_resolving` stack to track services currently being resolved. When `resolve()` encounters a service already in the stack, it raises `CircularDependencyError` with a message showing the cycle (e.g., `\"Circular dependency detected: A -> B -> A\"`). The stack is cleaned up in a `finally` block to stay correct even if factories raise other exceptions.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_015",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 50.06,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix was removing `if not weight: continue` from both `dijkstra()` (line 64) and `shortest_distances()` (line 102). This guard incorrectly skipped zero-weight edges because Python's `not 0` evaluates to `True`, causing the algorithm to ignore valid zero-weight edges entirely.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_016",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 46.06,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix: replaced the fallback loop (lines 73-77) that incorrectly matched any transition with the same event name regardless of source state, with a proper `raise InvalidTransitionError` when no transition is defined from the current state for the given event.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_017",
+      "agent": "claude",
+      "category": "refactoring",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 42.86,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix splits the single `parse_expr` function into two precedence levels:\n\n- **`parse_term`** \u2014 handles `*` and `/` (higher precedence, binds tighter)\n- **`parse_expr`** \u2014 handles `+` and `-` (lower precedence), calling `parse_term` for each operand\n\nThis ensures `3 + 4 * 2` correctly evaluates `4 * 2` first, yielding 11 instead of 14.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_018",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 49.04,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fixes:\n\n1. **`acquire()`**: Changed `if self._pool` to `while self._pool` \u2014 now loops through pooled connections, discarding any that are closed, until it finds a healthy one or exhausts the pool (then creates a new connection).\n\n2. **`release()`**: Added `if not conn.is_closed` check before appending \u2014 closed connections are now silently discarded instead of being returned to the pool.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_019",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 45.12,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix moved `attempts_used` from a closure variable (shared across calls) to a local variable inside `wrapper` (reset on each call), for both the sync `retry` and async `retry_async` decorators.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_020",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 45.67,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix adds an `in_progress` set (temporary mark) to the DFS. When a node is encountered that's already in `in_progress`, it means we've found a back-edge (cycle), so we raise `CyclicGraphError`. The node is moved from `in_progress` to `visited` only after all its dependencies are fully explored.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_021",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 53.18,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 8 tests pass. The fix was straightforward \u2014 in both the left and right cases of `_delete_fixup`, when both of the sibling's children are black, the standard algorithm (CLRS) requires moving `x` up to its parent (`x = x.parent`). The buggy code was instead moving `x` to `x.parent.left` or `x.parent.right` respectively, which navigated to the wrong node and broke the fixup loop.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_022",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 3633.16,
+      "agent_completed": false,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Agent timed out after 600s",
+      "error": null
+    },
+    {
+      "task_id": "task_023",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 54.89,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix: the `join` method was incorrectly using `last_join.alias` (the most recently joined table) for the left side of the ON clause. It should always use `self._from_alias` (the FROM table), since each JOIN's left column refers to the primary table, not the previously joined table.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_024",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 61.26,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix corrected two issues in `resolve_order()`:\n\n1. **Reversed edge direction** (line 93): Changed `adj[name].append(dep)` / `in_degree[dep] += 1` to `adj[dep].append(name)` / `in_degree[name] += 1`. Edges now point from dependency \u2192 dependent, so dependencies get in_degree 0 and are processed first.\n\n2. **Wrong pop direction** (line 104): Changed `queue.pop()` to `queue.pop(0)`. After sorting, `pop()` takes the last (largest) element; `pop(0)` takes the first, giving a correct and deterministic BFS traversal.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_025",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 54.23,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix replaced exact type identity checks (`is not`) with covariant subtype checks (`is not ... and not self.registry.is_subtype(...)`) in four places:\n\n1. **`_validate_list`** (line 134) \u2014 list element type checking\n2. **`_validate_dict`** (lines 157, 163) \u2014 dict key and value type checking\n3. **`_validate_set`** (line 184) \u2014 set element type checking\n4. **`validate_schema_compatible`** (line 233) \u2014 schema-to-schema type parameter checking\n",
+      "error": null
+    },
+    {
+      "task_id": "task_026",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 40.09,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix moves `entry.touch()` and `self._cache.move_to_end(key)` back inside the `with self._lock:` block so the entire read-and-reorder operation is atomic, eliminating the race condition.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_027",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 83.67,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix adds a `_shadows_variable` helper that checks if a nested function defines the target variable as a local (via parameter, assignment, or for-loop target). When entering a nested function in `visit_FunctionDef`, if the variable is shadowed, the entire subtree is skipped \u2014 preserving scope correctness.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_028",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 37.36,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix was changing `insert(0, ...)` to `append(...)` on line 65 of `src/middleware.py`, so error handlers execute in FIFO order (the order they were registered) instead of being reversed.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_029",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 78.12,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix was a one-line change in `_match_plus` at line 206-208: after appending a successful match position, check if it was zero-length (`next_pos == current`) and break the loop. This prevents infinite repetition of empty matches while still allowing the `+` quantifier to count one zero-length match as satisfying its \"at least one\" requirement.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_030",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 40.31,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix: `child.keys[mid:]` \u2192 `child.keys[mid + 1:]` on line 91, so the median key is only promoted to the parent and not duplicated in the right child.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_031",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 45.01,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix: replaced `idx = idx - 1` with `idx = idx % len(self._sorted_hashes)` on line 67. When a key hashes beyond the last node on the ring, modular arithmetic correctly wraps to index 0 (the first node clockwise), instead of incorrectly pointing to the last node.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_032",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 66.0,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix saves the previous value of the loop variable before the loop and restores it (or removes it) after the loop completes, giving each `{% for %}` block proper variable scoping.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_033",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 51.48,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix was removing the `iterations < 4` guard from the `while` loop in `encode_varint()` (line 28), which was artificially capping encoding at 28 bits. The loop now continues until all significant bits are encoded, correctly handling values up to 2^64 - 1.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_034",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 40.76,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix: `_heapify()` now iterates from the last non-leaf node (`n // 2 - 1`) down to index 0, calling `_sift_down(i)` at each position \u2014 the standard Floyd's heap construction algorithm. Previously it only called `_sift_down(0)` once, which is insufficient to establish the heap property over the entire array.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_035",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 44.29,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix was adding `self._push_down(node, start, end)` at line 78 of `_range_query`, right before recursing into children. This ensures pending lazy updates are propagated to child nodes before their sums are read.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_036",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 44.27,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix adds a three-character lookahead check in `_read_operator` (`src/lexer.py:300-305`) **before** the two-character check, implementing proper greedy/longest-match semantics. This ensures `>>=`, `<<=`, and `...` are correctly tokenized as single three-character operator tokens instead of being split into a two-character operator plus a single character.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_037",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 50.43,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 8 tests pass. The fix was a one-line addition in `_execute_ret` (`src/vm.py:179`): restoring `self.bp = frame.saved_bp` so that after returning from a function call, the caller's base pointer is correctly restored and local variable access via `LOAD`/`STORE` uses the right offsets.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_038",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 82.0,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass.\n\n**The fix:** The SERIALIZABLE isolation level in `_visible_version` was returning any committed version (same as READ_COMMITTED), ignoring commit timestamps. I changed it to use snapshot isolation \u2014 only returning versions committed at or before the transaction's snapshot timestamp \u2014 which is the same logic REPEATABLE_READ already used. This prevents phantom reads by making new inserts, deletes, and updates from concurrently committed transactions invisible to a SERIALIZABLE transaction.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_039",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 43.61,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix was on line 107 of `src/neural_net.py`: changed `probs[i] - 1` to `probs[i] - (1 if i == target else 0)` so that 1 is only subtracted at the target class position, producing the correct `softmax(z) - one_hot(y)` gradient.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_040",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 56.81,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix was a one-line addition to `_mark()` in `src/gc.py:159` \u2014 after marking an object, it now recursively calls `_mark` on every reference returned by `get_all_references()`, which includes both list element references and named field references. This gives the mark phase the full transitive closure needed to correctly trace all reachable objects.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_041",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 45.36,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix was a one-character change on line 84 of `src/buddy_allocator.py`:\n\n- **Before:** `address ^ (1 << (order - 1))` \u2014 XORs with half the block size, computing the wrong buddy\n- **After:** `address ^ (1 << order)` \u2014 XORs with the actual block size `2^k`, correctly finding the buddy address\n",
+      "error": null
+    },
+    {
+      "task_id": "task_042",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 47.23,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix replaces the `any` check (commit if *any* follower has the entry) with a proper majority/quorum check: count how many nodes in `match_index` have `match_idx >= n`, and only advance `commit_index` when that count reaches a majority (`cluster_size // 2 + 1`).\n",
+      "error": null
+    },
+    {
+      "task_id": "task_043",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 39.94,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix was changing `min` to `max` in `GCounter.merge()` at `src/crdt.py:44`. G-Counter merge semantics require taking the maximum count per replica since counts only grow.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_044",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 130.3,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. Here's a summary of the fix:\n\n**Problem:** `Signal.set()` called `_notify_dependents()` which propagated depth-first \u2014 in a diamond (A\u2192B\u2192D, A\u2192C\u2192D), D recomputed twice: once with stale C, once with updated C.\n\n**Fix (3 changes in `src/reactive.py`):**\n\n1. **Added `ReactiveContext.propagate()`** \u2014 BFS collects all affected nodes with topological levels, then processes them level-by-level. This ensures D only recomputes after both B and C are updated.\n\n2. **Suppressed `_notify_dependents()` during propagation** \u2014 When the topological propagation is active, individual nodes don't trigger their own cascading updates (the propagation loop handles ordering).\n\n3. **`Signal.set()` uses `ctx.propagate(self)`** instead of `self._notify_dependents()`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_045",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 44.88,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix was a two-line change in `merge_sstables()` (`src/lsm_tree.py:119,125`):\n\n1. **Line 119**: Changed `if entry.is_tombstone:` to `if entry.is_tombstone and is_lowest_level:` \u2014 tombstones are now only discarded when compacting the lowest level (where no older version can exist below).\n2. **Line 125**: Changed `is_tombstone=False` to `is_tombstone=entry.is_tombstone` \u2014 preserved the tombstone flag on entries that pass through the merge.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_046",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 59.96,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix adds an **occurs check** to both TypeVar branches in `unify()` (`src/type_inference.py:175-182`). Before binding a type variable to a type, it verifies the variable doesn't appear free in that type using the existing `free_type_vars()` helper. If it does, a `TypeError` with an \"infinite type\" message is raised.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_047",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 64.74,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix adds a single line at `src/deadlock_detector.py:91` that skips self-edges (`neighbor == node`) during DFS cycle detection, ensuring self-loops are never reported as deadlocks. True cycles of length >= 2 are still detected correctly.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_048",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 50.46,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix was removing two lines in `_recover_from_error` (`src/incremental_parser.py:211-212`) that were resetting `statements = []` and `self._parsed_statements = []`. This was wiping out all previously parsed statements during error recovery instead of preserving them. Now the method only skips tokens to the next semicolon without discarding prior state.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_049",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 55.53,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix:\n\n- **Added `import random`** to the module\n- **Changed `select()`** to first collect all ready cases into a list, then use `random.choice()` to pick one uniformly at random, instead of always returning the first ready case in iteration order. Closed-channel recv cases are also handled separately (only returned if no ready cases exist).\n",
+      "error": null
+    },
+    {
+      "task_id": "task_050",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 49.45,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix in `src/wal.py:186-192` replaces `sorted(txn_writes.keys())` (which ordered by transaction ID / start order) with a list derived from scanning the log for COMMIT records in their natural order, ensuring transactions are replayed in the order they were committed.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_051",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 47.48,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix was a one-line change: `size()` was computing from `tail_` and `head_` positions, which breaks when the buffer is full (both indices are equal, yielding 0). Replacing it with `return count_` uses the correctly-maintained element counter. This also fixes `to_vector()` since it relies on `size()`.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_052",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 84.4,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. Here's what I fixed in `src/tokenizer.hpp`:\n\n1. **Trailing escape** (`split`): Added a check after the loop \u2014 if `escaped` is still `true`, append a literal `\\` to the current token instead of silently dropping it.\n\n2. **Backslash not escaped** (`escape`): Added `c == '\\\\'` to the escape condition so backslash characters are also escaped with a preceding `\\`, making `split`/`escape` roundtrip-safe.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_053",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 36.7,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "The fix: `other.at(j, k)` \u2192 `other.at(k, j)`. In the standard formula `C[i][j] = \u03a3 A[i][k] * B[k][j]`, the second matrix is indexed by `(k, j)`, not `(j, k)`. The swapped indices caused incorrect element lookups, breaking non-square multiplication, the identity property, and the transpose product identity.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_054",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 45.66,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. The fix: `sift_down` was only swapping one level deep without continuing to propagate the element downward. Wrapping the logic in a `while (true)` loop and setting `idx = smallest` after each swap ensures the element sifts all the way down to its correct position.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_055",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 60.94,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass. Here's what I fixed in `src/hashmap.hpp`:\n\n1. **`get()` (line 45)**: Changed `return {false, V{}}` on `DELETED` slots to `continue`, so the probe chain skips over tombstones instead of stopping.\n\n2. **`insert()` (lines 22-38)**: Rewrote to remember the first tombstone position but continue probing until an `EMPTY` slot or a matching key is found. This prevents duplicates when reinserting a key that exists past a tombstone, and still reuses tombstone slots for new keys.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_056",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 174.69,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "Two changes made to `src/sfinae_dispatch.hpp`:\n\n1. **`has_serialize` trait** (line 11): Strips cv/reference qualifiers before checking for `.serialize()` method \u2014 `std::declval<std::remove_cv_t<std::remove_reference_t<T>>>()` instead of `std::declval<T>()`.\n\n2. **`classify` function** (lines 40-57): Strips cv/reference qualifiers with `std::remove_cv_t<std::remove_reference_t<T>>` before dispatching. Also replaced `if constexpr` with SFINAE-based overloads to work with GCC 6.3.\n\nThis ensures that `const int&`, `const double&`, `const Serializable&`, etc. all resolve correctly instead of falling through to the wrong overload.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_057",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 47.54,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All tests pass. The fix adds two things to the copy assignment operator:\n\n1. **Self-assignment guard** (`if (this != &other)`) \u2014 prevents use-after-free when assigning to self\n2. **`release()` call** before copying \u2014 decrements the old ref count (and frees if it drops to zero), preventing leaks\n",
+      "error": null
+    },
+    {
+      "task_id": "task_058",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 430.12,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "Here's a summary of the three fixes applied to `src/lockfree_stack.hpp`:\n\n1. **Tag increment on push** (line 65, 68): Changed `old_head.tag` to `old_head.tag + 1` in both the initial and retry paths of `push()`. The tag counter must increment on every CAS operation (push and pop) to prevent ABA.\n\n2. **Read `next` before CAS in pop** (line 75-76): Saved `old_head.ptr->next` into a local `Node* next` variable before attempting CAS. This ensures the `next` pointer is captured before the node could potentially be freed by another thread.\n\n3. **Portable `<optional>` header** (lines 3-8): Added `__has_include` fallback to `<experimental/optional>` for older compilers, and replaced `has_value()` with `operator bool()` which is available in both implementations.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_059",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 45.69,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The two fixes:\n\n- **`erase(pos)`**: Changed `return begin() + idx + 1` \u2192 `return begin() + idx` \u2014 after shifting elements left, the next element is at `idx`, not `idx + 1`.\n- **`erase(first, last)`**: Changed `size_ -= count - 1` \u2192 `size_ -= count` \u2014 the off-by-one caused size to be one too large after a range erase.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_060",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 121.5,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "The fix is complete. The operators in `all_of` and `any_of` were swapped:\n\n- **`all_of`** (line 15): Changed `||` \u2192 `&&` \u2014 \"all\" requires every argument to be truthy\n- **`any_of`** (line 21): Changed `&&` \u2192 `||` \u2014 \"any\" requires at least one argument to be truthy\n\nThe other functions (`transform_reduce`, `apply_to_each`, `sum_all`, `count_if`, `min_of`) were already correct despite the problem description suggesting otherwise \u2014 the symptoms described (e.g., \"transformation applied only to first argument\") would not actually occur with the existing implementations.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_061",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 50.39,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 7 tests pass. The fix: both uncle color checks on lines 112 and 130 were comparing against `Color::BLACK` when they should compare against `Color::RED`. This caused the algorithm to recolor when it should rotate and rotate when it should recolor, violating RB-tree invariants.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_062",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 74.95,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All 6 tests pass.\n\n**The fix:** In `redistribute_from_right` (line 192), when borrowing from the right sibling in a leaf redistribution, the parent separator key was being set to `borrowed` (the key that just moved out of the right sibling). It should instead be set to `right->keys[0]` \u2014 the new first key of the right child. The B+ tree invariant requires that the parent separator equals the first key of the right child.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_063",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 17.14,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 8am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_064",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 3.09,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 8am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_065",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 2.71,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 8am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_066",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.58,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 8am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_067",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.87,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 8am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_068",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 2.7,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 8am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_069",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 2.45,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 8am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_070",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 4.01,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 8am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_071",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 2.64,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 8am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_072",
+      "agent": "claude",
+      "category": "feature",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 2.69,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 8am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_073",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 2.73,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 8am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_074",
+      "agent": "claude",
+      "category": "refactoring",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 3.0,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 8am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_075",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 2.85,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 8am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_076",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_077",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_078",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_079",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_080",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_081",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_082",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_083",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_084",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_085",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_086",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_087",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_088",
+      "agent": "claude",
+      "category": "refactoring",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_089",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_090",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_091",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_092",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_093",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_094",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_095",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_096",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_097",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_098",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_099",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_100",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    }
+  ]
+}

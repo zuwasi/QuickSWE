@@ -58,7 +58,7 @@ class ProgressTracker:
     def _bar(self, width: int = 30) -> str:
         pct = self.completed / self.total_invocations if self.total_invocations else 0
         filled = int(width * pct)
-        return f"[{'█' * filled}{'░' * (width - filled)}]"
+        return f"[{'#' * filled}{'-' * (width - filled)}]"
 
     def display(self):
         pct = (self.completed / self.total_invocations * 100) if self.total_invocations else 0
@@ -73,7 +73,7 @@ class ProgressTracker:
 
         print(f"\n  {bar} {pct:5.1f}%  "
               f"({self.completed}/{self.total_invocations})  "
-              f"✓{self.resolved} ✗{self.failed} ⚠{self.errors}  "
+              f"OK:{self.resolved} FAIL:{self.failed} ERR:{self.errors}  "
               f"Elapsed: {elapsed}  ETA: {eta}")
         if agent_stats:
             print(f"  Agent resolve: {agent_stats}")

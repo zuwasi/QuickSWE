@@ -1,0 +1,1832 @@
+{
+  "agent": "claude",
+  "run": 2,
+  "timestamp": "20260408_015455",
+  "results": [
+    {
+      "task_id": "task_001",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.12,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_002",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.93,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_003",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.0,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_004",
+      "agent": "claude",
+      "category": "feature",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.02,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_005",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.79,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_006",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.95,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_007",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.05,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_008",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.96,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_009",
+      "agent": "claude",
+      "category": "feature",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 6.09,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_010",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.96,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_011",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.96,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_012",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.89,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_013",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.9,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_014",
+      "agent": "claude",
+      "category": "feature",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.68,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_015",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.86,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_016",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.92,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_017",
+      "agent": "claude",
+      "category": "refactoring",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.98,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_018",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.77,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_019",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.84,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_020",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.87,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_021",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.7,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_022",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.09,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_023",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.6,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_024",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.75,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_025",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.91,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_026",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.07,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_027",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.76,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_028",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.93,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_029",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.21,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_030",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.9,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_031",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.79,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_032",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.04,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_033",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.91,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_034",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.81,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_035",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.85,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_036",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.86,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_037",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.76,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_038",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.88,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_039",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.03,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_040",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.82,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_041",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.8,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_042",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.91,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_043",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.28,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_044",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.97,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_045",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.96,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_046",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.73,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_047",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.02,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_048",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.15,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_049",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.82,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_050",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.66,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_051",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 2.9,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_052",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.7,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_053",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.89,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_054",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.15,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_055",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.11,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_056",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 3.02,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_057",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.81,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_058",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 3.29,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_059",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.82,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_060",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 2.96,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_061",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.0,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_062",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.9,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_063",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.03,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_064",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 2.76,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_065",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 2.8,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_066",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 3.12,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_067",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 2.92,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_068",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 3.36,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_069",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 3.11,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_070",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 3.06,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_071",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 3.55,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_072",
+      "agent": "claude",
+      "category": "feature",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 2.97,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_073",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 2.87,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_074",
+      "agent": "claude",
+      "category": "refactoring",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 3.23,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_075",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 3.0,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "You've hit your limit \u00b7 resets 4am (Asia/Jerusalem)\n",
+      "error": null
+    },
+    {
+      "task_id": "task_076",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_077",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_078",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_079",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_080",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_081",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_082",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_083",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_084",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_085",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_086",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_087",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_088",
+      "agent": "claude",
+      "category": "refactoring",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_089",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_090",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_091",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_092",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_093",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_094",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_095",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_096",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_097",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_098",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_099",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_100",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    }
+  ]
+}

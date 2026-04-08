@@ -1,0 +1,464 @@
+{
+  "agent": "claude",
+  "timestamp": "20260408_233613",
+  "results": [
+    {
+      "task_id": "task_076",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 25.27,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "**Fixes applied:**\n\n1. **Line 40**: Changed `N / BLOCK_SIZE` to `(N + BLOCK_SIZE - 1) / BLOCK_SIZE` \u2014 this rounds up so enough blocks are launched to cover all N elements.\n2. **Line 23**: Added `if (i < N)` bounds check in the kernel so extra threads in the last block don't access out-of-bounds memory.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_077",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_078",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 28.46,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "The fix replaces `hist[bin] += 1` with `atomicAdd(&hist[bin], 1)` on line 27. The non-atomic increment was causing a race condition: when multiple threads in different warps read the same bin value simultaneously, they'd each write back the same incremented value, losing all but one of the updates. `atomicAdd` guarantees each increment is applied correctly regardless of concurrent access.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_079",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 17.15,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "The fix: line 45 now sets `temp[BLOCK_SIZE - 1] = 0.0f` instead of the no-op assignment. In the Blelloch exclusive scan algorithm, the down-sweep phase requires clearing the last element (the total sum) to the identity element (0) before sweeping down \u2014 this converts the inclusive reduction into an exclusive prefix sum.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_080",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 17.03,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "The fix: on line 46, `halo_idx` was computed as `gid - radius + lid`, which double-counts `lid` (since `gid` already includes `lid`). The correct index for the left halo element at shared memory position `lid` is `gid - radius`, which maps to global index `blockIdx.x * blockDim.x + threadIdx.x - radius` \u2014 exactly `radius` positions to the left of the current thread's global position.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_081",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 17.0,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "The fix: changed the warp shuffle mask from `0x0000FFFF` to `0xFFFFFFFF` on line 22.\n\n`0x0000FFFF` only has bits set for lanes 0-15, so lanes 16-31 were excluded from the `__shfl_down_sync` operations. This meant their values were never folded into the reduction, producing a sum that was consistently too low. The full mask `0xFFFFFFFF` ensures all 32 warp lanes participate in the shuffle.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_082",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 20.28,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed both bugs:\n\n1. **Uninitialized accumulator**: `float sum;` \u2192 `float sum = 0.0f;` \u2014 this caused garbage values for empty rows.\n2. **Wrong last-row bound**: Removed the special case that set `end = nnz - 1` for the last row. Now all rows uniformly use `row_ptr[row + 1]`, which is correct since CSR `row_ptr` always has `num_rows + 1` entries. The old code also had an off-by-one (`nnz - 1` instead of `nnz`), missing the last non-zero element.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_083",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 396.38,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "The bug was in `pad_kernel`: the thread index `i` started from 0 but the kernel was only launched with `(padded_N - N)` threads. The condition `i >= N` was never true because `i` ranged from `0` to `padded_N - N - 1`, which is always less than `N` for typical non-power-of-2 sizes. This left positions `N..padded_N-1` with uninitialized GPU memory (potentially NaN or arbitrary values), corrupting the bitonic sort network.\n\nThe fix adds `+ N` to the index calculation so threads directly map to the range `[N, padded_N)` that needs to be filled with `FLT_MAX`.\n\nNote: I verified the direction logic `((i >> k) & 1) == 0` is actually correct for this loop structure where `k` is 1-indexed. The sort network and compare-and-swap directions produce correct results \u2014 the padding was the sole root cause of all described symptoms.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_084",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 23.84,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "The fix: the inclusive scan produces 1-based indices (e.g., the first flagged element gets scan value 1, second gets 2, etc.). The scatter kernel was using these directly as array positions, writing to `out[1]` instead of `out[0]`, causing an off-by-one that duplicates/drops elements. Changed `scan[i]` to `scan[i] - 1` to get correct 0-based positions.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_085",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 27.73,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "The fix adds a `flip_sign_bit` kernel that XORs bit 31 of each element:\n\n1. **Before sorting**: flips the sign bit so negative numbers (originally `1xxx...`) become `0xxx...` and sort before positive numbers (originally `0xxx...` become `1xxx...`).\n2. **After sorting**: flips the sign bit back to restore the original signed integer values.\n\nThis is the standard technique for adapting unsigned radix sort to work with signed integers.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_086",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_087",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 28.87,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Both fixes:\n\n- **`src/cg_reduce.cu:34`**: Changed `32 / 2` to `TILE_SZ / 2` so the shuffle-down loop iterates over the correct number of offsets for the actual tile size.\n- **`src/cg_reduce.cu:40`**: Changed `threadIdx.x % 32` to `tile.thread_rank()` so the lane-0 check correctly identifies the first thread of each tile regardless of tile size.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_088",
+      "agent": "claude",
+      "category": "refactoring",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 19.55,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "The fix addresses all the issues from the bug report:\n\n1. **Line 83**: Changed the second prefetch from `x1` to `x0` \u2014 the read buffer must be prefetched to GPU, not the write buffer again.\n2. **Line 85**: Changed the kernel call from `jacobi_kernel(..., x1, x1, N)` to `jacobi_kernel(..., x0, x1, N)` \u2014 reads from `x0` (old values) and writes to `x1` (new values), implementing correct ping-pong buffering.\n\nThe pointer swap on lines 90-92 was already correct \u2014 it swaps `x0` and `x1` so the next iteration reads from the freshly computed values. The result copy on lines 96-98 correctly reads from `x0` (which after the swap holds the last iteration's output).\n",
+      "error": null
+    },
+    {
+      "task_id": "task_089",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_090",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 135.68,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Both bugs are fixed:\n\n1. **Ballot mask**: Changed `0x0000FFFF` \u2192 `0xFFFFFFFF` so all 32 lanes participate in the warp vote.\n2. **Shuffle reduction**: Changed the pattern to shuffle the accumulating partial sum (`sum_above`/`sum_below`) instead of the original value. The old code shuffled the static `val` at every step, which doesn't produce a correct tree reduction \u2014 each iteration must shuffle the running sum so that partial results propagate correctly.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_091",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 22.88,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "Fixed three bugs:\n\n1. **`col_major` \u2192 `row_major` for `a_frag`** (line 43): Matrix A is stored row-major in memory, so the fragment layout must match.\n2. **`col_major` \u2192 `row_major` for `b_frag`** (line 45): Same issue for matrix B.\n3. **Leading dimension `N` \u2192 `K` for `load_matrix_sync(a_frag, ...)`** (line 50): For a row-major matrix A of shape M\u00d7K, the leading dimension (stride between rows) is K, not N.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_092",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_093",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "hard",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_094",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": true,
+      "time_seconds": 36.41,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "agent_output": "The three fixes applied:\n\n1. **Per-child streams**: Each child kernel now launches on its own `cudaStreamNonBlocking` stream, preventing the deadlock where parent threads block each other via the shared default stream.\n2. **Stream-scoped sync**: Replaced `cudaDeviceSynchronize()` (waits for ALL device work) with `cudaStreamSynchronize()` on each child's stream, so each parent only waits for its own children.\n3. **Raised base case threshold**: Changed from `<= 1` to `<= 32`, so small sub-arrays use insertion sort instead of spawning thousands of kernels (avoiding resource exhaustion).\n",
+      "error": null
+    },
+    {
+      "task_id": "task_095",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 31.75,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "That's the core fix. The double-buffering logic swaps `read_buf` and `write_buf` at the top of each iteration (lines 48-49), but then the prefetch was incorrectly writing into `read_buf` \u2014 the same buffer being used for computation on lines 62-64. Changing it to `write_buf` ensures the prefetch goes into the alternate buffer while computation reads from the current one.\n\nThe sync placement (line 66, end of loop) is correct for this pattern: it ensures all threads complete both the prefetch and computation before the next iteration swaps buffers.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_096",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 21.02,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": false,
+        "returncode": 1
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "The fix replaces:\n1. The non-atomic `if (dist[u] == -1) { dist[u] = level + 1; }` with `atomicCAS(&dist[u], -1, level + 1)` \u2014 this atomically checks if `dist[u]` is -1 and sets it to `level + 1` in one operation, ensuring exactly one thread claims each vertex.\n2. The non-atomic `*out_size` read-then-write with `atomicAdd(out_size, 1)` \u2014 this ensures each thread gets a unique position in the output frontier.\n",
+      "error": null
+    },
+    {
+      "task_id": "task_097",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 81.85,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "Fixed two bugs:\n\n1. **Line 50**: `gpu_compute_log2(N) - 1` \u2192 `gpu_compute_log2(N)` \u2014 The bit-reversal permutation was using one fewer bit than needed, causing incorrect index mapping for all elements.\n\n2. **Line 129**: `2.0f / (float)N` \u2192 `1.0f / (float)N` \u2014 The inverse FFT scaling was dividing by N/2 instead of N, producing results twice as large as expected.\n\nThe twiddle factor sign and butterfly indexing are actually correct in the existing code (forward FFT negates the angle via `if (!inverse) angle = -angle`, and the partner element offset of `stride` is the correct half-group distance).\n",
+      "error": null
+    },
+    {
+      "task_id": "task_098",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": false,
+      "regression": false,
+      "time_seconds": 0,
+      "agent_completed": false,
+      "fail_to_pass": null,
+      "pass_to_pass": null,
+      "error": "fail_to_pass tests already pass before agent ran (bad task)"
+    },
+    {
+      "task_id": "task_099",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 59.26,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All five bugs are fixed:\n\n1. **`tmax` initialized to `FLT_MAX`** (line 84) \u2014 was `0.0f`, which made every slab intersection fail since `tmax` could never grow\n2. **Ray-AABB slab swap** (lines 86-102) \u2014 now explicitly swaps `t1`/`t2` when `t1 > t2` (negative direction), matching the CPU reference, instead of using `fminf`/`fmaxf` with the wrong `tmin`/`tmax` accumulation\n3. **`best_t` initialized to `FLT_MAX`** (line 118) \u2014 was `0.0f`, so no hit could beat it\n4. **Stack pop uses `--sp`** (line 126) \u2014 was `sp--` (post-decrement), which read one past the top of stack and left the pointer off by one\n5. **Leaf check and hit culling** (lines 131-133) \u2014 removed the extra `&& best_id >= 0` condition that prevented the first hit from being culled properly, and simplified the leaf check to match CPU reference\n",
+      "error": null
+    },
+    {
+      "task_id": "task_100",
+      "agent": "claude",
+      "category": "bug_fix",
+      "difficulty": "extreme",
+      "resolved": true,
+      "regression": false,
+      "time_seconds": 41.58,
+      "agent_completed": true,
+      "fail_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "pass_to_pass": {
+        "passed": true,
+        "returncode": 0
+      },
+      "agent_output": "All three fixes applied:\n\n1. **Cutoff comparison** (line 59): Changed `cutoff_check = cutoff` to `cutoff_check = cutoff * cutoff` so `r\u00b2` is compared against `cutoff\u00b2` (no sqrt needed).\n2. **Self-interaction** (line 62): Added `if (i == j) continue;` to skip self-pairs that would cause singularities.\n3. **LJ force power** (line 103-104): Added `sigma_r12 = sigma_r6 * sigma_r6` and used it in the force formula (`2.0f * sigma_r12 - sigma_r6` instead of `2.0f * sigma_r6 - sigma_r6`).\n\nNote: The bug report mentions force direction normalization and Newton's third law issues, but these don't actually apply here. The GPU kernel uses a **full neighbor list** (each pair appears twice \u2014 once for each particle), so each particle correctly accumulates `f_mag * dr` from all its neighbors without needing to subtract from `j`. The `f_mag` already includes the `r2_inv` factor that accounts for normalization (force = `24\u03b5/r\u00b2 * (2(\u03c3/r)^12 - (\u03c3/r)^6) * dr`), matching the CPU reference exactly.\n",
+      "error": null
+    }
+  ]
+}
