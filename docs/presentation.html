@@ -249,11 +249,11 @@ table.results th{color:var(--muted);font-weight:600;font-size:clamp(.65em,1.2vw,
     <tr><td>🐍 Python (50)</td><td class="winner">100%</td><td>99%</td><td class="winner">Amp</td></tr>
     <tr><td>⚙️ C/C++ (25)</td><td class="winner">94.7%</td><td class="loser">49%</td><td class="winner">Amp</td></tr>
     <tr><td>🟢 CUDA (25)</td><td class="winner">72%</td><td>56%</td><td class="winner">Amp</td></tr>
-    <tr style="border-top:2px solid var(--amp)"><td><strong>Overall</strong></td><td class="winner" style="font-size:1.2em"><strong>91.6%</strong></td><td style="font-size:1.2em">72.3%</td><td class="winner"><strong>Amp Deep³</strong></td></tr>
+    <tr style="border-top:2px solid var(--amp)"><td><strong>Overall</strong></td><td class="winner" style="font-size:1.2em"><strong>94.5%</strong></td><td style="font-size:1.2em">77.1%</td><td class="winner"><strong>Amp Deep³</strong></td></tr>
   </table>
   <div class="stat-row" style="margin-top:20px">
-    <div class="stat-box green"><div class="number">0.4%</div><div class="label">Amp Regressions</div></div>
-    <div class="stat-box red"><div class="number">5.2%</div><div class="label">Claude Regressions</div></div>
+    <div class="stat-box green"><div class="number">2.1%</div><div class="label">Amp Regressions</div></div>
+    <div class="stat-box red"><div class="number">13.3%</div><div class="label">Claude Regressions</div></div>
     <div class="stat-box amp"><div class="number">100%</div><div class="label">Amp Consistency (Py)</div></div>
   </div>
   <div class="slide-num">8 / 10</div>
@@ -265,7 +265,7 @@ table.results th{color:var(--muted);font-weight:600;font-size:clamp(.65em,1.2vw,
   <ol class="findings">
     <li><strong>Amp Deep³ wins across all three languages</strong> — Python, C++, and CUDA</li>
     <li><strong>Gap widens with complexity:</strong> Python (+1%) → CUDA (+16%) → C++ (+46%)</li>
-    <li><strong>Near-zero regressions:</strong> Amp breaks tests 13x less often (0.4% vs 5.2%)</li>
+    <li><strong>Far fewer regressions:</strong> Amp breaks tests 6x less often (2.1% vs 13.3%)</li>
     <li><strong>Perfect consistency:</strong> Amp resolves the exact same tasks every run on Python &amp; CUDA</li>
     <li><strong>Claude hit API rate limits</strong> during testing — a reliability concern for intensive workloads</li>
     <li><strong>Amp trades speed for accuracy:</strong> slower but significantly higher resolve rate on hard tasks</li>
