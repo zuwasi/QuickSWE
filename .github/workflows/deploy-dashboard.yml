@@ -17,6 +17,7 @@ jobs:
         run: |
           mkdir -p deploy
           cp results/dashboard.html deploy/index.html
+          cp docs/presentation.html deploy/presentation.html
 
       - name: Deploy to quickswe-dashboard
         uses: peaceiris/actions-gh-pages@v4
