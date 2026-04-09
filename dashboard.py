@@ -17,7 +17,7 @@ RESULTS_DIR = Path(__file__).parent / "results"
 TASKS_DIR = Path(__file__).parent / "tasks"
 
 
-GITHUB_REPO = "https://github.com/zuwasi/QuickSWE"
+GITHUB_REPO = ""
 
 
 def get_task_language(task_id: str) -> str:
