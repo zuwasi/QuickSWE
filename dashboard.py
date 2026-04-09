@@ -1063,6 +1063,15 @@ function darkOpts(o) {{
 }}
 
 {lang_charts_js}
+
+// Auto-switch tab from URL hash (e.g. #ccpp, #cuda)
+(function() {{
+  var h = window.location.hash.replace('#','');
+  if (h === 'ccpp' || h === 'cuda' || h === 'python') {{
+    var el = document.getElementById('tab-' + h);
+    if (el) el.checked = true;
+  }}
+}})();
 </script>
 </body>
 </html>"""
