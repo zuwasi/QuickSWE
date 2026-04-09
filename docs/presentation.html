@@ -210,7 +210,7 @@ table.results th{color:var(--muted);font-weight:600;font-size:clamp(.65em,1.2vw,
     <div class="stat-box claude"><div class="number">99%</div><div class="label">Claude Code</div></div>
     <div class="stat-box green"><div class="number">1.3x</div><div class="label">Speed Advantage</div></div>
   </div>
-  <div class="dashboard-frame"><iframe src="https://zuwasi.github.io/quickswe-dashboard/" loading="lazy"></iframe></div>
+  <div class="dashboard-frame"><iframe id="iframe-py" src="https://zuwasi.github.io/quickswe-dashboard/" loading="lazy" onload="switchTab(this,'python')"></iframe></div>
   <div class="insight"><strong>Both near-perfect on Python</strong> — Amp is 100% consistent across all 3 runs. Claude drops 1 task per run. Amp 1.3x faster average.</div>
   <div class="slide-num">5 / 10</div>
 </section>
@@ -223,7 +223,7 @@ table.results th{color:var(--muted);font-weight:600;font-size:clamp(.65em,1.2vw,
     <div class="stat-box claude"><div class="number">49%</div><div class="label">Claude Code</div></div>
     <div class="stat-box green"><div class="number">1.9x</div><div class="label">Resolve Advantage</div></div>
   </div>
-  <div class="dashboard-frame"><iframe src="https://zuwasi.github.io/quickswe-dashboard/" loading="lazy"></iframe></div>
+  <div class="dashboard-frame"><iframe id="iframe-cpp" src="https://zuwasi.github.io/quickswe-dashboard/" loading="lazy" onload="switchTab(this,'ccpp')"></iframe></div>
   <div class="insight"><strong>Amp dominates C++</strong> — nearly 2x Claude's resolve rate. Claude struggles with template metaprogramming and advanced data structures.</div>
   <div class="slide-num">6 / 10</div>
 </section>
@@ -236,7 +236,7 @@ table.results th{color:var(--muted);font-weight:600;font-size:clamp(.65em,1.2vw,
     <div class="stat-box claude"><div class="number">56%</div><div class="label">Claude Code</div></div>
     <div class="stat-box green"><div class="number">+16pts</div><div class="label">Amp Lead</div></div>
   </div>
-  <div class="dashboard-frame"><iframe src="https://zuwasi.github.io/quickswe-dashboard/" loading="lazy"></iframe></div>
+  <div class="dashboard-frame"><iframe id="iframe-cuda" src="https://zuwasi.github.io/quickswe-dashboard/" loading="lazy" onload="switchTab(this,'cuda')"></iframe></div>
   <div class="insight"><strong>Both agents tackle GPU programming</strong> — Amp leads by 16 points with perfect consistency (18/25 every run). Claude 14/25, also consistent.</div>
   <div class="slide-num">7 / 10</div>
 </section>
@@ -339,6 +339,26 @@ document.addEventListener('touchend',e=>{
 },{passive:true});
 
 goTo(0);
+
+// Switch dashboard iframe to the correct tab
+function switchTab(iframe, tab) {
+  try {
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    const btns = doc.querySelectorAll('.tab-btn');
+    btns.forEach(b => {
+      const text = b.textContent.toLowerCase();
+      if (
+        (tab === 'python' && text.includes('python')) ||
+        (tab === 'ccpp' && text.includes('c/c++')) ||
+        (tab === 'cuda' && text.includes('cuda'))
+      ) {
+        b.click();
+      }
+    });
+  } catch (e) {
+    // Cross-origin — ignore
+  }
+}
 </script>
 </body>
 </html>
