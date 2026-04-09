@@ -18,6 +18,7 @@ jobs:
           mkdir -p deploy
           cp results/dashboard.html deploy/index.html
           cp docs/presentation.html deploy/presentation.html
+          cp docs/esl-logo.png deploy/esl-logo.png
 
       - name: Deploy to quickswe-dashboard
         uses: peaceiris/actions-gh-pages@v4
